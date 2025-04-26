@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Material, fetchMaterials, updateMaterial, deleteMaterial } from '@/lib/supabase';
+import { Material } from '@/lib/types/material';
+import { fetchMaterials, updateMaterial, deleteMaterial } from '@/lib/api/materials';
 import { Button } from '@/components/ui/button';
 import { 
   Table, 
