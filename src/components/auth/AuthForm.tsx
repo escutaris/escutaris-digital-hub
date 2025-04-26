@@ -1,93 +1,125 @@
 
 import React, { useState } from 'react';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/lib/supabase';
 import { useNavigate } from 'react-router-dom';
-import { Loader } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useToast } from '@/hooks/use-toast';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 
-interface AuthFormProps {
-  type: 'login' | 'signup';
-}
+const formSchema = z.object({
+  email: z.string().email({ message: 'Email inválido' }),
+  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }),
+});
 
-const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [loading, setLoading] = useState(false);
+  
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true);
-
+    
     try {
-      let result;
-
       if (type === 'login') {
-        result = await supabase.auth.signInWithPassword({ email, password });
-      } else {
-        result = await supabase.auth.signUp({ email, password });
-      }
-
-      if (result.error) {
-        throw result.error;
-      }
-
-      toast({
-        title: type === 'login' ? 'Login realizado com sucesso' : 'Conta criada com sucesso',
-        description: type === 'login' ? 'Bem-vindo de volta!' : 'Você agora pode fazer login.',
-      });
-
-      if (type === 'login') {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: values.email,
+          password: values.password,
+        });
+        
+        if (error) throw error;
+        
         navigate('/admin');
+        toast({
+          title: 'Login realizado com sucesso',
+          description: 'Bem-vindo de volta à Central Escutaris',
+        });
       } else {
-        navigate('/login');
+        const { error } = await supabase.auth.signUp({
+          email: values.email,
+          password: values.password,
+        });
+        
+        if (error) throw error;
+        
+        toast({
+          title: 'Cadastro realizado',
+          description: 'Verifique seu email para confirmar o cadastro',
+        });
       }
     } catch (error: any) {
       toast({
-        title: 'Erro',
-        description: error.message || 'Ocorreu um erro. Tente novamente.',
         variant: 'destructive',
+        title: type === 'login' ? 'Falha no login' : 'Falha no cadastro',
+        description: error.message,
       });
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="seu@email.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="password">Senha</Label>
-        <Input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
+        
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Senha</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="******" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? (
-          <>
-            <Loader className="mr-2 h-4 w-4 animate-spin" />
-            Carregando...
-          </>
-        ) : type === 'login' ? 'Entrar' : 'Criar conta'}
-      </Button>
-    </form>
+        
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {type === 'login' ? 'Entrando...' : 'Cadastrando...'}
+            </>
+          ) : (
+            type === 'login' ? 'Entrar' : 'Cadastrar'
+          )}
+        </Button>
+      </form>
+    </Form>
   );
 };
 

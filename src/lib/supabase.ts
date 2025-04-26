@@ -1,16 +1,35 @@
 
 import { createClient } from '@supabase/supabase-js';
 
+// Define types for our materials - defined at the top level
+export type Material = {
+  id: string;
+  title: string;
+  description: string | null;
+  file_url: string;
+  is_new: boolean;
+  created_at: string;
+  category: 'material' | 'legislacao' | 'ferramenta';
+};
+
 // Get the URL and key from environment variables or use fallback values
-// Only for development purpose, you should set these in your environment
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Create placeholder for our supabase client
+let supabase: any;
+
+// Create placeholders for our functions
+let fetchMaterials: (search?: string, category?: string) => Promise<Material[]>;
+let uploadMaterial: (file: File, materialData: Omit<Material, 'id' | 'created_at' | 'file_url'>) => Promise<Material>;
+let updateMaterial: (id: string, updates: Partial<Omit<Material, 'id' | 'created_at' | 'file_url'>>) => Promise<void>;
+let deleteMaterial: (id: string, filePath: string) => Promise<void>;
 
 // Check if variables are available
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Missing Supabase environment variables. Please add them to your Supabase connection.');
-  // Instead of throwing an error, we'll create a mock client for development
-  // This allows the app to render without crashing
+  
+  // Create a mock client for development
   const mockClient = {
     from: () => ({
       select: () => ({
@@ -46,56 +65,35 @@ if (!supabaseUrl || !supabaseAnonKey) {
     }
   };
   
-  export { mockClient as supabase };
+  // Assign the mock client to our exported variable
+  supabase = mockClient;
   
-  // Define types for our materials
-  export type Material = {
-    id: string;
-    title: string;
-    description: string | null;
-    file_url: string;
-    is_new: boolean;
-    created_at: string;
-    category: 'material' | 'legislacao' | 'ferramenta';
-  };
-  
-  // Create mock implementations of helper functions
-  export const fetchMaterials = async (): Promise<Material[]> => {
+  // Implement mock functions
+  fetchMaterials = async (): Promise<Material[]> => {
     console.warn('Using mock fetchMaterials function. Connect to Supabase for real data.');
     return []; // Return empty array instead of throwing error
   };
   
-  export const uploadMaterial = async (): Promise<Material> => {
+  uploadMaterial = async (): Promise<Material> => {
     console.warn('Using mock uploadMaterial function. Connect to Supabase for real data.');
     throw new Error('Supabase connection not configured');
   };
   
-  export const updateMaterial = async (): Promise<void> => {
+  updateMaterial = async (): Promise<void> => {
     console.warn('Using mock updateMaterial function. Connect to Supabase for real data.');
     throw new Error('Supabase connection not configured');
   };
   
-  export const deleteMaterial = async (): Promise<void> => {
+  deleteMaterial = async (): Promise<void> => {
     console.warn('Using mock deleteMaterial function. Connect to Supabase for real data.');
     throw new Error('Supabase connection not configured');
   };
 } else {
   // If environment variables are present, create the real client
-  export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  // Define types for our materials
-  export type Material = {
-    id: string;
-    title: string;
-    description: string | null;
-    file_url: string;
-    is_new: boolean;
-    created_at: string;
-    category: 'material' | 'legislacao' | 'ferramenta';
-  };
-
-  // Helper functions for materials
-  export const fetchMaterials = async (
+  // Implement real functions
+  fetchMaterials = async (
     search: string = '',
     category: string = ''
   ): Promise<Material[]> => {
@@ -124,7 +122,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   };
 
   // Admin functions
-  export const uploadMaterial = async (
+  uploadMaterial = async (
     file: File, 
     materialData: Omit<Material, 'id' | 'created_at' | 'file_url'>
   ): Promise<Material> => {
@@ -168,7 +166,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
     return data as Material;
   };
 
-  export const updateMaterial = async (
+  updateMaterial = async (
     id: string,
     updates: Partial<Omit<Material, 'id' | 'created_at' | 'file_url'>>
   ): Promise<void> => {
@@ -183,7 +181,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
     }
   };
 
-  export const deleteMaterial = async (id: string, filePath: string): Promise<void> => {
+  deleteMaterial = async (id: string, filePath: string): Promise<void> => {
     // 1. Delete the database record
     const { error } = await supabase
       .from('materials')
@@ -210,3 +208,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
     }
   };
 }
+
+// Export all our variables and functions at the top level
+export { supabase, fetchMaterials, uploadMaterial, updateMaterial, deleteMaterial };
