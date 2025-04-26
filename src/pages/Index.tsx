@@ -1,14 +1,12 @@
 
 import React from 'react';
 import Header from '../components/Header';
-import MaterialCard from '../components/MaterialCard';
-import LegislacaoCard from '../components/LegislacaoCard';
-import FerramentaCard from '../components/FerramentaCard';
-import NoticiaCard from '../components/NoticiaCard';
+import MaterialsSection from '../components/MaterialsSection';
 import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { MessageSquare, FileText, BookOpen, File, Calendar } from 'lucide-react';
+import NoticiaCard from '../components/NoticiaCard';
 
 const Index = () => {
   return (
@@ -19,75 +17,13 @@ const Index = () => {
       <div className="max-w-7xl w-full mx-auto px-4">
         <Header />
         
-        {/* Materiais Escutaris */}
-        <section className="section-padding" id="materiais">
-          <h2 className="text-escutaris-green text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
-            <FileText className="h-7 w-7" /> Materiais Escutaris
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <MaterialCard 
-              title="Guia Rápido: Avaliação Psicossocial no PGR" 
-              description="Um passo a passo prático para implementar os fatores psicossociais no seu PGR." 
-              downloadUrl="#material-1"
-              isNew={true}
-            />
-            <MaterialCard 
-              title="Checklist de Conformidade: NR-1 e ISO 45003" 
-              description="Checklist completo para avaliar sua empresa nas novas exigências psicossociais." 
-              downloadUrl="#material-2"
-            />
-            <MaterialCard 
-              title="Ebook Saúde Mental nas Organizações" 
-              description="Principais riscos, desafios e soluções para proteger o bem-estar dos colaboradores." 
-              downloadUrl="#material-3"
-            />
-          </div>
-        </section>
-        
-        {/* Entenda a Legislação */}
-        <section className="section-padding" id="legislacao">
-          <h2 className="text-escutaris-terracotta text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
-            <BookOpen className="h-7 w-7" /> Entenda a Legislação
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <LegislacaoCard 
-              title="NR-1: Disposições Gerais" 
-              description="Um resumo prático sobre as exigências da NR-1 em relação aos fatores psicossociais." 
-              downloadUrl="#legislacao-1"
-            />
-            <LegislacaoCard 
-              title="ISO 45003: Guia Completo" 
-              description="Tudo que você precisa saber sobre a ISO 45003 e sua aplicação prática." 
-              downloadUrl="#legislacao-2"
-              isNew={true}
-            />
-          </div>
-        </section>
-        
-        {/* Ferramentas Práticas */}
-        <section className="section-padding" id="ferramentas">
-          <h2 className="text-escutaris-green text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
-            <File className="h-7 w-7" /> Ferramentas Práticas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <FerramentaCard 
-              title="Planilha de Avaliação de Riscos Psicossociais" 
-              description="Template adaptável para integrar ao seu PGR e fazer avaliações conforme a NR-1." 
-              downloadUrl="#ferramenta-1"
-              isNew={true}
-            />
-            <FerramentaCard 
-              title="Template de Plano de Ação" 
-              description="Organize suas ações para gerenciar os riscos psicossociais identificados." 
-              downloadUrl="#ferramenta-2"
-            />
-            <FerramentaCard 
-              title="Formulário de Pesquisa Organizacional" 
-              description="Modelo para coleta de informações sobre fatores psicossociais no trabalho." 
-              downloadUrl="#ferramenta-3"
-            />
-          </div>
-        </section>
+        {/* All Materials Section with filtering */}
+        <MaterialsSection 
+          sectionId="materiais" 
+          title="Materiais Escutaris" 
+          icon={<FileText className="h-7 w-7" />}
+          category="todos"
+        />
         
         {/* Atualizações e Notícias */}
         <section className="section-padding" id="noticias">
