@@ -53,11 +53,11 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg rounded-xl;
+    @apply bg-white/90 backdrop-blur-sm border border-white/40 shadow-md rounded-xl hover:border-escutaris-green/30 transition-colors;
   }
   
   .section-padding {
-    @apply py-12 px-4 sm:px-6 lg:px-8;
+    @apply py-16 px-4 sm:px-6 lg:px-8;
   }
 
   .btn-primary {
@@ -69,7 +69,7 @@
   }
 
   .tag-new {
-    @apply bg-escutaris-terracotta text-white text-xs font-bold px-2 py-1 rounded-full whitespace-nowrap shadow-sm animate-pulse-light;
+    @apply bg-escutaris-terracotta text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap shadow-sm animate-pulse-light;
   }
 }
 
@@ -91,3 +91,21 @@
 ::-webkit-scrollbar-thumb:hover {
   background: theme('colors.primary.DEFAULT/0.8');
 }
+
+/* Enhanced animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.hover-float:hover {
+  animation: float 2s ease-in-out infinite;
+}
+

@@ -12,7 +12,7 @@ import { MessageSquare, FileText, BookOpen, File, Calendar } from 'lucide-react'
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-escutaris-green-light/30 to-escutaris-terracotta-light/20">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-escutaris-green-light/20 to-escutaris-terracotta-light/10">
       <LoadingScreen />
       <WhatsAppButton />
       
@@ -21,7 +21,7 @@ const Index = () => {
         
         {/* Materiais Escutaris */}
         <section className="section-padding" id="materiais">
-          <h2 className="text-escutaris-green text-3xl font-semibold mb-8 animate-slide-in flex items-center gap-2">
+          <h2 className="text-escutaris-green text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
             <FileText className="h-7 w-7" /> Materiais Escutaris
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -46,7 +46,7 @@ const Index = () => {
         
         {/* Entenda a Legislação */}
         <section className="section-padding" id="legislacao">
-          <h2 className="text-escutaris-terracotta text-3xl font-semibold mb-8 animate-slide-in flex items-center gap-2">
+          <h2 className="text-escutaris-terracotta text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
             <BookOpen className="h-7 w-7" /> Entenda a Legislação
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -66,7 +66,7 @@ const Index = () => {
         
         {/* Ferramentas Práticas */}
         <section className="section-padding" id="ferramentas">
-          <h2 className="text-escutaris-green text-3xl font-semibold mb-8 animate-slide-in flex items-center gap-2">
+          <h2 className="text-escutaris-green text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
             <File className="h-7 w-7" /> Ferramentas Práticas
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -91,7 +91,7 @@ const Index = () => {
         
         {/* Atualizações e Notícias */}
         <section className="section-padding" id="noticias">
-          <h2 className="text-escutaris-terracotta text-3xl font-semibold mb-8 animate-slide-in flex items-center gap-2">
+          <h2 className="text-escutaris-terracotta text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
             <Calendar className="h-7 w-7" /> Atualizações e Notícias
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -113,10 +113,10 @@ const Index = () => {
         
         {/* Fale com a Escutaris */}
         <section className="section-padding text-center" id="contato">
-          <h2 className="text-escutaris-green text-2xl font-semibold mb-6 animate-slide-in">
+          <h2 className="text-escutaris-green text-3xl font-bold mb-8 animate-slide-in">
             Fale com a Escutaris
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+          <p className="text-muted-foreground max-w-xl mx-auto mb-8 text-lg leading-relaxed">
             Tem dúvidas sobre como aplicar os conhecimentos ou precisa de suporte personalizado? 
             Nossa equipe está pronta para ajudar sua empresa.
           </p>
@@ -124,9 +124,9 @@ const Index = () => {
             href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Central%20Escutaris." 
             target="_blank"
             rel="noreferrer"
-            className="btn-primary inline-flex items-center gap-2"
+            className="btn-primary inline-flex items-center gap-2 py-3 px-6 text-lg transition-all hover:scale-105 duration-300"
           >
-            <MessageSquare size={18} /> Entrar em Contato
+            <MessageSquare size={20} /> Entrar em Contato
           </a>
         </section>
       

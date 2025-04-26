@@ -11,7 +11,7 @@ const WhatsAppButton = () => {
         href={whatsappLink}
         target="_blank" 
         rel="noreferrer"
-        className="bg-escutaris-green hover:bg-escutaris-green-dark text-white p-3 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105"
+        className="bg-escutaris-green hover:bg-escutaris-green-dark text-white p-3 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300"
         aria-label="Fale conosco pelo WhatsApp"
       >
         <MessageCircle size={28} />
