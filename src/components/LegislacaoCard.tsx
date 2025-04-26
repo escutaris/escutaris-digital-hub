@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BookOpen, ArrowDown } from 'lucide-react';
-import { Material } from '@/lib/supabase';
+import { Material } from '@/lib/types/material';
 
 interface LegislacaoCardProps {
   material: Material;

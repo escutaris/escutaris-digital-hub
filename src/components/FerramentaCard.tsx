@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { File, Download } from 'lucide-react';
-import { Material } from '@/lib/supabase';
+import { Material } from '@/lib/types/material';
 
 interface FerramentaCardProps {
   material: Material;
