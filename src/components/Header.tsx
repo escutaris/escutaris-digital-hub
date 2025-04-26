@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="section-padding text-center animate-fade-in">
       <div className="flex flex-col items-center justify-center mb-8">
-        <Logo className="mb-6" />
+        <Logo className="mb-6" size="h-28 w-28" />
         <h1 className="text-escutaris-green text-4xl sm:text-5xl font-bold mb-6 animate-slide-in">
           Bem-vindo à Central Escutaris
         </h1>
@@ -24,3 +24,4 @@ const Header = () => {
 };
 
 export default Header;
+
