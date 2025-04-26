@@ -6,7 +6,10 @@ export const fetchMaterials = async (
   search: string = '',
   category: string = ''
 ): Promise<Material[]> => {
-  let query = supabase.from('materials').select('*').order('created_at', { ascending: false });
+  let query = supabase.from('materials')
+    .select('*')
+    .order('is_new', { ascending: false })
+    .order('created_at', { ascending: false });
 
   if (search) {
     query = query.or(
