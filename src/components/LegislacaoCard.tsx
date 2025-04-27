@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BookOpen, ArrowDown } from 'lucide-react';
-import { Material } from '@/lib/supabase';
+import { Material } from '@/lib/types/material';
 
 interface LegislacaoCardProps {
   material: Material;
@@ -12,7 +12,11 @@ const LegislacaoCard = ({ material }: LegislacaoCardProps) => {
     <div className="glass-card p-6 flex flex-col items-start gap-4 animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300">
       <div className="flex justify-between items-start w-full">
         <BookOpen className="text-escutaris-terracotta mb-2 h-6 w-6" />
-        {material.is_new && <span className="tag-new">Novo</span>}
+        {material.is_new && (
+          <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full">
+            Novo
+          </span>
+        )}
       </div>
       <h3 className="text-escutaris-terracotta text-xl font-semibold animate-slide-in">
         {material.title}

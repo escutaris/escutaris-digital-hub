@@ -1,5 +1,6 @@
-
 import React, { useState } from 'react';
+import { Material } from '@/lib/types/material';
+import { uploadMaterial } from '@/lib/api/materials';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,7 +14,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { uploadMaterial } from '@/lib/supabase';
 import { Loader, Upload } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
