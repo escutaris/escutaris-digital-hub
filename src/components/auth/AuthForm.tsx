@@ -41,12 +41,18 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
     
     try {
       if (type === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
         
-        if (error) throw error;
+        if (error) {
+          console.error('Login error:', error);
+          if (error.message.includes('Invalid login credentials')) {
+            throw new Error('Email ou senha incorretos. Por favor, tente novamente.');
+          }
+          throw error;
+        }
         
         navigate('/admin');
         toast({
@@ -72,6 +78,7 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
         title: type === 'login' ? 'Falha no login' : 'Falha no cadastro',
         description: error.message,
       });
+      console.log('Authentication error details:', error);
     } finally {
       setLoading(false);
     }
