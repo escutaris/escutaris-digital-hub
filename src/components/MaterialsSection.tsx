@@ -1,6 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Material } from '@/lib/types/material';
-import { fetchMaterials } from '@/lib/api/materials';
+import { Material, fetchMaterials } from '@/lib/supabase';
 import { Input } from '@/components/ui/input';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import MaterialCard from './MaterialCard';
@@ -22,12 +22,14 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState('todos');
   
+  // Fetch materials using React Query
   const { data: materials, isLoading, error } = useQuery({
     queryKey: ['materials', search, activeFilter === 'todos' ? '' : activeFilter],
     queryFn: () => fetchMaterials(search, activeFilter === 'todos' ? '' : activeFilter),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
+  // Show toast on error
   useEffect(() => {
     if (error) {
       toast({
@@ -38,6 +40,7 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
     }
   }, [error, toast]);
 
+  // Filter materials by category if a specific category is provided
   const filteredMaterials = category && category !== 'todos' 
     ? materials?.filter(m => m.category === category)
     : materials;
@@ -61,6 +64,7 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
         {icon} {title}
       </h2>
       
+      {/* Search and Filter Bar */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
