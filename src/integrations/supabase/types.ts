@@ -69,6 +69,41 @@ export type Database = {
         }
         Relationships: []
       }
+      download_history: {
+        Row: {
+          downloaded_at: string
+          id: string
+          ip_address: string | null
+          material_id: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          downloaded_at?: string
+          id?: string
+          ip_address?: string | null
+          material_id: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          downloaded_at?: string
+          id?: string
+          ip_address?: string | null
+          material_id?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "download_history_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       hse_triagem: {
         Row: {
           created_at: string | null
@@ -335,6 +370,35 @@ export type Database = {
           whatsapp?: string | null
         }
         Relationships: []
+      }
+      user_favorites: {
+        Row: {
+          created_at: string
+          id: string
+          material_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          material_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          material_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_favorites_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
