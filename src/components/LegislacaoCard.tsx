@@ -51,12 +51,19 @@ const LegislacaoCard = ({ material }: LegislacaoCardProps) => {
   };
 
   return (
-    <div className="glass-card p-6 flex flex-col items-start gap-4 animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300">
+    <div className="glass-card p-6 flex flex-col items-start gap-4 animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300 group">
       <div className="flex justify-between items-start w-full">
-        <BookOpen className="text-escutaris-terracotta mb-2 h-6 w-6" />
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-secondary/10 rounded-lg group-hover:bg-secondary/20 transition-colors">
+            <BookOpen className="text-secondary h-5 w-5" />
+          </div>
+          <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+            LEI
+          </div>
+        </div>
         <div className="flex items-center gap-2">
           {material.is_new && (
-            <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full">
+            <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full animate-pulse">
               Novo
             </span>
           )}
@@ -74,25 +81,30 @@ const LegislacaoCard = ({ material }: LegislacaoCardProps) => {
           </button>
         </div>
       </div>
-      <h3 className="text-escutaris-terracotta text-xl font-semibold animate-slide-in">
-        {material.title}
-      </h3>
-      <p className="text-muted-foreground leading-relaxed">
-        {material.description}
-      </p>
-      <div className="flex justify-between items-center w-full mt-auto">
+      
+      <div className="w-full">
+        <h3 className="text-foreground text-xl font-semibold mb-2 line-clamp-2">
+          {material.title}
+        </h3>
+        <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
+          {material.description}
+        </p>
+      </div>
+      
+      <div className="flex justify-between items-center w-full mt-auto pt-4 border-t border-border/50">
         <a 
           href={material.file_url} 
           target="_blank" 
           rel="noreferrer" 
           onClick={handleDownload}
-          className="btn-secondary flex items-center gap-2 transition-all hover:scale-105 duration-300"
+          className="btn-secondary flex items-center gap-2 transition-all hover:scale-105 duration-300 text-sm"
         >
-          <ArrowDown size={18} /> Acessar
+          <ArrowDown size={16} /> Acessar
         </a>
         {'download_count' in material && (
-          <span className="text-sm text-muted-foreground">
-            {material.download_count} acessos
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
+            <ArrowDown size={12} />
+            {material.download_count}
           </span>
         )}
       </div>

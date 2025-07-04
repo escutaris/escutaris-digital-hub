@@ -1,65 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchFavoriteMaterials } from '@/lib/api/favorites';
 import { Heart, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getUserFavorites } from '@/lib/api/favorites';
-import { fetchMaterials } from '@/lib/api/materials';
-import { Material } from '@/lib/types/material';
-import { UserFavorite } from '@/lib/types/favorites';
 import MaterialCard from '@/components/MaterialCard';
 import LegislacaoCard from '@/components/LegislacaoCard';
 import FerramentaCard from '@/components/FerramentaCard';
-import { useToast } from '@/hooks/use-toast';
-import { useQuery } from '@tanstack/react-query';
+import { MaterialWithStats } from '@/lib/types/favorites';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 const Favorites = () => {
-  const { toast } = useToast();
-  const [favoriteMaterials, setFavoriteMaterials] = useState<Material[]>([]);
-
-  const { data: favorites, isLoading: favoritesLoading } = useQuery({
-    queryKey: ['favorites'],
-    queryFn: getUserFavorites,
+  const { data: favoriteMaterials, isLoading } = useQuery({
+    queryKey: ['favorite-materials'],
+    queryFn: fetchFavoriteMaterials,
+    staleTime: 1000 * 60 * 2, // 2 minutes
   });
 
-  const { data: allMaterials, isLoading: materialsLoading } = useQuery({
-    queryKey: ['materials'],
-    queryFn: () => fetchMaterials(),
-  });
-
-  useEffect(() => {
-    if (favorites && allMaterials) {
-      const favoriteIds = favorites.map(f => f.material_id);
-      const filtered = allMaterials.filter(material => 
-        favoriteIds.includes(material.id)
-      );
-      setFavoriteMaterials(filtered);
-    }
-  }, [favorites, allMaterials]);
-
-  const renderCard = (material: Material) => {
-    const materialWithFavorite = {
-      ...material,
-      is_favorited: true,
-      download_count: 0
-    };
-
+  const renderCard = (material: MaterialWithStats) => {
     switch (material.category) {
       case 'material':
-        return <MaterialCard key={material.id} material={materialWithFavorite} />;
+        return <MaterialCard key={material.id} material={material} />;
       case 'legislacao':
-        return <LegislacaoCard key={material.id} material={materialWithFavorite} />;
+        return <LegislacaoCard key={material.id} material={material} />;
       case 'ferramenta':
-        return <FerramentaCard key={material.id} material={materialWithFavorite} />;
+        return <FerramentaCard key={material.id} material={material} />;
       default:
-        return <MaterialCard key={material.id} material={materialWithFavorite} />;
+        return <MaterialCard key={material.id} material={material} />;
     }
   };
 
-  if (favoritesLoading || materialsLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-6 py-12">
+        <div className="max-w-7xl w-full mx-auto px-4 py-8">
+          <Breadcrumbs />
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-escutaris-green"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         </div>
       </div>
@@ -68,25 +44,17 @@ const Favorites = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-6 py-12">
-        <div className="flex items-center gap-4 mb-8">
-          <Link 
-            to="/" 
-            className="flex items-center gap-2 text-escutaris-green hover:text-escutaris-green/80 transition-colors"
-          >
-            <ArrowLeft size={20} />
-            Voltar
-          </Link>
-        </div>
-
+      <div className="max-w-7xl w-full mx-auto px-4 py-8">
+        <Breadcrumbs />
+        
         <div className="flex items-center gap-3 mb-8">
-          <Heart className="text-escutaris-green h-8 w-8" />
-          <h1 className="text-escutaris-green text-3xl md:text-4xl font-bold">
+          <Heart className="text-primary h-8 w-8" />
+          <h1 className="text-primary text-3xl md:text-4xl font-bold">
             Meus Favoritos
           </h1>
         </div>
 
-        {favoriteMaterials.length > 0 ? (
+        {favoriteMaterials && favoriteMaterials.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {favoriteMaterials.map(renderCard)}
           </div>

@@ -51,12 +51,19 @@ const FerramentaCard = ({ material }: FerramentaCardProps) => {
   };
 
   return (
-    <div className="glass-card p-6 flex flex-col items-start gap-4 animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300">
+    <div className="glass-card p-6 flex flex-col items-start gap-4 animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300 group">
       <div className="flex justify-between items-start w-full">
-        <File className="text-escutaris-green mb-2 h-6 w-6" />
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-secondary/10 rounded-lg group-hover:bg-secondary/20 transition-colors">
+            <File className="text-secondary h-5 w-5" />
+          </div>
+          <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+            TOOL
+          </div>
+        </div>
         <div className="flex items-center gap-2">
           {material.is_new && (
-            <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full">
+            <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full animate-pulse">
               Novo
             </span>
           )}
@@ -74,25 +81,30 @@ const FerramentaCard = ({ material }: FerramentaCardProps) => {
           </button>
         </div>
       </div>
-      <h3 className="text-escutaris-green text-xl font-semibold animate-slide-in">
-        {material.title}
-      </h3>
-      <p className="text-muted-foreground leading-relaxed">
-        {material.description}
-      </p>
-      <div className="flex justify-between items-center w-full mt-auto">
+      
+      <div className="w-full">
+        <h3 className="text-foreground text-xl font-semibold mb-2 line-clamp-2">
+          {material.title}
+        </h3>
+        <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
+          {material.description}
+        </p>
+      </div>
+      
+      <div className="flex justify-between items-center w-full mt-auto pt-4 border-t border-border/50">
         <a 
           href={material.file_url} 
           target="_blank" 
           rel="noreferrer" 
           onClick={handleDownload}
-          className="btn-primary flex items-center gap-2 transition-all hover:scale-105 duration-300"
+          className="btn-primary flex items-center gap-2 transition-all hover:scale-105 duration-300 text-sm"
         >
-          <Download size={18} /> Baixar Ferramenta
+          <Download size={16} /> Baixar Ferramenta
         </a>
         {'download_count' in material && (
-          <span className="text-sm text-muted-foreground">
-            {material.download_count} downloads
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
+            <Download size={12} />
+            {material.download_count}
           </span>
         )}
       </div>

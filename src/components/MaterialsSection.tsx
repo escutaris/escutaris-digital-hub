@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Material } from '@/lib/types/material';
 import { fetchMaterials } from '@/lib/api/materials';
 import { Input } from '@/components/ui/input';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import MaterialCard from './MaterialCard';
 import LegislacaoCard from './LegislacaoCard';
 import FerramentaCard from './FerramentaCard';
 import { Loader, FileText, BookOpen, File, Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery } from '@tanstack/react-query';
+import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
 
 interface MaterialsSectionProps {
   sectionId: string;
@@ -21,6 +23,9 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
   const { toast } = useToast();
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState('todos');
+  const [currentPage, setCurrentPage] = useState(1);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const itemsPerPage = 9;
   
   const { data: materials, isLoading, error } = useQuery({
     queryKey: ['materials', search, activeFilter === 'todos' ? '' : activeFilter],
@@ -41,6 +46,23 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
   const filteredMaterials = category && category !== 'todos' 
     ? materials?.filter(m => m.category === category)
     : materials;
+
+  // Paginação
+  const totalPages = filteredMaterials ? Math.ceil(filteredMaterials.length / itemsPerPage) : 0;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedMaterials = filteredMaterials?.slice(startIndex, startIndex + itemsPerPage);
+
+  // Reset pagination when search or filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, activeFilter]);
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    onSearch: () => {
+      searchInputRef.current?.focus();
+    }
+  });
 
   const renderCard = (material: Material) => {
     switch (material.category) {
@@ -65,7 +87,8 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
-            placeholder="Pesquisar materiais..."
+            ref={searchInputRef}
+            placeholder="Pesquisar materiais... (Ctrl+K)"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-10"
@@ -91,10 +114,58 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
         <div className="flex justify-center py-12">
           <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
         </div>
-      ) : filteredMaterials && filteredMaterials.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredMaterials.map(renderCard)}
-        </div>
+      ) : paginatedMaterials && paginatedMaterials.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {paginatedMaterials.map(renderCard)}
+          </div>
+          
+          {totalPages > 1 && (
+            <div className="mt-12">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) setCurrentPage(currentPage - 1);
+                      }}
+                      className={currentPage <= 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                  
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(page);
+                        }}
+                        isActive={currentPage === page}
+                        className="cursor-pointer"
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                      }}
+                      className={currentPage >= totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12">
           <p className="text-lg text-muted-foreground">

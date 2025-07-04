@@ -10,7 +10,7 @@ import NewsSection from '../components/NewsSection';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-escutaris-green-light/20 to-escutaris-terracotta-light/10">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-muted/20 to-accent/10">
       <LoadingScreen />
       <WhatsAppButton />
       

@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { useToast } from '@/hooks/use-toast';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 const NewsDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -37,12 +38,12 @@ const NewsDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-escutaris-green-light/20 to-escutaris-terracotta-light/10">
+      <div className="min-h-screen flex flex-col bg-background">
         <WhatsAppButton />
         <div className="max-w-7xl w-full mx-auto px-4">
           <Header />
           <div className="flex justify-center py-20">
-            <Loader className="h-12 w-12 animate-spin text-escutaris-terracotta" />
+            <Loader className="h-12 w-12 animate-spin text-secondary" />
           </div>
           <Footer />
         </div>
@@ -52,7 +53,7 @@ const NewsDetail = () => {
 
   if (error || !news) {
     return (
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-escutaris-green-light/20 to-escutaris-terracotta-light/10">
+      <div className="min-h-screen flex flex-col bg-background">
         <WhatsAppButton />
         <div className="max-w-7xl w-full mx-auto px-4">
           <Header />
@@ -78,21 +79,17 @@ const NewsDetail = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-escutaris-green-light/20 to-escutaris-terracotta-light/10">
+    <div className="min-h-screen flex flex-col bg-background">
       <WhatsAppButton />
       <div className="max-w-7xl w-full mx-auto px-4">
         <Header />
         
         <article className="section-padding max-w-4xl mx-auto">
-          <div className="mb-6">
-            <Link 
-              to="/" 
-              className="inline-flex items-center gap-2 text-escutaris-green hover:text-escutaris-green-dark transition-colors mb-6"
-            >
-              <ArrowLeft size={18} />
-              Voltar ao início
-            </Link>
-          </div>
+          <Breadcrumbs items={[
+            { label: 'Início', href: '/' },
+            { label: 'Notícias', href: '/#noticias' },
+            { label: news.title }
+          ]} />
 
           <div className="glass-card p-8 animate-fade-in">
             <div className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
@@ -110,7 +107,7 @@ const NewsDetail = () => {
               )}
             </div>
 
-            <h1 className="text-escutaris-terracotta text-3xl md:text-4xl font-bold mb-4 animate-slide-in">
+            <h1 className="text-secondary text-3xl md:text-4xl font-bold mb-4 animate-slide-in">
               {news.title}
             </h1>
 
