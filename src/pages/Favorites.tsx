@@ -10,7 +10,7 @@ import { MaterialWithStats } from '@/lib/types/favorites';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 const Favorites = () => {
-  const { data: favoriteMaterials, isLoading } = useQuery({
+  const { data: favoriteMaterials, isLoading } = useQuery<MaterialWithStats[]>({
     queryKey: ['favorite-materials'],
     queryFn: fetchFavoriteMaterials,
     staleTime: 1000 * 60 * 2, // 2 minutes

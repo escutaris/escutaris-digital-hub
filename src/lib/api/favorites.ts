@@ -1,5 +1,5 @@
 import { supabase } from '@/integrations/supabase/client';
-import { UserFavorite, DownloadHistory } from '../types/favorites';
+import { UserFavorite, DownloadHistory, MaterialWithStats } from '../types/favorites';
 
 export const addToFavorites = async (materialId: string): Promise<void> => {
   const { data: { user } } = await supabase.auth.getUser();
@@ -112,4 +112,51 @@ export const getMaterialDownloadCount = async (materialId: string): Promise<numb
   }
 
   return count || 0;
+};
+
+export const fetchFavoriteMaterials = async (): Promise<MaterialWithStats[]> => {
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('user_favorites')
+    .select(`
+      *,
+      materials:material_id (
+        id,
+        title,
+        description,
+        file_url,
+        category,
+        is_new,
+        created_at
+      )
+    `)
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    throw new Error(`Erro ao buscar materiais favoritos: ${error.message}`);
+  }
+
+  // Transform data to include material details and stats
+  const materialsWithStats = await Promise.all(
+    (data || []).map(async (favorite: any) => {
+      const material = favorite.materials;
+      if (!material) return null;
+      
+      const downloadCount = await getMaterialDownloadCount(material.id);
+      
+      return {
+        ...material,
+        download_count: downloadCount,
+        is_favorited: true
+      };
+    })
+  );
+
+  return materialsWithStats.filter(Boolean);
 };
