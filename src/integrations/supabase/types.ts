@@ -9,6 +9,228 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      action_suggestions: {
+        Row: {
+          area_code: string | null
+          description: string | null
+          id: string
+          level: string | null
+        }
+        Insert: {
+          area_code?: string | null
+          description?: string | null
+          id?: string
+          level?: string | null
+        }
+        Update: {
+          area_code?: string | null
+          description?: string | null
+          id?: string
+          level?: string | null
+        }
+        Relationships: []
+      }
+      assessments: {
+        Row: {
+          action_plan_note: string | null
+          avg_area_1: number | null
+          avg_area_2: number | null
+          avg_area_3: number | null
+          avg_area_4: number | null
+          id: string
+          overall_avg: number | null
+          submitted_at: string | null
+          user_id: string | null
+          weaker_area: string | null
+        }
+        Insert: {
+          action_plan_note?: string | null
+          avg_area_1?: number | null
+          avg_area_2?: number | null
+          avg_area_3?: number | null
+          avg_area_4?: number | null
+          id?: string
+          overall_avg?: number | null
+          submitted_at?: string | null
+          user_id?: string | null
+          weaker_area?: string | null
+        }
+        Update: {
+          action_plan_note?: string | null
+          avg_area_1?: number | null
+          avg_area_2?: number | null
+          avg_area_3?: number | null
+          avg_area_4?: number | null
+          id?: string
+          overall_avg?: number | null
+          submitted_at?: string | null
+          user_id?: string | null
+          weaker_area?: string | null
+        }
+        Relationships: []
+      }
+      hse_triagem: {
+        Row: {
+          created_at: string | null
+          data_exame: string
+          id: string
+          interpreta_risco: string | null
+          media_apoio: number | null
+          media_controle: number | null
+          media_demandas: number | null
+          media_equilibrio: number | null
+          media_mudancas: number | null
+          media_papeis: number | null
+          media_relacionamento: number | null
+          respostas: Json
+          risco_burnout: boolean | null
+          risco_conflito: boolean | null
+          risco_estresse: boolean | null
+          risco_geral: boolean | null
+          tipo_exame: string | null
+          trabalhador_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          data_exame?: string
+          id?: string
+          interpreta_risco?: string | null
+          media_apoio?: number | null
+          media_controle?: number | null
+          media_demandas?: number | null
+          media_equilibrio?: number | null
+          media_mudancas?: number | null
+          media_papeis?: number | null
+          media_relacionamento?: number | null
+          respostas: Json
+          risco_burnout?: boolean | null
+          risco_conflito?: boolean | null
+          risco_estresse?: boolean | null
+          risco_geral?: boolean | null
+          tipo_exame?: string | null
+          trabalhador_id: string
+        }
+        Update: {
+          created_at?: string | null
+          data_exame?: string
+          id?: string
+          interpreta_risco?: string | null
+          media_apoio?: number | null
+          media_controle?: number | null
+          media_demandas?: number | null
+          media_equilibrio?: number | null
+          media_mudancas?: number | null
+          media_papeis?: number | null
+          media_relacionamento?: number | null
+          respostas?: Json
+          risco_burnout?: boolean | null
+          risco_conflito?: boolean | null
+          risco_estresse?: boolean | null
+          risco_geral?: boolean | null
+          tipo_exame?: string | null
+          trabalhador_id?: string
+        }
+        Relationships: []
+      }
+      leadership_assessments: {
+        Row: {
+          answers: Json
+          area_1_average: number | null
+          area_2_average: number | null
+          area_3_average: number | null
+          area_4_average: number | null
+          classification: string
+          created_at: string
+          id: string
+          overall_average: number
+          recommendations: string[] | null
+          updated_at: string
+          user_email: string | null
+          user_id: string | null
+          user_name: string | null
+        }
+        Insert: {
+          answers: Json
+          area_1_average?: number | null
+          area_2_average?: number | null
+          area_3_average?: number | null
+          area_4_average?: number | null
+          classification: string
+          created_at?: string
+          id?: string
+          overall_average: number
+          recommendations?: string[] | null
+          updated_at?: string
+          user_email?: string | null
+          user_id?: string | null
+          user_name?: string | null
+        }
+        Update: {
+          answers?: Json
+          area_1_average?: number | null
+          area_2_average?: number | null
+          area_3_average?: number | null
+          area_4_average?: number | null
+          classification?: string
+          created_at?: string
+          id?: string
+          overall_average?: number
+          recommendations?: string[] | null
+          updated_at?: string
+          user_email?: string | null
+          user_id?: string | null
+          user_name?: string | null
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          accept_marketing: boolean
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          accept_marketing?: boolean
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          accept_marketing?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      login_attempts: {
+        Row: {
+          attempted_at: string | null
+          email: string
+          id: string
+          ip_address: string | null
+          success: boolean | null
+          user_agent: string | null
+        }
+        Insert: {
+          attempted_at?: string | null
+          email: string
+          id?: string
+          ip_address?: string | null
+          success?: boolean | null
+          user_agent?: string | null
+        }
+        Update: {
+          attempted_at?: string | null
+          email?: string
+          id?: string
+          ip_address?: string | null
+          success?: boolean | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       materials: {
         Row: {
           category: string
@@ -39,6 +261,81 @@ export type Database = {
         }
         Relationships: []
       }
+      news: {
+        Row: {
+          content: string | null
+          created_at: string
+          description: string
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          published_at: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          description: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          published_at?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          published_at?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          area: string | null
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          crm: string | null
+          id: string
+          name: string | null
+          updated_at: string
+          whatsapp: string | null
+        }
+        Insert: {
+          area?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          crm?: string | null
+          id: string
+          name?: string | null
+          updated_at?: string
+          whatsapp?: string | null
+        }
+        Update: {
+          area?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          crm?: string | null
+          id?: string
+          name?: string | null
+          updated_at?: string
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
@@ -60,12 +357,42 @@ export type Database = {
         }
         Relationships: []
       }
+      users_profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          group_name: string | null
+          id: string
+          name: string | null
+          role: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          group_name?: string | null
+          id: string
+          name?: string | null
+          role?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          group_name?: string | null
+          id?: string
+          name?: string | null
+          role?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_current_user_role: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

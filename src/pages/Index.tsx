@@ -5,8 +5,8 @@ import MaterialsSection from '../components/MaterialsSection';
 import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
-import { MessageSquare, FileText, BookOpen, File, Calendar } from 'lucide-react';
-import NoticiaCard from '../components/NoticiaCard';
+import { MessageSquare, FileText, BookOpen, File } from 'lucide-react';
+import NewsSection from '../components/NewsSection';
 
 const Index = () => {
   return (
@@ -26,26 +26,7 @@ const Index = () => {
         />
         
         {/* Atualizações e Notícias */}
-        <section className="section-padding" id="noticias">
-          <h2 className="text-escutaris-terracotta text-3xl md:text-4xl font-bold mb-8 animate-slide-in flex items-center gap-2">
-            <Calendar className="h-7 w-7" /> Atualizações e Notícias
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <NoticiaCard 
-              title="Nova planilha de avaliação de riscos psicossociais disponível" 
-              description="Lançamos uma ferramenta completa para avaliação de riscos psicossociais alinhada com a NR-1 e ISO 45003." 
-              date="26 Abr, 2025"
-              url="#noticia-1"
-              isNew={true}
-            />
-            <NoticiaCard 
-              title="Webinar: Saúde Mental nas Organizações" 
-              description="Participe do nosso próximo webinar sobre estratégias para promover bem-estar psicológico no ambiente corporativo." 
-              date="15 Abr, 2025"
-              url="#noticia-2"
-            />
-          </div>
-        </section>
+        <NewsSection />
         
         {/* Fale com a Escutaris */}
         <section className="section-padding text-center" id="contato">

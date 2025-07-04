@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { useAuth } from '@/lib/useAuth';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { LogOut } from 'lucide-react';
+import { LogOut, FileText, Newspaper, Plus } from 'lucide-react';
 import MaterialsList from '@/components/admin/MaterialsList';
 import MaterialForm from '@/components/admin/MaterialForm';
+import NewsManagement from '@/components/admin/NewsManagement';
 import Logo from '@/components/Logo';
 import { Link } from 'react-router-dom';
 
@@ -35,18 +36,32 @@ const Admin = () => {
       </header>
       
       <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="list" className="w-full">
-          <TabsList className="mb-8">
-            <TabsTrigger value="list">Materiais Cadastrados</TabsTrigger>
-            <TabsTrigger value="create">Adicionar Material</TabsTrigger>
+        <Tabs defaultValue="materials" className="w-full">
+          <TabsList className="mb-8 grid w-full grid-cols-3">
+            <TabsTrigger value="materials" className="flex items-center gap-2">
+              <FileText size={16} />
+              Materiais
+            </TabsTrigger>
+            <TabsTrigger value="add-material" className="flex items-center gap-2">
+              <Plus size={16} />
+              Novo Material
+            </TabsTrigger>
+            <TabsTrigger value="news" className="flex items-center gap-2">
+              <Newspaper size={16} />
+              Notícias
+            </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="list">
+          <TabsContent value="materials">
             <MaterialsList onMaterialChange={handleMaterialChange} refreshTrigger={refreshTrigger} />
           </TabsContent>
           
-          <TabsContent value="create">
+          <TabsContent value="add-material">
             <MaterialForm onMaterialAdded={handleMaterialChange} />
+          </TabsContent>
+          
+          <TabsContent value="news">
+            <NewsManagement />
           </TabsContent>
         </Tabs>
       </main>

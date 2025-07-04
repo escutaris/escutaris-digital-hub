@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
+import NewsDetail from "./pages/NewsDetail";
 import { AuthProvider } from "./lib/useAuth";
 import { ProtectedRoute } from "./lib/useAuth";
 
@@ -22,6 +23,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/noticias/:slug" element={<NewsDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={
               <ProtectedRoute>
