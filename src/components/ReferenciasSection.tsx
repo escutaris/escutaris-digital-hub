@@ -39,6 +39,11 @@ const ReferenciasSection = () => {
           url: 'https://www.iso.org/standard/64283.html',
         },
         {
+          title: 'Portaria MTE nº 1.419/2024',
+          description: 'Nova redação do Gerenciamento de Riscos Ocupacionais (GRO) - NR-1.',
+          url: 'https://www.in.gov.br/web/dou/-/portaria-mte-n-1.419-de-27-de-agosto-de-2024-578654068',
+        },
+        {
           title: 'Portaria SEPRT nº 1.359/2019',
           description: 'Altera as Normas Regulamentadoras do Ministério do Trabalho.',
           url: 'https://www.in.gov.br/en/web/dou/-/portaria-n-1.359-de-9-de-dezembro-de-2019-232479343',
