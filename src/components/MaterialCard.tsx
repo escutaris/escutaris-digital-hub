@@ -5,7 +5,6 @@ import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { addToFavorites, removeFromFavorites, recordDownload } from '@/lib/api/favorites';
 import { useToast } from '@/hooks/use-toast';
-import LazyImage from './LazyImage';
 
 interface MaterialCardProps {
   material: Material | MaterialWithStats;
@@ -53,12 +52,8 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
 
   return (
     <div className="glass-card overflow-hidden animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300 group">
-      <div className="relative aspect-video bg-muted">
-        <LazyImage
-          src="/placeholder.svg"
-          alt={material.title}
-          className="w-full h-full object-cover"
-        />
+      <div className="relative aspect-video bg-gradient-to-br from-escutaris-green-light/20 to-escutaris-terracotta-light/20 flex items-center justify-center">
+        <FileText className="h-16 w-16 text-escutaris-green/40" />
         {material.is_new && (
           <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full animate-pulse">
             NOVO

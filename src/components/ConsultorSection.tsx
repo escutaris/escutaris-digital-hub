@@ -91,8 +91,12 @@ const ConsultorSection = () => {
                   <p className="text-sm opacity-90">acesso imediato!</p>
                 </div>
                 
-                <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Bot className="h-12 w-12 text-white" />
+                <div className="flex justify-center mb-4">
+                  <img 
+                    src="/lovable-uploads/0efc822c-5c6a-4625-8efd-c388134539b7.png" 
+                    alt="Consultor Psicossocial Digital - Robô Escutaris"
+                    className="w-32 h-32 object-contain"
+                  />
                 </div>
               </div>
 

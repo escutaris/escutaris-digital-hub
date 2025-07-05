@@ -39,11 +39,11 @@ const Header = () => {
             Meus Favoritos
           </Link>
           <Link 
-            to="/login" 
+            to="/admin" 
             className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
           >
             <User size={18} />
-            Perfil
+            Painel Admin
           </Link>
         </nav>
       )}
