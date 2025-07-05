@@ -5,6 +5,7 @@ import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { addToFavorites, removeFromFavorites, recordDownload } from '@/lib/api/favorites';
 import { useToast } from '@/hooks/use-toast';
+import LazyImage from './LazyImage';
 
 interface LegislacaoCardProps {
   material: Material | MaterialWithStats;
