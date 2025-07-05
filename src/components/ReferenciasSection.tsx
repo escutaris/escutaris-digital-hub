@@ -29,19 +29,9 @@ const ReferenciasSection = () => {
       icon: <Scale className="h-5 w-5" />,
       items: [
         {
-          title: 'NR-01 - Disposições Gerais e Gerenciamento de Riscos',
-          description: 'Nova NR-1 com foco em gerenciamento de riscos ocupacionais.',
-          url: 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/ctpp/arquivos/normas-regulamentadoras/nr-01-atualizada-2022.pdf',
-        },
-        {
-          title: 'NR-09 - Avaliação e Controle das Exposições Ocupacionais',
-          description: 'Avaliação e controle de agentes físicos, químicos e biológicos.',
-          url: 'https://www.gov.br/trabalho-e-emprego/pt-br',
-        },
-        {
-          title: 'NR-17 - Ergonomia',
-          description: 'Norma Regulamentadora sobre ergonomia atualizada em 2023.',
-          url: 'https://www.gov.br/trabalho-e-emprego/pt-br',
+          title: 'Normas Regulamentadoras - MTE',
+          description: 'Portal oficial com todas as Normas Regulamentadoras atualizadas.',
+          url: 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/ctpp/normas-regulamentadoras',
         },
         {
           title: 'Portaria MTE nº 1.419/2024',
