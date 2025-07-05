@@ -51,64 +51,67 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
   };
 
   return (
-    <div className="glass-card overflow-hidden animate-fade-in transition-all hover:shadow-xl hover:scale-105 duration-300 group">
-      <div className="relative aspect-video bg-gradient-to-br from-escutaris-green-light/20 to-escutaris-terracotta-light/20 flex items-center justify-center">
-        <FileText className="h-16 w-16 text-escutaris-green/40" />
-        {material.is_new && (
-          <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full animate-pulse">
-            NOVO
-          </div>
-        )}
-        <button
-          onClick={handleFavoriteToggle}
-          disabled={isLoading}
-          className={`absolute top-2 right-2 p-2 rounded-full transition-all ${
-            isFavorited 
-              ? 'bg-red-500 text-white hover:bg-red-600' 
-              : 'bg-white/80 text-gray-600 hover:bg-white hover:text-red-500'
-          } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-        >
-          <Heart className={`h-4 w-4 ${isFavorited ? 'fill-current' : ''}`} />
-        </button>
-      </div>
-      
-      <div className="p-6">
-        <div className="flex justify-between items-start w-full mb-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-              <FileText className="text-primary h-5 w-5" />
+    <div className="glass-card overflow-hidden transition-all hover:shadow-lg duration-300 group">
+      <div className="p-4">
+        <div className="flex gap-4">
+          {/* Icon & Badge Section */}
+          <div className="flex-shrink-0 relative">
+            <div className="w-12 h-12 bg-gradient-to-br from-escutaris-green/10 to-escutaris-terracotta/10 rounded-lg flex items-center justify-center group-hover:from-escutaris-green/20 group-hover:to-escutaris-terracotta/20 transition-colors">
+              <FileText className="h-6 w-6 text-escutaris-green" />
             </div>
-            <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-              PDF
-            </div>
+            {material.is_new && (
+              <div className="absolute -top-1 -right-1 bg-escutaris-terracotta text-white text-xs px-1.5 py-0.5 rounded-full text-[10px] font-medium">
+                NOVO
+              </div>
+            )}
           </div>
-        </div>
-        
-        <div className="w-full mb-4">
-          <h3 className="text-foreground text-xl font-semibold mb-2 line-clamp-2">
-            {material.title}
-          </h3>
-          <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
-            {material.description}
-          </p>
-        </div>
-        
-        <div className="flex justify-between items-center w-full pt-4 border-t border-border/50">
-          <a 
-            href={material.file_url} 
-            target="_blank" 
-            rel="noreferrer" 
-            onClick={handleDownload}
-            className="btn-primary flex items-center gap-2 transition-all hover:scale-105 duration-300 text-sm"
-          >
-            <Download size={16} /> Baixar Material
-          </a>
-          {'download_count' in material && (
-            <span className="text-xs text-muted-foreground flex items-center gap-1">
+
+          {/* Content Section */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                  PDF
+                </span>
+                {'download_count' in material && (
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Download size={10} />
+                    {material.download_count}
+                  </span>
+                )}
+              </div>
+              <button
+                onClick={handleFavoriteToggle}
+                disabled={isLoading}
+                className={`p-1.5 rounded-full transition-all ${
+                  isFavorited 
+                    ? 'bg-red-50 text-red-500 hover:bg-red-100' 
+                    : 'bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-red-500'
+                } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                <Heart className={`h-3.5 w-3.5 ${isFavorited ? 'fill-current' : ''}`} />
+              </button>
+            </div>
+            
+            <h3 className="text-foreground font-semibold mb-1 line-clamp-2 text-sm leading-tight">
+              {material.title}
+            </h3>
+            
+            <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">
+              {material.description}
+            </p>
+            
+            <a 
+              href={material.file_url} 
+              target="_blank" 
+              rel="noreferrer" 
+              onClick={handleDownload}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-escutaris-green hover:text-escutaris-green-dark transition-colors"
+            >
               <Download size={12} />
-              {material.download_count}
-            </span>
-          )}
+              Baixar Material
+            </a>
+          </div>
         </div>
       </div>
     </div>
