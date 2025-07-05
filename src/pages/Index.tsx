@@ -5,6 +5,7 @@ import MaterialsSection from '../components/MaterialsSection';
 import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
+import QuizSection from '../components/QuizSection';
 import { MessageSquare, FileText, BookOpen, File } from 'lucide-react';
 import NewsSection from '../components/NewsSection';
 
@@ -24,6 +25,9 @@ const Index = () => {
           icon={<FileText className="h-7 w-7" />}
           category="todos"
         />
+        
+        {/* Quiz Section */}
+        <QuizSection />
         
         {/* Atualizações e Notícias */}
         <NewsSection />
