@@ -154,38 +154,38 @@ const ReferenciasSection = () => {
               {categoria.categoria}
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ul className="space-y-4">
               {categoria.items.map((item, itemIndex) => (
-                <a
-                  key={itemIndex}
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="glass-card p-6 block transition-all hover:shadow-xl hover:scale-105 duration-300 group"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="p-2 bg-escutaris-terracotta/10 rounded-lg group-hover:bg-escutaris-terracotta/20 transition-colors">
-                      <ExternalLink className="h-4 w-4 text-escutaris-terracotta" />
+                <li key={itemIndex} className="border-b border-border/30 pb-4 last:border-b-0 last:pb-0">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group block transition-all hover:translate-x-1 duration-200"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-escutaris-terracotta/10 rounded-lg group-hover:bg-escutaris-terracotta/20 transition-colors flex-shrink-0 mt-0.5">
+                        <ExternalLink className="h-4 w-4 text-escutaris-terracotta" />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-foreground font-semibold mb-1 group-hover:text-escutaris-terracotta transition-colors">
+                          {item.title}
+                        </h4>
+                        
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          {item.description}
+                        </p>
+                        
+                        <div className="mt-2 flex items-center text-escutaris-terracotta text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                          Acessar link <ExternalLink className="h-3 w-3 ml-1" />
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                      LINK
-                    </div>
-                  </div>
-                  
-                  <h4 className="text-foreground font-semibold mb-2 line-clamp-2 group-hover:text-escutaris-terracotta transition-colors">
-                    {item.title}
-                  </h4>
-                  
-                  <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                    {item.description}
-                  </p>
-                  
-                  <div className="mt-4 flex items-center text-escutaris-terracotta text-sm font-medium">
-                    Acessar <ExternalLink className="h-3 w-3 ml-1" />
-                  </div>
-                </a>
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ))}
       </div>
