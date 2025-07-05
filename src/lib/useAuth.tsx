@@ -21,67 +21,110 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    const getSession = async () => {
-      setLoading(true);
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-      setUser(session?.user ?? null);
+  const checkAdminRole = async (userId: string) => {
+    try {
+      console.log('Checking admin role for user:', userId);
+      const { data: roles, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .eq('role', 'admin')
+        .maybeSingle();
       
-      if (session?.user) {
-        const { data: roles, error } = await supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', session.user.id)
-          .eq('role', 'admin')
-          .maybeSingle();
-        
-        if (error) {
-          console.error('Error checking admin role:', error);
-          setIsAdmin(false);
-        } else {
-          setIsAdmin(!!roles);
-        }
+      if (error) {
+        console.error('Error checking admin role:', error);
+        return false;
       }
       
-      setLoading(false);
+      const adminStatus = !!roles;
+      console.log('Admin status:', adminStatus);
+      return adminStatus;
+    } catch (error) {
+      console.error('Exception checking admin role:', error);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const initializeAuth = async () => {
+      try {
+        console.log('Initializing auth...');
+        setLoading(true);
+        
+        // Get initial session
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error('Error getting session:', error);
+          if (isMounted) {
+            setLoading(false);
+          }
+          return;
+        }
+
+        console.log('Initial session:', session?.user?.email || 'No session');
+        
+        if (isMounted) {
+          setSession(session);
+          setUser(session?.user ?? null);
+          
+          if (session?.user) {
+            const adminStatus = await checkAdminRole(session.user.id);
+            if (isMounted) {
+              setIsAdmin(adminStatus);
+            }
+          } else {
+            setIsAdmin(false);
+          }
+          
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     };
 
-    getSession();
+    initializeAuth();
 
+    // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
+      async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.email || 'No session');
         
-        if (session?.user) {
-          const { data: roles, error } = await supabase
-            .from('user_roles')
-            .select('role')
-            .eq('user_id', session.user.id)
-            .eq('role', 'admin')
-            .maybeSingle();
+        if (isMounted) {
+          setSession(session);
+          setUser(session?.user ?? null);
           
-          if (error) {
-            console.error('Error checking admin role:', error);
-            setIsAdmin(false);
+          if (session?.user) {
+            // Use setTimeout to avoid blocking the auth state change
+            setTimeout(async () => {
+              if (isMounted) {
+                const adminStatus = await checkAdminRole(session.user.id);
+                if (isMounted) {
+                  setIsAdmin(adminStatus);
+                }
+              }
+            }, 0);
           } else {
-            setIsAdmin(!!roles);
+            setIsAdmin(false);
           }
-        } else {
-          setIsAdmin(false);
         }
-        
-        setLoading(false);
       }
     );
 
     return () => {
+      isMounted = false;
       subscription.unsubscribe();
     };
   }, []);
 
   const signOut = async () => {
+    console.log('Signing out...');
     await supabase.auth.signOut();
     setUser(null);
     setSession(null);
@@ -112,20 +155,33 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) {
-      navigate('/login');
+    console.log('ProtectedRoute - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin);
+    
+    if (!loading) {
+      if (!user) {
+        console.log('No user, redirecting to login');
+        navigate('/login');
+      } else if (!isAdmin) {
+        console.log('User not admin, redirecting to login');
+        navigate('/login');
+      }
     }
   }, [user, loading, isAdmin, navigate]);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">
-      <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
-    </div>;
+    console.log('ProtectedRoute showing loading...');
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
+      </div>
+    );
   }
 
   if (!user || !isAdmin) {
+    console.log('ProtectedRoute - No access, returning null');
     return null;
   }
 
+  console.log('ProtectedRoute - Access granted, rendering children');
   return <>{children}</>;
 }
