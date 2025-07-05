@@ -2,6 +2,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { Material } from "../types/material";
 import type { MaterialWithStats } from "../types/favorites";
+import { verifyAdmin, sanitizeText, validateFileUpload, logSecurityEvent } from "../security";
 
 export const fetchMaterials = async (
   search: string = '',
@@ -13,13 +14,15 @@ export const fetchMaterials = async (
     .order('created_at', { ascending: false });
 
   if (search) {
+    const sanitizedSearch = sanitizeText(search);
     query = query.or(
-      `title.ilike.%${search}%,description.ilike.%${search}%`
+      `title.ilike.%${sanitizedSearch}%,description.ilike.%${sanitizedSearch}%`
     );
   }
 
   if (category && category !== 'todos') {
-    query = query.eq('category', category);
+    const sanitizedCategory = sanitizeText(category);
+    query = query.eq('category', sanitizedCategory);
   }
 
   const { data, error } = await query;
@@ -48,13 +51,15 @@ export const fetchMaterialsWithStats = async (
     .order('created_at', { ascending: false });
 
   if (search) {
+    const sanitizedSearch = sanitizeText(search);
     query = query.or(
-      `title.ilike.%${search}%,description.ilike.%${search}%`
+      `title.ilike.%${sanitizedSearch}%,description.ilike.%${sanitizedSearch}%`
     );
   }
 
   if (category && category !== 'todos') {
-    query = query.eq('category', category);
+    const sanitizedCategory = sanitizeText(category);
+    query = query.eq('category', sanitizedCategory);
   }
 
   if (user) {
@@ -85,6 +90,26 @@ export const uploadMaterial = async (
   file: File, 
   materialData: Omit<Material, 'id' | 'created_at' | 'file_url'>
 ): Promise<Material> => {
+  // Verify admin permissions
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) {
+    throw new Error('Acesso negado. Apenas administradores podem fazer upload de materiais.');
+  }
+
+  // Validate file upload
+  const validation = validateFileUpload(file);
+  if (!validation.isValid) {
+    throw new Error(validation.error!);
+  }
+
+  // Sanitize input data
+  const sanitizedData = {
+    ...materialData,
+    title: sanitizeText(materialData.title),
+    description: materialData.description ? sanitizeText(materialData.description) : null,
+    category: sanitizeText(materialData.category),
+  };
+
   // 1. Upload file to storage
   const fileExt = file.name.split('.').pop();
   const filePath = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
@@ -109,7 +134,7 @@ export const uploadMaterial = async (
   const { data, error } = await supabase
     .from('materials')
     .insert({
-      ...materialData,
+      ...sanitizedData,
       file_url
     })
     .select()
@@ -122,6 +147,9 @@ export const uploadMaterial = async (
     throw error;
   }
 
+  // Log security event
+  await logSecurityEvent('INSERT', 'materials', data.id, null, data);
+
   return data as Material;
 };
 
@@ -129,18 +157,42 @@ export const updateMaterial = async (
   id: string,
   updates: Partial<Omit<Material, 'id' | 'created_at' | 'file_url'>>
 ): Promise<void> => {
+  // Verify admin permissions
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) {
+    throw new Error('Acesso negado. Apenas administradores podem atualizar materiais.');
+  }
+
+  // Sanitize input data
+  const sanitizedUpdates: any = {};
+  if (updates.title) sanitizedUpdates.title = sanitizeText(updates.title);
+  if (updates.description !== undefined) {
+    sanitizedUpdates.description = updates.description ? sanitizeText(updates.description) : null;
+  }
+  if (updates.category) sanitizedUpdates.category = sanitizeText(updates.category);
+  if (updates.is_new !== undefined) sanitizedUpdates.is_new = updates.is_new;
+
   const { error } = await supabase
     .from('materials')
-    .update(updates)
+    .update(sanitizedUpdates)
     .eq('id', id);
 
   if (error) {
     console.error('Error updating material:', error);
     throw error;
   }
+
+  // Log security event
+  await logSecurityEvent('UPDATE', 'materials', id, null, sanitizedUpdates);
 };
 
 export const deleteMaterial = async (id: string, filePath: string): Promise<void> => {
+  // Verify admin permissions
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) {
+    throw new Error('Acesso negado. Apenas administradores podem deletar materiais.');
+  }
+
   // 1. Delete the database record
   const { error } = await supabase
     .from('materials')
@@ -165,4 +217,7 @@ export const deleteMaterial = async (id: string, filePath: string): Promise<void
       // We don't throw here because the database record is already deleted
     }
   }
+
+  // Log security event
+  await logSecurityEvent('DELETE', 'materials', id, null, null);
 };

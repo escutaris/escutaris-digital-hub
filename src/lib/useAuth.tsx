@@ -29,14 +29,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        const { data: roles } = await supabase
+        const { data: roles, error } = await supabase
           .from('user_roles')
           .select('role')
           .eq('user_id', session.user.id)
           .eq('role', 'admin')
-          .single();
+          .maybeSingle();
         
-        setIsAdmin(!!roles);
+        if (error) {
+          console.error('Error checking admin role:', error);
+          setIsAdmin(false);
+        } else {
+          setIsAdmin(!!roles);
+        }
       }
       
       setLoading(false);
@@ -50,14 +55,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          const { data: roles } = await supabase
+          const { data: roles, error } = await supabase
             .from('user_roles')
             .select('role')
             .eq('user_id', session.user.id)
             .eq('role', 'admin')
-            .single();
+            .maybeSingle();
           
-          setIsAdmin(!!roles);
+          if (error) {
+            console.error('Error checking admin role:', error);
+            setIsAdmin(false);
+          } else {
+            setIsAdmin(!!roles);
+          }
         } else {
           setIsAdmin(false);
         }
