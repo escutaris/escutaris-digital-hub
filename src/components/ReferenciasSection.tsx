@@ -29,14 +29,19 @@ const ReferenciasSection = () => {
       icon: <Scale className="h-5 w-5" />,
       items: [
         {
-          title: 'NR-1 - Disposições Gerais e Gerenciamento de Riscos',
+          title: 'NR-01 - Disposições Gerais e Gerenciamento de Riscos',
           description: 'Nova NR-1 com foco em gerenciamento de riscos ocupacionais.',
           url: 'https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/ctpp/arquivos/normas-regulamentadoras/nr-01-atualizada-2022.pdf',
         },
         {
-          title: 'ISO 45003:2021',
-          description: 'Gestão de saúde e segurança ocupacional - Saúde e segurança psicológica no trabalho.',
-          url: 'https://www.iso.org/standard/64283.html',
+          title: 'NR-09 - Avaliação e Controle das Exposições Ocupacionais',
+          description: 'Avaliação e controle de agentes físicos, químicos e biológicos.',
+          url: 'https://www.gov.br/trabalho-e-emprego/pt-br',
+        },
+        {
+          title: 'NR-17 - Ergonomia',
+          description: 'Norma Regulamentadora sobre ergonomia atualizada em 2023.',
+          url: 'https://www.gov.br/trabalho-e-emprego/pt-br',
         },
         {
           title: 'Portaria MTE nº 1.419/2024',
@@ -47,6 +52,16 @@ const ReferenciasSection = () => {
           title: 'Portaria SEPRT nº 1.359/2019',
           description: 'Altera as Normas Regulamentadoras do Ministério do Trabalho.',
           url: 'https://www.in.gov.br/en/web/dou/-/portaria-n-1.359-de-9-de-dezembro-de-2019-232479343',
+        },
+        {
+          title: 'Portaria MS nº 2.309/2020',
+          description: 'Lista de Doenças Relacionadas ao Trabalho - LDRT.',
+          url: 'https://www.in.gov.br/en/web/dou/-/portaria-n-2.309-de-28-de-agosto-de-2020-274748878',
+        },
+        {
+          title: 'ISO 45003:2021',
+          description: 'Gestão de saúde e segurança ocupacional - Saúde e segurança psicológica no trabalho.',
+          url: 'https://www.iso.org/standard/64283.html',
         },
       ],
     },
@@ -69,6 +84,11 @@ const ReferenciasSection = () => {
           description: 'Associação Brasileira de Higienistas Ocupacionais.',
           url: 'https://www.abrahso.org.br/',
         },
+        {
+          title: 'ABERGO - Associação Brasileira de Ergonomia',
+          description: 'Dicionário e recursos técnicos em ergonomia.',
+          url: 'https://www.abergo.org.br/',
+        },
       ],
     },
     {
@@ -89,6 +109,42 @@ const ReferenciasSection = () => {
           title: 'International Journal of Environmental Research',
           description: 'Pesquisas internacionais em saúde ambiental e ocupacional.',
           url: 'https://www.mdpi.com/journal/ijerph',
+        },
+        {
+          title: 'SciELO - Scientific Electronic Library Online',
+          description: 'Base de dados com periódicos científicos em saúde ocupacional.',
+          url: 'https://www.scielo.br',
+        },
+        {
+          title: 'ILO - International Labour Organization',
+          description: 'Recursos sobre riscos psicossociais e estresse relacionado ao trabalho.',
+          url: 'https://www.ilo.org',
+        },
+      ],
+    },
+    {
+      categoria: 'Bibliografia Especializada',
+      icon: <BookOpen className="h-5 w-5" />,
+      items: [
+        {
+          title: 'A Loucura do Trabalho - Christophe Dejours',
+          description: 'Estudo clássico de psicopatologia do trabalho.',
+          url: 'https://www.amazon.com.br/s?k=loucura+do+trabalho+dejours',
+        },
+        {
+          title: 'Patologia do Trabalho - René Mendes',
+          description: 'Obra de referência em medicina do trabalho.',
+          url: 'https://www.amazon.com.br/s?k=patologia+trabalho+rene+mendes',
+        },
+        {
+          title: 'Saúde Mental e Trabalho - Sato & Carvalho',
+          description: 'Aspectos clínicos e institucionais da saúde mental no trabalho.',
+          url: 'https://www.amazon.com.br/s?k=saude+mental+trabalho+sato',
+        },
+        {
+          title: 'Fatores Psicossociais no Trabalho - Louis & Serrano',
+          description: 'Abordagens, práticas e desafios em fatores psicossociais.',
+          url: 'https://www.amazon.com.br/s?k=fatores+psicossociais+trabalho',
         },
       ],
     },
