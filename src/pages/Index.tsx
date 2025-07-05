@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
 import QuizSection from '../components/QuizSection';
+import ConsultorSection from '../components/ConsultorSection';
 import { MessageSquare, FileText, BookOpen, File } from 'lucide-react';
 import NewsSection from '../components/NewsSection';
 
@@ -29,6 +30,9 @@ const Index = () => {
         {/* Quiz Section */}
         <QuizSection />
         
+        {/* Consultor Psicossocial Digital */}
+        <ConsultorSection />
+        
         {/* Atualizações e Notícias */}
         <NewsSection />
         
@@ -42,7 +46,7 @@ const Index = () => {
             Nossa equipe está pronta para ajudar sua empresa.
           </p>
           <a 
-            href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Central%20Escutaris." 
+            href="https://api.whatsapp.com/send?phone=557582217557&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20seus%20servi%C3%A7os" 
             target="_blank"
             rel="noreferrer"
             className="btn-primary inline-flex items-center gap-2 py-3 px-6 text-lg transition-all hover:scale-105 duration-300"
