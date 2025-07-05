@@ -78,6 +78,27 @@ export const validateFileUpload = (file: File): { isValid: boolean; error?: stri
 };
 
 /**
+ * Check rate limiting for leads (1 per hour per email)
+ */
+export const checkLeadRateLimit = async (email: string): Promise<boolean> => {
+  try {
+    const { data, error } = await supabase.rpc('check_lead_rate_limit', {
+      email_input: email
+    });
+    
+    if (error) {
+      console.error('Error checking lead rate limit:', error);
+      return false; // Fail secure - don't allow if we can't check
+    }
+    
+    return data as boolean;
+  } catch (error) {
+    console.error('Error checking lead rate limit:', error);
+    return false;
+  }
+};
+
+/**
  * Log security events for audit
  */
 export const logSecurityEvent = async (
