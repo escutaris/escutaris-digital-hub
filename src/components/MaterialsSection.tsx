@@ -2,12 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Material } from '@/lib/types/material';
 import { fetchMaterials } from '@/lib/api/materials';
 import { Input } from '@/components/ui/input';
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import MaterialCard from './MaterialCard';
-import LegislacaoCard from './LegislacaoCard';
-import FerramentaCard from './FerramentaCard';
-import { Loader, FileText, BookOpen, File, Search } from 'lucide-react';
+import { Loader, FileText, Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery } from '@tanstack/react-query';
 import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
@@ -22,14 +19,13 @@ interface MaterialsSectionProps {
 const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, icon, category }) => {
   const { toast } = useToast();
   const [search, setSearch] = useState('');
-  const [activeFilter, setActiveFilter] = useState('todos');
   const [currentPage, setCurrentPage] = useState(1);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const itemsPerPage = 9;
   
   const { data: materials, isLoading, error } = useQuery({
-    queryKey: ['materials', search, activeFilter === 'todos' ? '' : activeFilter],
-    queryFn: () => fetchMaterials(search, activeFilter === 'todos' ? '' : activeFilter),
+    queryKey: ['materials', search],
+    queryFn: () => fetchMaterials(search, ''),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
@@ -52,10 +48,10 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedMaterials = filteredMaterials?.slice(startIndex, startIndex + itemsPerPage);
 
-  // Reset pagination when search or filter changes
+  // Reset pagination when search changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [search, activeFilter]);
+  }, [search]);
 
   // Keyboard shortcuts
   useKeyboardShortcuts({
@@ -65,16 +61,7 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
   });
 
   const renderCard = (material: Material) => {
-    switch (material.category) {
-      case 'material':
-        return <MaterialCard key={material.id} material={material} />;
-      case 'legislacao':
-        return <LegislacaoCard key={material.id} material={material} />;
-      case 'ferramenta':
-        return <FerramentaCard key={material.id} material={material} />;
-      default:
-        return <MaterialCard key={material.id} material={material} />;
-    }
+    return <MaterialCard key={material.id} material={material} />;
   };
 
   return (
@@ -94,20 +81,10 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
             className="pl-10"
           />
         </div>
-        <ToggleGroup type="single" value={activeFilter} onValueChange={val => val && setActiveFilter(val)}>
-          <ToggleGroupItem value="todos" aria-label="Todos os materiais">
-            Todos
-          </ToggleGroupItem>
-          <ToggleGroupItem value="material" aria-label="Apenas materiais">
-            <FileText className="h-4 w-4 mr-2" /> Materiais
-          </ToggleGroupItem>
-          <ToggleGroupItem value="legislacao" aria-label="Apenas legislações">
-            <BookOpen className="h-4 w-4 mr-2" /> Legislações
-          </ToggleGroupItem>
-          <ToggleGroupItem value="ferramenta" aria-label="Apenas ferramentas">
-            <File className="h-4 w-4 mr-2" /> Ferramentas
-          </ToggleGroupItem>
-        </ToggleGroup>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <FileText className="h-4 w-4" />
+          <span>Todos os materiais técnicos e ferramentas</span>
+        </div>
       </div>
       
       {isLoading ? (
@@ -172,13 +149,10 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
             Nenhum material encontrado com os filtros atuais.
           </p>
           <button 
-            onClick={() => { 
-              setSearch(''); 
-              setActiveFilter('todos'); 
-            }}
+            onClick={() => setSearch('')}
             className="mt-4 text-escutaris-green hover:underline"
           >
-            Limpar filtros
+            Limpar busca
           </button>
         </div>
       )}

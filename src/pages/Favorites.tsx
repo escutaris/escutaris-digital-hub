@@ -4,8 +4,6 @@ import { fetchFavoriteMaterials } from '@/lib/api/favorites';
 import { Heart, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MaterialCard from '@/components/MaterialCard';
-import LegislacaoCard from '@/components/LegislacaoCard';
-import FerramentaCard from '@/components/FerramentaCard';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
@@ -17,16 +15,7 @@ const Favorites = () => {
   });
 
   const renderCard = (material: MaterialWithStats) => {
-    switch (material.category) {
-      case 'material':
-        return <MaterialCard key={material.id} material={material} />;
-      case 'legislacao':
-        return <LegislacaoCard key={material.id} material={material} />;
-      case 'ferramenta':
-        return <FerramentaCard key={material.id} material={material} />;
-      default:
-        return <MaterialCard key={material.id} material={material} />;
-    }
+    return <MaterialCard key={material.id} material={material} />;
   };
 
   if (isLoading) {

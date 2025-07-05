@@ -7,8 +7,9 @@ import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
 import QuizSection from '../components/QuizSection';
 import ConsultorSection from '../components/ConsultorSection';
-import { MessageSquare, FileText, BookOpen, File } from 'lucide-react';
-import NewsSection from '../components/NewsSection';
+import ReferenciasSection from '../components/ReferenciasSection';
+import DestaquesSection from '../components/DestaquesSection';
+import { MessageSquare, FileText } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -19,10 +20,13 @@ const Index = () => {
       <div className="max-w-7xl w-full mx-auto px-4">
         <Header />
         
-        {/* All Materials Section with filtering */}
+        {/* Destaques Section */}
+        <DestaquesSection />
+        
+        {/* All Materials Section */}
         <MaterialsSection 
           sectionId="materiais" 
-          title="Materiais Escutaris" 
+          title="Materiais Técnicos" 
           icon={<FileText className="h-7 w-7" />}
           category="todos"
         />
@@ -33,8 +37,8 @@ const Index = () => {
         {/* Consultor Psicossocial Digital */}
         <ConsultorSection />
         
-        {/* Atualizações e Notícias */}
-        <NewsSection />
+        {/* Referências e Links Úteis */}
+        <ReferenciasSection />
         
         {/* Fale com a Escutaris */}
         <section className="section-padding text-center" id="contato">
