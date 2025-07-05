@@ -13,6 +13,7 @@ import Favorites from "./pages/Favorites";
 import { AuthProvider } from "./lib/useAuth";
 import { ProtectedRoute } from "./lib/useAuth";
 import { ThemeProvider } from "./hooks/use-theme";
+import InstallPWA from "./components/InstallPWA";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <InstallPWA />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
