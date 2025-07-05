@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Material } from '@/lib/types/material';
 import { uploadMaterial } from '@/lib/api/materials';
 import { useToast } from '@/hooks/use-toast';
@@ -29,10 +29,37 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
   const [isNew, setIsNew] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
+
+  // Cleanup da URL do preview quando o componente desmontar
+  useEffect(() => {
+    return () => {
+      if (pdfPreviewUrl) {
+        URL.revokeObjectURL(pdfPreviewUrl);
+      }
+    };
+  }, [pdfPreviewUrl]);
+
+  const generatePdfPreview = (file: File) => {
+    if (file.type === 'application/pdf') {
+      // Limpar preview anterior se existir
+      if (pdfPreviewUrl) {
+        URL.revokeObjectURL(pdfPreviewUrl);
+      }
+      
+      // Criar nova URL do blob para preview
+      const previewUrl = URL.createObjectURL(file);
+      setPdfPreviewUrl(previewUrl);
+    } else {
+      setPdfPreviewUrl(null);
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+      generatePdfPreview(selectedFile);
     }
   };
 
@@ -64,6 +91,12 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
       setCategory('material');
       setIsNew(false);
       setFile(null);
+      
+      // Limpar preview
+      if (pdfPreviewUrl) {
+        URL.revokeObjectURL(pdfPreviewUrl);
+        setPdfPreviewUrl(null);
+      }
       
       // Notify parent component
       onMaterialAdded();
@@ -158,6 +191,23 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
               )}
             </div>
           </div>
+          
+          {/* Preview do PDF */}
+          {pdfPreviewUrl && (
+            <div className="space-y-2">
+              <Label>Preview do Documento</Label>
+              <div className="border rounded-lg overflow-hidden bg-muted">
+                <iframe
+                  src={pdfPreviewUrl}
+                  className="w-full h-96"
+                  title="Preview do PDF"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                ✅ PDF carregado com sucesso - visualize o conteúdo acima
+              </p>
+            </div>
+          )}
           
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? (
