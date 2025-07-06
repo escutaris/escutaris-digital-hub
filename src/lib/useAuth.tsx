@@ -21,9 +21,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const checkAdminRole = async (userId: string) => {
+  const checkAdminRole = async (userId: string): Promise<boolean> => {
     try {
-      console.log('Checking admin role for user:', userId);
+      console.log('🔍 Checking admin role for user:', userId);
       const { data: roles, error } = await supabase
         .from('user_roles')
         .select('role')
@@ -32,99 +32,104 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .maybeSingle();
       
       if (error) {
-        console.error('Error checking admin role:', error);
+        console.error('❌ Error checking admin role:', error);
         return false;
       }
       
       const adminStatus = !!roles;
-      console.log('Admin status:', adminStatus);
+      console.log('✅ Admin status result:', adminStatus);
       return adminStatus;
     } catch (error) {
-      console.error('Exception checking admin role:', error);
+      console.error('💥 Exception checking admin role:', error);
       return false;
     }
   };
 
   useEffect(() => {
+    console.log('🚀 Initializing auth...');
     let isMounted = true;
+    let adminCheckInProgress = false;
 
-    const initializeAuth = async () => {
-      try {
-        console.log('Initializing auth...');
-        setLoading(true);
-        
-        // Get initial session
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error) {
-          console.error('Error getting session:', error);
-          if (isMounted) {
-            setLoading(false);
-          }
-          return;
-        }
+    // Timeout de segurança para evitar loading infinito
+    const safetyTimeout = setTimeout(() => {
+      if (isMounted) {
+        console.log('⏰ Safety timeout reached, setting loading to false');
+        setLoading(false);
+      }
+    }, 5000);
 
-        console.log('Initial session:', session?.user?.email || 'No session');
+    // Configurar listener de mudanças de autenticação
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('🔄 Auth state change:', event, session?.user?.email || 'No session');
         
-        if (isMounted) {
-          setSession(session);
-          setUser(session?.user ?? null);
+        if (!isMounted) return;
+
+        // Limpar timeout de segurança se recebermos uma resposta
+        clearTimeout(safetyTimeout);
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user && !adminCheckInProgress) {
+          adminCheckInProgress = true;
+          console.log('👤 User found, checking admin status...');
           
-          if (session?.user) {
+          try {
             const adminStatus = await checkAdminRole(session.user.id);
             if (isMounted) {
               setIsAdmin(adminStatus);
+              console.log('🎯 Final admin status:', adminStatus);
             }
-          } else {
-            setIsAdmin(false);
+          } catch (error) {
+            console.error('💥 Error in admin check:', error);
+            if (isMounted) {
+              setIsAdmin(false);
+            }
+          } finally {
+            adminCheckInProgress = false;
           }
-          
-          setLoading(false);
+        } else {
+          setIsAdmin(false);
         }
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-        if (isMounted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    initializeAuth();
-
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state change:', event, session?.user?.email || 'No session');
         
         if (isMounted) {
-          setSession(session);
-          setUser(session?.user ?? null);
-          
-          if (session?.user) {
-            // Use setTimeout to avoid blocking the auth state change
-            setTimeout(async () => {
-              if (isMounted) {
-                const adminStatus = await checkAdminRole(session.user.id);
-                if (isMounted) {
-                  setIsAdmin(adminStatus);
-                }
-              }
-            }, 0);
-          } else {
-            setIsAdmin(false);
-          }
+          setLoading(false);
+          console.log('✅ Loading set to false');
         }
       }
     );
 
+    // Verificar sessão inicial
+    console.log('🔍 Getting initial session...');
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('❌ Error getting session:', error);
+        if (isMounted) {
+          setLoading(false);
+        }
+        return;
+      }
+      
+      console.log('📋 Initial session result:', session?.user?.email || 'No session');
+      
+      // Se não há sessão, definir loading como false imediatamente
+      if (!session && isMounted) {
+        setLoading(false);
+        console.log('⚡ No session found, loading set to false immediately');
+      }
+    });
+
     return () => {
+      console.log('🧹 Cleaning up auth effect');
       isMounted = false;
+      clearTimeout(safetyTimeout);
       subscription.unsubscribe();
     };
   }, []);
 
   const signOut = async () => {
-    console.log('Signing out...');
+    console.log('🚪 Signing out...');
     await supabase.auth.signOut();
     setUser(null);
     setSession(null);
@@ -138,6 +143,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signOut,
     isAdmin,
   };
+
+  console.log('🎭 AuthProvider render - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
@@ -153,35 +160,59 @@ export function useAuth() {
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const [redirectTimeout, setRedirectTimeout] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    console.log('ProtectedRoute - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin);
+    console.log('🛡️ ProtectedRoute check - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin);
     
+    // Timeout de segurança para redirecionamento
     if (!loading) {
-      if (!user) {
-        console.log('No user, redirecting to login');
-        navigate('/login');
-      } else if (!isAdmin) {
-        console.log('User not admin, redirecting to login');
-        navigate('/login');
+      if (!user || !isAdmin) {
+        console.log('🔒 Access denied, redirecting to login...');
+        const timeout = setTimeout(() => {
+          navigate('/login');
+        }, 100);
+        setRedirectTimeout(timeout);
+      } else {
+        console.log('✅ Access granted!');
+        if (redirectTimeout) {
+          clearTimeout(redirectTimeout);
+          setRedirectTimeout(null);
+        }
       }
     }
+
+    return () => {
+      if (redirectTimeout) {
+        clearTimeout(redirectTimeout);
+      }
+    };
   }, [user, loading, isAdmin, navigate]);
 
   if (loading) {
-    console.log('ProtectedRoute showing loading...');
+    console.log('⏳ ProtectedRoute showing loading...');
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
+        <div className="flex flex-col items-center gap-4">
+          <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
+          <p className="text-sm text-gray-600">Verificando permissões...</p>
+        </div>
       </div>
     );
   }
 
   if (!user || !isAdmin) {
-    console.log('ProtectedRoute - No access, returning null');
-    return null;
+    console.log('🚫 ProtectedRoute - No access, showing loading while redirecting');
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center gap-4">
+          <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
+          <p className="text-sm text-gray-600">Redirecionando...</p>
+        </div>
+      </div>
+    );
   }
 
-  console.log('ProtectedRoute - Access granted, rendering children');
+  console.log('🎉 ProtectedRoute - Rendering protected content');
   return <>{children}</>;
 }
