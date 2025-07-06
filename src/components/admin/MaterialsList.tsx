@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader } from 'lucide-react';
 import MaterialsFilter from './MaterialsFilter';
 import MaterialsTable from './MaterialsTable';
+import MaterialsStats from './MaterialsStats';
 import DeleteMaterialDialog from './DeleteMaterialDialog';
 
 interface MaterialsListProps {
@@ -20,6 +21,7 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
 }) => {
   const { toast } = useToast();
   const [materials, setMaterials] = useState<Material[]>([]);
+  const [filteredMaterials, setFilteredMaterials] = useState<Material[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -30,8 +32,9 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
     const loadMaterials = async () => {
       try {
         setLoading(true);
-        const data = await fetchMaterials(search, categoryFilter);
+        const data = await fetchMaterials();
         setMaterials(data);
+        setFilteredMaterials(data);
       } catch (error) {
         toast({
           title: 'Erro ao carregar materiais',
@@ -44,7 +47,25 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
     };
     
     loadMaterials();
-  }, [search, categoryFilter, refreshTrigger, toast]);
+  }, [refreshTrigger, toast]);
+
+  // Filter materials based on search and category
+  useEffect(() => {
+    let filtered = materials;
+
+    if (search) {
+      filtered = filtered.filter(material =>
+        material.title.toLowerCase().includes(search.toLowerCase()) ||
+        (material.description && material.description.toLowerCase().includes(search.toLowerCase()))
+      );
+    }
+
+    if (categoryFilter) {
+      filtered = filtered.filter(material => material.category === categoryFilter);
+    }
+
+    setFilteredMaterials(filtered);
+  }, [materials, search, categoryFilter]);
 
   const handleToggleIsNew = async (material: Material) => {
     try {
@@ -98,44 +119,55 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center py-12">
+        <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
+      </div>
+    );
+  }
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Materiais Cadastrados</CardTitle>
-        <MaterialsFilter
-          search={search}
-          categoryFilter={categoryFilter}
-          onSearchChange={setSearch}
-          onCategoryChange={setCategoryFilter}
-        />
-      </CardHeader>
-      <CardContent>
-        {loading ? (
-          <div className="flex justify-center py-8">
-            <Loader className="h-8 w-8 animate-spin text-escutaris-green" />
-          </div>
-        ) : materials.length === 0 ? (
-          <div className="text-center py-8 text-muted-foreground">
-            Nenhum material encontrado.
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <MaterialsTable
-              materials={materials}
-              onToggleIsNew={handleToggleIsNew}
-              onDeleteClick={handleDeleteClick}
-            />
-          </div>
-        )}
-        
-        <DeleteMaterialDialog
-          material={materialToDelete}
-          open={deleteDialogOpen}
-          onOpenChange={setDeleteDialogOpen}
-          onConfirmDelete={confirmDelete}
-        />
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <MaterialsStats materials={materials} />
+      
+      <Card>
+        <CardHeader>
+          <CardTitle>Materiais Cadastrados ({filteredMaterials.length})</CardTitle>
+          <MaterialsFilter
+            search={search}
+            categoryFilter={categoryFilter}
+            onSearchChange={setSearch}
+            onCategoryChange={setCategoryFilter}
+          />
+        </CardHeader>
+        <CardContent>
+          {filteredMaterials.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              {materials.length === 0 
+                ? 'Nenhum material cadastrado ainda.' 
+                : 'Nenhum material encontrado com os filtros aplicados.'
+              }
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <MaterialsTable
+                materials={filteredMaterials}
+                onToggleIsNew={handleToggleIsNew}
+                onDeleteClick={handleDeleteClick}
+              />
+            </div>
+          )}
+          
+          <DeleteMaterialDialog
+            material={materialToDelete}
+            open={deleteDialogOpen}
+            onOpenChange={setDeleteDialogOpen}
+            onConfirmDelete={confirmDelete}
+          />
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

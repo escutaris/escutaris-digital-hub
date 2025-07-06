@@ -1,28 +1,53 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import MaterialForm from '@/components/admin/MaterialForm';
+import MaterialsList from '@/components/admin/MaterialsList';
+import { FileText, Upload, List } from 'lucide-react';
 
 const Admin = () => {
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleMaterialChange = () => {
+    setRefreshTrigger(prev => prev + 1);
+  };
+
   return (
-    <div className="min-h-screen bg-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-green-600 mb-6">
-          Painel Administrativo - FUNCIONANDO!
-        </h1>
-        <div className="bg-green-100 p-4 rounded-lg">
-          <p className="text-green-800 text-lg">
-            ✅ Página carregada com sucesso! O problema foi resolvido.
-          </p>
-          <p className="text-green-700 mt-2">
-            Você está autenticado e pode acessar a área administrativa.
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-escutaris-green mb-2 flex items-center gap-2">
+            <FileText className="h-8 w-8" />
+            Painel Administrativo
+          </h1>
+          <p className="text-gray-600">
+            Gerencie materiais, conteúdos e configurações da Central Escutaris
           </p>
         </div>
-        
-        <div className="mt-8 space-y-4">
-          <div className="p-4 bg-blue-50 rounded">
-            <h2 className="font-bold text-blue-800">Próximos passos:</h2>
-            <p className="text-blue-700">Agora podemos gradualmente adicionar de volta as funcionalidades.</p>
-          </div>
-        </div>
+
+        <Tabs defaultValue="materials" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-2">
+            <TabsTrigger value="materials" className="flex items-center gap-2">
+              <Upload className="h-4 w-4" />
+              Adicionar Material
+            </TabsTrigger>
+            <TabsTrigger value="list" className="flex items-center gap-2">
+              <List className="h-4 w-4" />
+              Gerenciar Materiais
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="materials" className="space-y-6">
+            <MaterialForm onMaterialAdded={handleMaterialChange} />
+          </TabsContent>
+
+          <TabsContent value="list" className="space-y-6">
+            <MaterialsList 
+              onMaterialChange={handleMaterialChange}
+              refreshTrigger={refreshTrigger}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
