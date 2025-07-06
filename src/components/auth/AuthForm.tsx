@@ -41,24 +41,34 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
     
     try {
       if (type === 'login') {
+        console.log('🔄 Attempting login for:', values.email);
+        
         const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
         
         if (error) {
-          console.error('Login error:', error);
+          console.error('❌ Login error:', error);
           if (error.message.includes('Invalid login credentials')) {
             throw new Error('Email ou senha incorretos. Por favor, tente novamente.');
           }
           throw error;
         }
         
-        navigate('/admin');
+        console.log('✅ Login successful, session:', !!data.session);
+        
         toast({
           title: 'Login realizado com sucesso',
           description: 'Bem-vindo de volta à Central Escutaris',
         });
+        
+        // Aguardar um pouco para garantir que o AuthProvider processou a sessão
+        setTimeout(() => {
+          console.log('🔄 Redirecting to admin...');
+          navigate('/admin');
+        }, 500);
+        
       } else {
         const { error } = await supabase.auth.signUp({
           email: values.email,
@@ -73,12 +83,12 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
         });
       }
     } catch (error: any) {
+      console.error('💥 Authentication error:', error);
       toast({
         variant: 'destructive',
         title: type === 'login' ? 'Falha no login' : 'Falha no cadastro',
         description: error.message,
       });
-      console.log('Authentication error details:', error);
     } finally {
       setLoading(false);
     }

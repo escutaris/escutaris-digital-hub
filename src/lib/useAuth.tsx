@@ -48,15 +48,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     console.log('🚀 Initializing auth...');
     let isMounted = true;
-    let adminCheckInProgress = false;
 
-    // Timeout de segurança para evitar loading infinito
+    // Timeout de segurança
     const safetyTimeout = setTimeout(() => {
       if (isMounted) {
         console.log('⏰ Safety timeout reached, setting loading to false');
         setLoading(false);
       }
-    }, 5000);
+    }, 3000); // Reduzido para 3 segundos
 
     // Configurar listener de mudanças de autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -65,16 +64,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (!isMounted) return;
 
-        // Limpar timeout de segurança se recebermos uma resposta
+        // Limpar timeout de segurança
         clearTimeout(safetyTimeout);
         
         setSession(session);
         setUser(session?.user ?? null);
         
-        if (session?.user && !adminCheckInProgress) {
-          adminCheckInProgress = true;
+        if (session?.user) {
           console.log('👤 User found, checking admin status...');
-          
           try {
             const adminStatus = await checkAdminRole(session.user.id);
             if (isMounted) {
@@ -86,8 +83,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (isMounted) {
               setIsAdmin(false);
             }
-          } finally {
-            adminCheckInProgress = false;
           }
         } else {
           setIsAdmin(false);
@@ -95,7 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (isMounted) {
           setLoading(false);
-          console.log('✅ Loading set to false');
+          console.log('✅ Auth initialization complete');
         }
       }
     );
@@ -160,33 +155,21 @@ export function useAuth() {
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [redirectTimeout, setRedirectTimeout] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     console.log('🛡️ ProtectedRoute check - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin);
     
-    // Timeout de segurança para redirecionamento
     if (!loading) {
-      if (!user || !isAdmin) {
-        console.log('🔒 Access denied, redirecting to login...');
-        const timeout = setTimeout(() => {
-          navigate('/login');
-        }, 100);
-        setRedirectTimeout(timeout);
+      if (!user) {
+        console.log('🔒 No user, redirecting to login...');
+        navigate('/login');
+      } else if (!isAdmin) {
+        console.log('🔒 User not admin, redirecting to login...');
+        navigate('/login');
       } else {
         console.log('✅ Access granted!');
-        if (redirectTimeout) {
-          clearTimeout(redirectTimeout);
-          setRedirectTimeout(null);
-        }
       }
     }
-
-    return () => {
-      if (redirectTimeout) {
-        clearTimeout(redirectTimeout);
-      }
-    };
   }, [user, loading, isAdmin, navigate]);
 
   if (loading) {
