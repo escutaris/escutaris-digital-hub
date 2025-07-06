@@ -46,52 +46,57 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    console.log('🚀 Initializing auth...');
-    let isMounted = true;
+    console.log('🚀 AuthProvider initializing...');
+    let mounted = true;
 
-    // Timeout de segurança
+    // Timeout de segurança mais robusto
     const safetyTimeout = setTimeout(() => {
-      if (isMounted) {
-        console.log('⏰ Safety timeout reached, setting loading to false');
+      if (mounted) {
+        console.log('⏰ Safety timeout - forcing loading false');
         setLoading(false);
       }
-    }, 3000); // Reduzido para 3 segundos
+    }, 10000);
 
-    // Configurar listener de mudanças de autenticação
+    // Função para processar sessão
+    const processSession = async (currentSession: Session | null) => {
+      console.log('🔄 Processing session:', !!currentSession);
+      
+      if (!mounted) return;
+
+      setSession(currentSession);
+      setUser(currentSession?.user ?? null);
+      
+      if (currentSession?.user) {
+        console.log('👤 Valid session found, checking admin role...');
+        try {
+          const adminStatus = await checkAdminRole(currentSession.user.id);
+          if (mounted) {
+            setIsAdmin(adminStatus);
+            console.log('🎯 Admin status set to:', adminStatus);
+          }
+        } catch (error) {
+          console.error('💥 Admin check failed:', error);
+          if (mounted) {
+            setIsAdmin(false);
+          }
+        }
+      } else {
+        console.log('❌ No valid session');
+        setIsAdmin(false);
+      }
+      
+      if (mounted) {
+        clearTimeout(safetyTimeout);
+        setLoading(false);
+        console.log('✅ Auth processing complete');
+      }
+    };
+
+    // Listener para mudanças de auth
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('🔄 Auth state change:', event, session?.user?.email || 'No session');
-        
-        if (!isMounted) return;
-
-        // Limpar timeout de segurança
-        clearTimeout(safetyTimeout);
-        
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          console.log('👤 User found, checking admin status...');
-          try {
-            const adminStatus = await checkAdminRole(session.user.id);
-            if (isMounted) {
-              setIsAdmin(adminStatus);
-              console.log('🎯 Final admin status:', adminStatus);
-            }
-          } catch (error) {
-            console.error('💥 Error in admin check:', error);
-            if (isMounted) {
-              setIsAdmin(false);
-            }
-          }
-        } else {
-          setIsAdmin(false);
-        }
-        
-        if (isMounted) {
-          setLoading(false);
-          console.log('✅ Auth initialization complete');
-        }
+        console.log('🔄 Auth state change:', event, !!session);
+        await processSession(session);
       }
     );
 
@@ -99,25 +104,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     console.log('🔍 Getting initial session...');
     supabase.auth.getSession().then(({ data: { session }, error }) => {
       if (error) {
-        console.error('❌ Error getting session:', error);
-        if (isMounted) {
+        console.error('❌ Error getting initial session:', error);
+        if (mounted) {
           setLoading(false);
         }
         return;
       }
       
-      console.log('📋 Initial session result:', session?.user?.email || 'No session');
-      
-      // Se não há sessão, definir loading como false imediatamente
-      if (!session && isMounted) {
-        setLoading(false);
-        console.log('⚡ No session found, loading set to false immediately');
-      }
+      console.log('📋 Initial session result:', !!session);
+      processSession(session);
     });
 
     return () => {
-      console.log('🧹 Cleaning up auth effect');
-      isMounted = false;
+      console.log('🧹 Cleaning up AuthProvider');
+      mounted = false;
       clearTimeout(safetyTimeout);
       subscription.unsubscribe();
     };
@@ -161,13 +161,13 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     
     if (!loading) {
       if (!user) {
-        console.log('🔒 No user, redirecting to login...');
-        navigate('/login');
+        console.log('🔒 No user found, redirecting to login...');
+        navigate('/login', { replace: true });
       } else if (!isAdmin) {
-        console.log('🔒 User not admin, redirecting to login...');
-        navigate('/login');
+        console.log('🔒 User is not admin, redirecting to login...');
+        navigate('/login', { replace: true });
       } else {
-        console.log('✅ Access granted!');
+        console.log('✅ Access granted to admin area!');
       }
     }
   }, [user, loading, isAdmin, navigate]);
@@ -185,7 +185,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
 
   if (!user || !isAdmin) {
-    console.log('🚫 ProtectedRoute - No access, showing loading while redirecting');
+    console.log('🚫 ProtectedRoute - Access denied, showing loading while redirecting');
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="flex flex-col items-center gap-4">

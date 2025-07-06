@@ -41,7 +41,7 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
     
     try {
       if (type === 'login') {
-        console.log('🔄 Attempting login for:', values.email);
+        console.log('🔄 Starting login process for:', values.email);
         
         const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
@@ -56,18 +56,22 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
           throw error;
         }
         
-        console.log('✅ Login successful, session:', !!data.session);
+        console.log('✅ Login successful! Session data:', {
+          hasSession: !!data.session,
+          hasUser: !!data.user,
+          userId: data.user?.id
+        });
         
         toast({
           title: 'Login realizado com sucesso',
-          description: 'Bem-vindo de volta à Central Escutaris',
+          description: 'Redirecionando para o painel administrativo...',
         });
         
-        // Aguardar um pouco para garantir que o AuthProvider processou a sessão
+        // Dar tempo para o AuthProvider processar a sessão
         setTimeout(() => {
-          console.log('🔄 Redirecting to admin...');
-          navigate('/admin');
-        }, 500);
+          console.log('🔄 Redirecting to admin panel...');
+          navigate('/admin', { replace: true });
+        }, 1000);
         
       } else {
         const { error } = await supabase.auth.signUp({
