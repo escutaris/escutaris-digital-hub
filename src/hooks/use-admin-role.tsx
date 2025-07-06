@@ -12,6 +12,9 @@ export function useAdminRole(userId: string | undefined) {
       return;
     }
 
+    let isMounted = true;
+    setLoading(true);
+
     const checkAdminRole = async () => {
       try {
         console.log('🔍 Checking admin role for user:', userId);
@@ -23,6 +26,8 @@ export function useAdminRole(userId: string | undefined) {
           .eq('role', 'admin')
           .maybeSingle();
         
+        if (!isMounted) return;
+        
         if (error) {
           console.error('❌ Error checking admin role:', error);
           setIsAdmin(false);
@@ -33,13 +38,23 @@ export function useAdminRole(userId: string | undefined) {
         }
       } catch (error) {
         console.error('💥 Exception checking admin role:', error);
-        setIsAdmin(false);
+        if (isMounted) {
+          setIsAdmin(false);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
-    checkAdminRole();
+    // Debounce the check to avoid too many requests
+    const timeoutId = setTimeout(checkAdminRole, 100);
+    
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
   }, [userId]);
 
   return { isAdmin, loading };

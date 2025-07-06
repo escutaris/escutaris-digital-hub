@@ -67,6 +67,9 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
           description: 'Redirecionando para o painel administrativo...',
         });
         
+        // Reset loading immediately after successful login
+        setLoading(false);
+        
         // Dar tempo para o AuthProvider processar a sessão
         setTimeout(() => {
           console.log('🔄 Redirecting to admin panel...');
