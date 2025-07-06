@@ -38,10 +38,11 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true);
+    console.log('🔄 AuthForm - Starting authentication process');
     
     try {
       if (type === 'login') {
-        console.log('🔄 Starting login process for:', values.email);
+        console.log('🔄 AuthForm - Starting login for:', values.email);
         
         const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
@@ -49,20 +50,27 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
         });
         
         if (error) {
-          console.error('❌ Login error:', error);
+          console.error('❌ AuthForm - Login error:', error);
           if (error.message.includes('Invalid login credentials')) {
             throw new Error('Email ou senha incorretos. Por favor, tente novamente.');
           }
           throw error;
         }
         
+        console.log('✅ AuthForm - Login successful for user:', data.user?.id);
+        
         toast({
           title: 'Login realizado com sucesso',
         });
         
+        // Reset loading and navigate immediately
+        setLoading(false);
+        console.log('🚀 AuthForm - Navigating to admin panel');
         navigate('/admin', { replace: true });
         
       } else {
+        console.log('🔄 AuthForm - Starting signup for:', values.email);
+        
         const { error } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
@@ -74,15 +82,16 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
           title: 'Cadastro realizado',
           description: 'Verifique seu email para confirmar o cadastro',
         });
+        
+        setLoading(false);
       }
     } catch (error: any) {
-      console.error('💥 Authentication error:', error);
+      console.error('💥 AuthForm - Authentication error:', error);
       toast({
         variant: 'destructive',
         title: type === 'login' ? 'Falha no login' : 'Falha no cadastro',
         description: error.message,
       });
-    } finally {
       setLoading(false);
     }
   };

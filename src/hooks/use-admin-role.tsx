@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -7,6 +8,7 @@ export function useAdminRole(userId: string | undefined) {
 
   useEffect(() => {
     if (!userId) {
+      console.log('🔍 useAdminRole - No userId provided');
       setIsAdmin(false);
       setLoading(false);
       return;
@@ -17,7 +19,7 @@ export function useAdminRole(userId: string | undefined) {
 
     const checkAdminRole = async () => {
       try {
-        console.log('🔍 Checking admin role for user:', userId);
+        console.log('🔍 useAdminRole - Checking admin role for user:', userId);
         
         const { data: roles, error } = await supabase
           .from('user_roles')
@@ -29,33 +31,34 @@ export function useAdminRole(userId: string | undefined) {
         if (!isMounted) return;
         
         if (error) {
-          console.error('❌ Error checking admin role:', error);
+          console.error('❌ useAdminRole - Error checking admin role:', error);
           setIsAdmin(false);
         } else {
           const adminStatus = !!roles;
-          console.log('✅ Admin status:', adminStatus);
+          console.log('✅ useAdminRole - Admin status determined:', adminStatus);
           setIsAdmin(adminStatus);
         }
       } catch (error) {
-        console.error('💥 Exception checking admin role:', error);
+        console.error('💥 useAdminRole - Exception checking admin role:', error);
         if (isMounted) {
           setIsAdmin(false);
         }
       } finally {
         if (isMounted) {
+          console.log('🏁 useAdminRole - Setting loading to false');
           setLoading(false);
         }
       }
     };
 
-    // Debounce the check to avoid too many requests
-    const timeoutId = setTimeout(checkAdminRole, 100);
+    // Execute immediately without debounce
+    checkAdminRole();
     
     return () => {
       isMounted = false;
-      clearTimeout(timeoutId);
     };
   }, [userId]);
 
+  console.log('🎯 useAdminRole hook state:', { userId: !!userId, isAdmin, loading });
   return { isAdmin, loading };
 }
