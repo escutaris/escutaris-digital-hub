@@ -54,21 +54,10 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('🛡️ ProtectedRoute check - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin);
-    
-    if (!loading) {
-      if (!user) {
-        console.log('🔒 No user found, redirecting to login...');
-        navigate('/login', { replace: true });
-      } else if (!isAdmin) {
-        console.log('🔒 User is not admin, access denied');
-        // Instead of redirecting to login, show access denied
-        // This prevents infinite loops when user is logged in but not admin
-      } else {
-        console.log('✅ Access granted to admin area!');
-      }
+    if (!loading && !user) {
+      navigate('/login', { replace: true });
     }
-  }, [user, loading, isAdmin, navigate]);
+  }, [user, loading, navigate]);
 
   if (loading) {
     console.log('⏳ ProtectedRoute showing loading...');
@@ -82,31 +71,14 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!user || !isAdmin) {
-    console.log('🚫 ProtectedRoute - Access denied');
+  if (!user) return null;
+  if (!isAdmin) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-background via-muted/20 to-accent/10">
-        <div className="text-center max-w-md mx-auto px-4">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-destructive/10 rounded-full">
-              <Loader className="h-16 w-16 text-destructive" />
-            </div>
-          </div>
-          
-          <h1 className="text-2xl font-bold text-foreground mb-4">Acesso Negado</h1>
-          <p className="text-muted-foreground mb-8 leading-relaxed">
-            {!user 
-              ? 'Você precisa fazer login para acessar esta área.' 
-              : 'Você não tem permissão para acessar o painel administrativo.'
-            }
-          </p>
-          
-          <button 
-            onClick={() => navigate('/', { replace: true })}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-          >
-            Voltar ao Início
-          </button>
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <h2 className="text-xl font-bold mb-4">Acesso Negado</h2>
+          <p className="mb-4">Você não tem permissão para acessar esta área.</p>
+          <button onClick={() => navigate('/')}>Voltar</button>
         </div>
       </div>
     );

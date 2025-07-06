@@ -56,25 +56,11 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
           throw error;
         }
         
-        console.log('✅ Login successful! Session data:', {
-          hasSession: !!data.session,
-          hasUser: !!data.user,
-          userId: data.user?.id
-        });
-        
         toast({
           title: 'Login realizado com sucesso',
-          description: 'Redirecionando para o painel administrativo...',
         });
         
-        // Reset loading immediately after successful login
-        setLoading(false);
-        
-        // Dar tempo para o AuthProvider processar a sessão
-        setTimeout(() => {
-          console.log('🔄 Redirecting to admin panel...');
-          navigate('/admin', { replace: true });
-        }, 500);
+        navigate('/admin', { replace: true });
         
       } else {
         const { error } = await supabase.auth.signUp({
