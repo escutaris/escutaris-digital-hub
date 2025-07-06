@@ -77,6 +77,6 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     return null;
   }
 
-  // If user exists, allow access (temporarily removing admin check)
+  // If user exists, allow access
   return <>{children}</>;
 }

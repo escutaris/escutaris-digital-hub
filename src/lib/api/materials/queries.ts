@@ -81,7 +81,7 @@ export const fetchMaterialsWithStats = async (
     is_new: material.is_new,
     created_at: material.created_at,
     category: material.category,
-    download_count: material.download_history?.length || 0,
+    download_count: material.download_history?.count || 0,
     is_favorited: user ? !!material.user_favorites?.length : false
   })) as MaterialWithStats[];
 };
