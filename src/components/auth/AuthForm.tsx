@@ -71,7 +71,7 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
         setTimeout(() => {
           console.log('🔄 Redirecting to admin panel...');
           navigate('/admin', { replace: true });
-        }, 1000);
+        }, 500);
         
       } else {
         const { error } = await supabase.auth.signUp({
