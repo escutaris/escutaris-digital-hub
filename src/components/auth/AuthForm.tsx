@@ -63,10 +63,12 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
           title: 'Login realizado com sucesso',
         });
         
-        // Reset loading and navigate immediately
-        setLoading(false);
-        console.log('🚀 AuthForm - Navigating to admin panel');
-        navigate('/admin', { replace: true });
+        // Wait for auth state to update before navigating
+        console.log('🚀 AuthForm - Waiting for auth state update...');
+        setTimeout(() => {
+          setLoading(false);
+          navigate('/admin', { replace: true });
+        }, 500);
         
       } else {
         console.log('🔄 AuthForm - Starting signup for:', values.email);
