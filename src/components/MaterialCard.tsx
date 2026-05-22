@@ -1,120 +1,91 @@
-
 import React, { useState } from 'react';
-import { FileText, Download, Heart } from 'lucide-react';
+import { FileText, Download } from 'lucide-react';
 import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
-import { addToFavorites, removeFromFavorites, recordDownload } from '@/lib/api/favorites';
-import { useToast } from '@/hooks/use-toast';
+import { recordDownload } from '@/lib/api/favorites';
+import LeadCaptureModal from './LeadCaptureModal';
 
 interface MaterialCardProps {
   material: Material | MaterialWithStats;
 }
 
-const MaterialCard = ({ material }: MaterialCardProps) => {
-  const { toast } = useToast();
-  const [isFavorited, setIsFavorited] = useState(
-    'is_favorited' in material ? material.is_favorited : false
-  );
-  const [isLoading, setIsLoading] = useState(false);
+const categoryLabel: Record<string, string> = {
+  material: 'Material',
+  legislacao: 'Legislação',
+  ferramenta: 'Ferramenta',
+};
 
-  const handleFavoriteToggle = async () => {
-    setIsLoading(true);
-    try {
-      if (isFavorited) {
-        await removeFromFavorites(material.id);
-        setIsFavorited(false);
-        toast({
-          title: 'Removido dos favoritos',
-          description: 'Material removido da sua lista de favoritos.',
-        });
-      } else {
-        await addToFavorites(material.id);
-        setIsFavorited(true);
-        toast({
-          title: 'Adicionado aos favoritos',
-          description: 'Material salvo na sua lista de favoritos.',
-        });
-      }
-    } catch (error) {
-      toast({
-        title: 'Erro',
-        description: error instanceof Error ? error.message : 'Erro ao gerenciar favorito',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsLoading(false);
+const MaterialCard = ({ material }: MaterialCardProps) => {
+  const [showLeadModal, setShowLeadModal] = useState(false);
+
+  const hasLead = () => !!localStorage.getItem('escutaris_lead');
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    if (!hasLead()) {
+      e.preventDefault();
+      setShowLeadModal(true);
+    } else {
+      recordDownload(material.id);
     }
   };
 
-  const handleDownload = () => {
-    recordDownload(material.id);
-  };
-
   return (
-    <div className="glass-card overflow-hidden transition-all hover:shadow-lg duration-300 group">
-      <div className="p-4">
-        <div className="flex gap-4">
-          {/* Icon & Badge Section */}
-          <div className="flex-shrink-0 relative">
-            <div className="w-12 h-12 bg-gradient-to-br from-escutaris-green/10 to-escutaris-terracotta/10 rounded-lg flex items-center justify-center group-hover:from-escutaris-green/20 group-hover:to-escutaris-terracotta/20 transition-colors">
-              <FileText className="h-6 w-6 text-escutaris-green" />
+    <>
+      <div className="glass-card group flex flex-col h-full">
+        <div className="p-5 flex flex-col h-full">
+          {/* Header */}
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <span className="font-poppins text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-0.5 rounded-sm">
+                {categoryLabel[material.category] ?? material.category}
+              </span>
+              {material.is_new && (
+                <span className="tag-new">Novo</span>
+              )}
             </div>
-            {material.is_new && (
-              <div className="absolute -top-1 -right-1 bg-escutaris-terracotta text-white text-xs px-1.5 py-0.5 rounded-full text-[10px] font-medium">
-                NOVO
-              </div>
-            )}
+            <div className="w-8 h-8 bg-escutaris-verde/5 rounded-sm flex items-center justify-center flex-shrink-0">
+              <FileText className="h-4 w-4 text-escutaris-verde/50" />
+            </div>
           </div>
 
-          {/* Content Section */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                  PDF
-                </span>
-                {'download_count' in material && (
-                  <span className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Download size={10} />
-                    {material.download_count}
-                  </span>
-                )}
-              </div>
-              <button
-                onClick={handleFavoriteToggle}
-                disabled={isLoading}
-                className={`p-1.5 rounded-full transition-all ${
-                  isFavorited 
-                    ? 'bg-red-50 text-red-500 hover:bg-red-100' 
-                    : 'bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-red-500'
-                } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                <Heart className={`h-3.5 w-3.5 ${isFavorited ? 'fill-current' : ''}`} />
-              </button>
-            </div>
-            
-            <h3 className="text-foreground font-semibold mb-1 line-clamp-2 text-sm leading-tight">
-              {material.title}
-            </h3>
-            
-            <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">
+          {/* Content */}
+          <h3 className="font-cormorant text-lg font-semibold text-escutaris-verde leading-snug mb-2 line-clamp-2">
+            {material.title}
+          </h3>
+
+          {material.description && (
+            <p className="font-poppins text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1 mb-4">
               {material.description}
             </p>
-            
-            <a 
-              href={material.file_url} 
-              target="_blank" 
-              rel="noreferrer" 
-              onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-escutaris-green hover:text-escutaris-green-dark transition-colors"
+          )}
+
+          {/* Footer */}
+          <div className="border-t border-border/50 pt-3 mt-auto">
+            <a
+              href={material.file_url}
+              target="_blank"
+              rel="noreferrer"
+              onClick={handleDownloadClick}
+              className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors"
             >
-              <Download size={12} />
-              Baixar Material
+              <Download size={13} />
+              Baixar material
             </a>
           </div>
         </div>
       </div>
-    </div>
+
+      <LeadCaptureModal
+        open={showLeadModal}
+        onClose={() => setShowLeadModal(false)}
+        downloadUrl={material.file_url}
+        onSuccess={() => {
+          setShowLeadModal(false);
+          recordDownload(material.id);
+          window.open(material.file_url, '_blank', 'noopener,noreferrer');
+        }}
+      />
+    </>
   );
 };
 

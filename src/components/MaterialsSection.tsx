@@ -66,9 +66,10 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
 
   return (
     <section className="section-padding" id={sectionId}>
-      <h2 className="text-escutaris-green text-3xl md:text-4xl font-bold mb-6 animate-slide-in flex items-center gap-2">
+      <h2 className="section-title flex items-center gap-2 animate-slide-in">
         {icon} {title}
       </h2>
+      <p className="section-subtitle">Documentos técnicos, guias e ferramentas para download</p>
       
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="relative flex-1">

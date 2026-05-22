@@ -53,17 +53,20 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Cores Escutaris
+				'escutaris-verde': '#1C3520',
+				'escutaris-terracota': '#B95839',
+				'escutaris-offwhite': '#F0EDE6',
+				// aliases para compatibilidade com código existente
 				escutaris: {
 					green: {
-						light: '#E6F2E1',
-						DEFAULT: '#3E8914',
-						dark: '#2C610E'
+						light: '#E8EDE9',
+						DEFAULT: '#1C3520',
+						dark: '#111F14'
 					},
 					terracotta: {
-						light: '#F8E2D8',
-						DEFAULT: '#D98566',
-						dark: '#B25A3A'
+						light: '#F5E4DE',
+						DEFAULT: '#B95839',
+						dark: '#8F3F25'
 					}
 				}
 			},
@@ -125,6 +128,8 @@ export default {
 			},
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
+				'cormorant': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+				'poppins': ['Poppins', 'sans-serif'],
 			}
 		}
 	},
