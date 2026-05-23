@@ -11,7 +11,6 @@ interface Props {
 
 const LeadCaptureModal = ({ open, onClose, onSuccess, downloadUrl }: Props) => {
   const [email, setEmail] = useState('');
-  const [marketing, setMarketing] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -30,7 +29,13 @@ const LeadCaptureModal = ({ open, onClose, onSuccess, downloadUrl }: Props) => {
     try {
       const { error: dbError } = await supabase
         .from('leads')
-        .upsert({ email: email.toLowerCase().trim(), accept_marketing: marketing }, { onConflict: 'email' });
+        .insert({
+          email: email.toLowerCase().trim(),
+          marca: 'escutaris',
+          profissao: 'outro',
+          fonte: 'hub-escutaris',
+          consentimento_lgpd: true,
+        });
 
       if (dbError) throw dbError;
 
@@ -93,18 +98,6 @@ const LeadCaptureModal = ({ open, onClose, onSuccess, downloadUrl }: Props) => {
             {error && (
               <p className="text-xs font-poppins text-red-600">{error}</p>
             )}
-
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={marketing}
-                onChange={e => setMarketing(e.target.checked)}
-                className="mt-0.5 accent-escutaris-verde"
-              />
-              <span className="font-poppins text-xs text-muted-foreground leading-relaxed">
-                Aceito receber novidades, materiais e conteúdos da Escutaris por e-mail.
-              </span>
-            </label>
 
             <button
               type="submit"

@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/hwmdkgpnykpcyjofuxqj\.supabase\.co\/.*/i,
+            urlPattern: /^https:\/\/ywmqphwdzbmntfusemkl\.supabase\.co\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'supabase-cache',

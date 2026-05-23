@@ -7,68 +7,11 @@ export type Json =
   | Json[]
 
 export type Database = {
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
   public: {
     Tables: {
-      action_suggestions: {
-        Row: {
-          area_code: string | null
-          description: string | null
-          id: string
-          level: string | null
-        }
-        Insert: {
-          area_code?: string | null
-          description?: string | null
-          id?: string
-          level?: string | null
-        }
-        Update: {
-          area_code?: string | null
-          description?: string | null
-          id?: string
-          level?: string | null
-        }
-        Relationships: []
-      }
-      assessments: {
-        Row: {
-          action_plan_note: string | null
-          avg_area_1: number | null
-          avg_area_2: number | null
-          avg_area_3: number | null
-          avg_area_4: number | null
-          id: string
-          overall_avg: number | null
-          submitted_at: string | null
-          user_id: string | null
-          weaker_area: string | null
-        }
-        Insert: {
-          action_plan_note?: string | null
-          avg_area_1?: number | null
-          avg_area_2?: number | null
-          avg_area_3?: number | null
-          avg_area_4?: number | null
-          id?: string
-          overall_avg?: number | null
-          submitted_at?: string | null
-          user_id?: string | null
-          weaker_area?: string | null
-        }
-        Update: {
-          action_plan_note?: string | null
-          avg_area_1?: number | null
-          avg_area_2?: number | null
-          avg_area_3?: number | null
-          avg_area_4?: number | null
-          id?: string
-          overall_avg?: number | null
-          submitted_at?: string | null
-          user_id?: string | null
-          weaker_area?: string | null
-        }
-        Relationships: []
-      }
       audit_logs: {
         Row: {
           action: string
@@ -143,138 +86,57 @@ export type Database = {
           },
         ]
       }
-      hse_triagem: {
-        Row: {
-          created_at: string | null
-          data_exame: string
-          id: string
-          interpreta_risco: string | null
-          media_apoio: number | null
-          media_controle: number | null
-          media_demandas: number | null
-          media_equilibrio: number | null
-          media_mudancas: number | null
-          media_papeis: number | null
-          media_relacionamento: number | null
-          respostas: Json
-          risco_burnout: boolean | null
-          risco_conflito: boolean | null
-          risco_estresse: boolean | null
-          risco_geral: boolean | null
-          tipo_exame: string | null
-          trabalhador_id: string
-        }
-        Insert: {
-          created_at?: string | null
-          data_exame?: string
-          id?: string
-          interpreta_risco?: string | null
-          media_apoio?: number | null
-          media_controle?: number | null
-          media_demandas?: number | null
-          media_equilibrio?: number | null
-          media_mudancas?: number | null
-          media_papeis?: number | null
-          media_relacionamento?: number | null
-          respostas: Json
-          risco_burnout?: boolean | null
-          risco_conflito?: boolean | null
-          risco_estresse?: boolean | null
-          risco_geral?: boolean | null
-          tipo_exame?: string | null
-          trabalhador_id: string
-        }
-        Update: {
-          created_at?: string | null
-          data_exame?: string
-          id?: string
-          interpreta_risco?: string | null
-          media_apoio?: number | null
-          media_controle?: number | null
-          media_demandas?: number | null
-          media_equilibrio?: number | null
-          media_mudancas?: number | null
-          media_papeis?: number | null
-          media_relacionamento?: number | null
-          respostas?: Json
-          risco_burnout?: boolean | null
-          risco_conflito?: boolean | null
-          risco_estresse?: boolean | null
-          risco_geral?: boolean | null
-          tipo_exame?: string | null
-          trabalhador_id?: string
-        }
-        Relationships: []
-      }
-      leadership_assessments: {
-        Row: {
-          answers: Json
-          area_1_average: number | null
-          area_2_average: number | null
-          area_3_average: number | null
-          area_4_average: number | null
-          classification: string
-          created_at: string
-          id: string
-          overall_average: number
-          recommendations: string[] | null
-          updated_at: string
-          user_email: string | null
-          user_id: string | null
-          user_name: string | null
-        }
-        Insert: {
-          answers: Json
-          area_1_average?: number | null
-          area_2_average?: number | null
-          area_3_average?: number | null
-          area_4_average?: number | null
-          classification: string
-          created_at?: string
-          id?: string
-          overall_average: number
-          recommendations?: string[] | null
-          updated_at?: string
-          user_email?: string | null
-          user_id?: string | null
-          user_name?: string | null
-        }
-        Update: {
-          answers?: Json
-          area_1_average?: number | null
-          area_2_average?: number | null
-          area_3_average?: number | null
-          area_4_average?: number | null
-          classification?: string
-          created_at?: string
-          id?: string
-          overall_average?: number
-          recommendations?: string[] | null
-          updated_at?: string
-          user_email?: string | null
-          user_id?: string | null
-          user_name?: string | null
-        }
-        Relationships: []
-      }
       leads: {
         Row: {
-          accept_marketing: boolean
+          canal: string | null
+          consentimento_lgpd: boolean
           created_at: string
           email: string
+          empresa: string | null
+          fonte: string
+          fonte_titulo: string | null
           id: string
+          ip: string | null
+          marca: string
+          metadata: Json | null
+          nome: string | null
+          profissao: string
+          status_zoho: string
+          user_agent: string | null
         }
         Insert: {
-          accept_marketing?: boolean
+          canal?: string | null
+          consentimento_lgpd?: boolean
           created_at?: string
           email: string
+          empresa?: string | null
+          fonte: string
+          fonte_titulo?: string | null
           id?: string
+          ip?: string | null
+          marca: string
+          metadata?: Json | null
+          nome?: string | null
+          profissao: string
+          status_zoho?: string
+          user_agent?: string | null
         }
         Update: {
-          accept_marketing?: boolean
+          canal?: string | null
+          consentimento_lgpd?: boolean
           created_at?: string
           email?: string
+          empresa?: string | null
+          fonte?: string
+          fonte_titulo?: string | null
           id?: string
+          ip?: string | null
+          marca?: string
+          metadata?: Json | null
+          nome?: string | null
+          profissao?: string
+          status_zoho?: string
+          user_agent?: string | null
         }
         Relationships: []
       }
@@ -492,22 +354,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      check_lead_rate_limit: {
-        Args: { email_input: string }
-        Returns: boolean
-      }
-      get_current_user_role: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      is_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_authenticated_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      check_lead_rate_limit: { Args: { email_input: string }; Returns: boolean }
+      get_current_user_role: { Args: never; Returns: string }
+      is_admin: { Args: never; Returns: boolean }
+      is_authenticated_admin: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
@@ -518,21 +368,25 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, "public">]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
@@ -550,14 +404,16 @@ export type Tables<
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
@@ -573,14 +429,16 @@ export type TablesInsert<
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
@@ -596,14 +454,16 @@ export type TablesUpdate<
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
@@ -611,14 +471,16 @@ export type Enums<
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
