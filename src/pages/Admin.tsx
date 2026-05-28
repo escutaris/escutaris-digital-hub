@@ -4,7 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MaterialForm from '@/components/admin/MaterialForm';
 import MaterialsList from '@/components/admin/MaterialsList';
 import NewsManagement from '@/components/admin/NewsManagement';
-import { FileText, Upload, List, Newspaper } from 'lucide-react';
+import DashboardStats from '@/components/admin/DashboardStats';
+import UserManagement from '@/components/admin/UserManagement';
+import { LayoutDashboard, Upload, List, Newspaper, ShieldCheck } from 'lucide-react';
 
 const Admin = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -18,7 +20,7 @@ const Admin = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-escutaris-green mb-2 flex items-center gap-2">
-            <FileText className="h-8 w-8" />
+            <LayoutDashboard className="h-8 w-8" />
             Painel Administrativo
           </h1>
           <p className="text-gray-600">
@@ -26,21 +28,33 @@ const Admin = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="materials" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3">
+        <Tabs defaultValue="dashboard" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              <span className="hidden sm:inline">Dashboard</span>
+            </TabsTrigger>
             <TabsTrigger value="materials" className="flex items-center gap-2">
               <Upload className="h-4 w-4" />
-              Adicionar Material
+              <span className="hidden sm:inline">Adicionar</span>
             </TabsTrigger>
             <TabsTrigger value="list" className="flex items-center gap-2">
               <List className="h-4 w-4" />
-              Gerenciar Materiais
+              <span className="hidden sm:inline">Materiais</span>
             </TabsTrigger>
             <TabsTrigger value="news" className="flex items-center gap-2">
               <Newspaper className="h-4 w-4" />
-              Notícias
+              <span className="hidden sm:inline">Notícias</span>
+            </TabsTrigger>
+            <TabsTrigger value="users" className="flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4" />
+              <span className="hidden sm:inline">Usuários</span>
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="dashboard" className="space-y-6">
+            <DashboardStats />
+          </TabsContent>
 
           <TabsContent value="materials" className="space-y-6">
             <MaterialForm onMaterialAdded={handleMaterialChange} />
@@ -55,6 +69,10 @@ const Admin = () => {
 
           <TabsContent value="news" className="space-y-6">
             <NewsManagement />
+          </TabsContent>
+
+          <TabsContent value="users" className="space-y-6">
+            <UserManagement />
           </TabsContent>
         </Tabs>
       </div>
