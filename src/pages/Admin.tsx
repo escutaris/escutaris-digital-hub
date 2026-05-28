@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MaterialForm from '@/components/admin/MaterialForm';
 import MaterialsList from '@/components/admin/MaterialsList';
-import { FileText, Upload, List } from 'lucide-react';
+import NewsManagement from '@/components/admin/NewsManagement';
+import { FileText, Upload, List, Newspaper } from 'lucide-react';
 
 const Admin = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -26,7 +27,7 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="materials" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3">
             <TabsTrigger value="materials" className="flex items-center gap-2">
               <Upload className="h-4 w-4" />
               Adicionar Material
@@ -35,6 +36,10 @@ const Admin = () => {
               <List className="h-4 w-4" />
               Gerenciar Materiais
             </TabsTrigger>
+            <TabsTrigger value="news" className="flex items-center gap-2">
+              <Newspaper className="h-4 w-4" />
+              Notícias
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="materials" className="space-y-6">
@@ -42,10 +47,14 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="list" className="space-y-6">
-            <MaterialsList 
+            <MaterialsList
               onMaterialChange={handleMaterialChange}
               refreshTrigger={refreshTrigger}
             />
+          </TabsContent>
+
+          <TabsContent value="news" className="space-y-6">
+            <NewsManagement />
           </TabsContent>
         </Tabs>
       </div>

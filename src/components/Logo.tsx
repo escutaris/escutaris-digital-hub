@@ -11,7 +11,7 @@ const Logo = ({
   return <div className={`flex items-center gap-2 ${className}`}>
       <div className={`relative ${size} overflow-hidden`}>
         <img 
-          src="/lovable-uploads/11df6482-a989-4223-8612-1870dc0418ae.png" 
+          src="/assets/logo-escutaris.png"
           alt="Escutaris Logo" 
           className="absolute inset-0 object-contain" // Keeping object-contain to prevent cropping
         />

@@ -77,7 +77,7 @@ const ConsultorSection = () => {
                 
                 <div className="flex justify-center mb-3">
                   <img 
-                    src="/lovable-uploads/0efc822c-5c6a-4625-8efd-c388134539b7.png" 
+                    src="/assets/consultor-psicossocial.png"
                     alt="Consultor Psicossocial Digital"
                     className="w-16 h-16 object-contain"
                   />
