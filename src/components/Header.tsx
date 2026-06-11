@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { User, BookOpen, Wrench, MessageSquare } from 'lucide-react';
+import { User, BookOpen, Wrench, MessageSquare, Newspaper } from 'lucide-react';
 import Logo from './Logo';
 import { useAuth } from '@/lib/useAuth';
-import LeadCaptureModal from './LeadCaptureModal';
 
 const Header = () => {
-  const { user } = useAuth();
-  const [showLeadModal, setShowLeadModal] = useState(false);
+  const { user, isAdmin } = useAuth();
 
-  const hasLead = () => typeof window !== 'undefined' && !!localStorage.getItem('escutaris_lead');
-
-  const handleCTA = () => {
-    if (hasLead()) {
-      document.getElementById('materiais')?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      setShowLeadModal(true);
-    }
+  const scrollToMateriais = () => {
+    document.getElementById('materiais')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -27,6 +19,7 @@ const Header = () => {
           <Logo size="h-10 w-10" />
 
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
+            <a href="#clube" className="hover:text-escutaris-verde transition-colors">O Clube</a>
             <a href="#materiais" className="hover:text-escutaris-verde transition-colors">Materiais</a>
             <a href="#ferramentas" className="hover:text-escutaris-verde transition-colors">Ferramentas</a>
             <a href="#contato" className="hover:text-escutaris-verde transition-colors">Contato</a>
@@ -34,20 +27,38 @@ const Header = () => {
 
           <div className="flex items-center gap-3">
             {user ? (
-              <Link
-                to="/admin"
-                className="flex items-center gap-1.5 text-sm font-poppins text-escutaris-verde hover:text-escutaris-verde/80 transition-colors"
-              >
-                <User size={15} />
-                Painel
-              </Link>
+              <>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="hidden sm:flex items-center gap-1.5 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors"
+                  >
+                    Painel
+                  </Link>
+                )}
+                <Link
+                  to="/conta"
+                  className="flex items-center gap-1.5 text-sm font-poppins text-escutaris-verde border border-escutaris-verde/30 px-4 py-1.5 rounded-sm hover:border-escutaris-verde transition-colors"
+                >
+                  <User size={15} />
+                  Minha conta
+                </Link>
+              </>
             ) : (
-              <Link
-                to="/login"
-                className="text-sm font-poppins text-escutaris-verde border border-escutaris-verde/30 px-4 py-1.5 rounded-sm hover:border-escutaris-verde transition-colors"
-              >
-                Entrar
-              </Link>
+              <>
+                <Link
+                  to="/login"
+                  className="text-sm font-poppins text-escutaris-verde px-3 py-1.5 hover:text-escutaris-verde/70 transition-colors"
+                >
+                  Entrar
+                </Link>
+                <Link
+                  to="/cadastro"
+                  className="text-sm font-poppins font-medium text-white bg-escutaris-terracota px-4 py-1.5 rounded-sm hover:bg-escutaris-terracota/90 transition-colors"
+                >
+                  Criar conta grátis
+                </Link>
+              </>
             )}
           </div>
         </div>
@@ -57,30 +68,40 @@ const Header = () => {
       <section className="bg-escutaris-verde text-white py-20 md:py-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-xs font-poppins tracking-widest uppercase mb-8 text-white/80">
-            NR-1 &nbsp;·&nbsp; ISO 45003 &nbsp;·&nbsp; Saúde Mental
+            Comunidade &nbsp;·&nbsp; NR-1 &nbsp;·&nbsp; ISO 45003
           </div>
 
           <h1 className="font-cormorant text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6">
-            A referência técnica em<br className="hidden md:block" /> saúde mental no trabalho
+            A comunidade de quem cuida<br className="hidden md:block" /> da saúde mental no trabalho
           </h1>
 
           <p className="font-poppins text-white/70 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Guias, ferramentas e materiais para RH, SST e lideranças.
-            Acesso gratuito — cadastre seu e-mail e comece agora.
+            Materiais técnicos, ferramentas, notícias e atualizações sobre NR-1,
+            ISO 45003 e riscos psicossociais — em um só lugar, feito para RH, SST e lideranças.
+            Entrar é gratuito.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button
-              onClick={handleCTA}
-              className="bg-escutaris-terracota text-white font-poppins font-medium px-8 py-3 rounded-sm hover:bg-escutaris-terracota/90 transition-colors"
-            >
-              Acessar os materiais
-            </button>
+            {user ? (
+              <button
+                onClick={scrollToMateriais}
+                className="bg-escutaris-terracota text-white font-poppins font-medium px-8 py-3 rounded-sm hover:bg-escutaris-terracota/90 transition-colors"
+              >
+                Ir para os materiais
+              </button>
+            ) : (
+              <Link
+                to="/cadastro"
+                className="bg-escutaris-terracota text-white font-poppins font-medium px-8 py-3 rounded-sm hover:bg-escutaris-terracota/90 transition-colors"
+              >
+                Criar conta gratuita
+              </Link>
+            )}
             <a
               href="#materiais"
               className="border border-white/30 text-white font-poppins px-8 py-3 rounded-sm hover:bg-white/10 transition-colors text-center"
             >
-              Ver o que tem aqui
+              Conhecer o acervo
             </a>
           </div>
         </div>
@@ -97,20 +118,15 @@ const Header = () => {
             <Wrench size={15} /> Ferramentas e quiz
           </a>
           <span className="text-border hidden sm:block">|</span>
+          <a href="#clube" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+            <Newspaper size={15} /> O clube
+          </a>
+          <span className="text-border hidden sm:block">|</span>
           <a href="#contato" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
             <MessageSquare size={15} /> Fale com a Escutaris
           </a>
         </div>
       </div>
-
-      <LeadCaptureModal
-        open={showLeadModal}
-        onClose={() => setShowLeadModal(false)}
-        onSuccess={() => {
-          setShowLeadModal(false);
-          document.getElementById('materiais')?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      />
     </>
   );
 };

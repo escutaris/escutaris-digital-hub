@@ -1,10 +1,10 @@
-
 import React from 'react';
 import AuthForm from '@/components/auth/AuthForm';
 import { Link } from 'react-router-dom';
 import Logo from '@/components/Logo';
+import { Check } from 'lucide-react';
 
-const Login = () => {
+const Cadastro = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-escutaris-offwhite p-4">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
@@ -13,20 +13,33 @@ const Login = () => {
             <Logo size="h-16 w-16" className="mb-4" />
           </Link>
           <h2 className="font-cormorant text-3xl font-semibold text-escutaris-verde text-center">
-            Que bom te ver de novo
+            Entre no clube
           </h2>
           <p className="font-poppins text-sm text-muted-foreground text-center mt-2">
-            Entre na sua conta do clube Escutaris
+            Conta gratuita — leva 30 segundos
           </p>
         </div>
 
-        <AuthForm type="login" />
+        <ul className="space-y-2 mb-6">
+          {[
+            'Baixe todos os materiais técnicos',
+            'Guarde favoritos e seu histórico',
+            'Saiba das novidades em primeira mão',
+          ].map((item) => (
+            <li key={item} className="flex items-start gap-2.5 font-poppins text-sm text-foreground/70">
+              <Check size={15} className="text-escutaris-terracota mt-0.5 flex-shrink-0" />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <AuthForm type="signup" />
 
         <div className="mt-6 text-center space-y-2">
           <p className="font-poppins text-sm text-muted-foreground">
-            Ainda não é do clube?{' '}
-            <Link to="/cadastro" className="text-escutaris-terracota hover:underline">
-              Criar conta gratuita
+            Já tem conta?{' '}
+            <Link to="/login" className="text-escutaris-terracota hover:underline">
+              Entrar
             </Link>
           </p>
           <Link to="/" className="font-poppins text-xs text-muted-foreground/70 hover:underline block">
@@ -38,4 +51,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Cadastro;

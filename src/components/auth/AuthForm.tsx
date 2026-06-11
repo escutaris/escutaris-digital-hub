@@ -18,77 +18,92 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 
-const formSchema = z.object({
+const loginSchema = z.object({
+  name: z.string().optional(),
   email: z.string().email({ message: 'Email inválido' }),
   password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }),
+});
+
+const signupSchema = loginSchema.extend({
+  name: z.string().min(2, { message: 'Informe seu nome' }),
 });
 
 const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+
+  const form = useForm<z.infer<typeof signupSchema>>({
+    resolver: zodResolver(type === 'signup' ? signupSchema : loginSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },
   });
-  
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+
+  const onSubmit = async (values: z.infer<typeof signupSchema>) => {
     setLoading(true);
-    console.log('🔄 AuthForm - Starting authentication process');
-    
+
     try {
       if (type === 'login') {
-        console.log('🔄 AuthForm - Starting login for:', values.email);
-        
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
-        
+
         if (error) {
-          console.error('❌ AuthForm - Login error:', error);
           if (error.message.includes('Invalid login credentials')) {
             throw new Error('Email ou senha incorretos. Por favor, tente novamente.');
           }
           throw error;
         }
-        
-        console.log('✅ AuthForm - Login successful for user:', data.user?.id);
-        
+
         toast({
-          title: 'Login realizado com sucesso',
+          title: 'Que bom ter você de volta!',
         });
-        
+
         // Wait for auth state to update before navigating
-        console.log('🚀 AuthForm - Waiting for auth state update...');
         setTimeout(() => {
           setLoading(false);
-          navigate('/admin', { replace: true });
+          navigate('/', { replace: true });
         }, 500);
-        
+
       } else {
-        console.log('🔄 AuthForm - Starting signup for:', values.email);
-        
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
+          options: {
+            data: { full_name: values.name.trim() },
+          },
         });
-        
-        if (error) throw error;
-        
-        toast({
-          title: 'Cadastro realizado',
-          description: 'Verifique seu email para confirmar o cadastro',
-        });
-        
-        setLoading(false);
+
+        if (error) {
+          if (error.message.includes('already registered')) {
+            throw new Error('Este e-mail já tem conta no clube. Use "Entrar".');
+          }
+          throw error;
+        }
+
+        // Quando a confirmação de e-mail está desligada, a sessão já vem criada
+        if (data.session) {
+          toast({
+            title: 'Bem-vinda(o) ao clube!',
+            description: 'Sua conta foi criada. Bons downloads!',
+          });
+          setTimeout(() => {
+            setLoading(false);
+            navigate('/', { replace: true });
+          }, 500);
+        } else {
+          toast({
+            title: 'Quase lá!',
+            description: 'Enviamos um e-mail de confirmação. Clique no link para ativar sua conta.',
+          });
+          setLoading(false);
+        }
       }
     } catch (error: any) {
-      console.error('💥 AuthForm - Authentication error:', error);
       toast({
         variant: 'destructive',
         title: type === 'login' ? 'Falha no login' : 'Falha no cadastro',
@@ -97,10 +112,26 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
       setLoading(false);
     }
   };
-  
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {type === 'signup' && (
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nome</FormLabel>
+                <FormControl>
+                  <Input placeholder="Como podemos te chamar?" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+
         <FormField
           control={form.control}
           name="email"
@@ -114,7 +145,7 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="password"
@@ -128,15 +159,15 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
             </FormItem>
           )}
         />
-        
+
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {type === 'login' ? 'Entrando...' : 'Cadastrando...'}
+              {type === 'login' ? 'Entrando...' : 'Criando sua conta...'}
             </>
           ) : (
-            type === 'login' ? 'Entrar' : 'Cadastrar'
+            type === 'login' ? 'Entrar' : 'Criar conta gratuita'
           )}
         </Button>
       </form>

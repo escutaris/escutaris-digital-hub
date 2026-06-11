@@ -8,6 +8,7 @@ import QuizSection from '../components/QuizSection';
 import ConsultorSection from '../components/ConsultorSection';
 import ReferenciasSection from '../components/ReferenciasSection';
 import DestaquesSection from '../components/DestaquesSection';
+import ClubeSection from '../components/ClubeSection';
 import { FileText, MessageSquare } from 'lucide-react';
 
 const Index = () => {
@@ -21,6 +22,9 @@ const Index = () => {
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
         {/* Destaques / Acesso rápido */}
         <DestaquesSection />
+
+        {/* O Clube: gratuito vs premium */}
+        <ClubeSection />
 
         {/* Materiais técnicos */}
         <MaterialsSection

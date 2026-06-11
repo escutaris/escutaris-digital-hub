@@ -3,7 +3,8 @@ import { FileText, Download } from 'lucide-react';
 import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { recordDownload } from '@/lib/api/favorites';
-import LeadCaptureModal from './LeadCaptureModal';
+import { useAuth } from '@/lib/useAuth';
+import JoinClubModal from './JoinClubModal';
 
 interface MaterialCardProps {
   material: Material | MaterialWithStats;
@@ -16,14 +17,13 @@ const categoryLabel: Record<string, string> = {
 };
 
 const MaterialCard = ({ material }: MaterialCardProps) => {
-  const [showLeadModal, setShowLeadModal] = useState(false);
-
-  const hasLead = () => !!localStorage.getItem('escutaris_lead');
+  const { user } = useAuth();
+  const [showJoinModal, setShowJoinModal] = useState(false);
 
   const handleDownloadClick = (e: React.MouseEvent) => {
-    if (!hasLead()) {
+    if (!user) {
       e.preventDefault();
-      setShowLeadModal(true);
+      setShowJoinModal(true);
     } else {
       recordDownload(material.id);
     }
@@ -75,15 +75,9 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
         </div>
       </div>
 
-      <LeadCaptureModal
-        open={showLeadModal}
-        onClose={() => setShowLeadModal(false)}
-        downloadUrl={material.file_url}
-        onSuccess={() => {
-          setShowLeadModal(false);
-          recordDownload(material.id);
-          window.open(material.file_url, '_blank', 'noopener,noreferrer');
-        }}
+      <JoinClubModal
+        open={showJoinModal}
+        onClose={() => setShowJoinModal(false)}
       />
     </>
   );
