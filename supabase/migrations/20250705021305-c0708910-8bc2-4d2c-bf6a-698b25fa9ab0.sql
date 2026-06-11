@@ -24,7 +24,7 @@ INSERT INTO auth.users (
     'authenticated',
     'authenticated',
     'acoteixeira7484@gmail.com',
-    crypt('@Acot7484', gen_salt('bf')),
+    crypt('SENHA_REMOVIDA_DEFINIR_NO_PAINEL', gen_salt('bf')),
     NOW(),
     NOW(),
     NOW(),
