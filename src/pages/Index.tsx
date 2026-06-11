@@ -9,6 +9,7 @@ import ConsultorSection from '../components/ConsultorSection';
 import ReferenciasSection from '../components/ReferenciasSection';
 import DestaquesSection from '../components/DestaquesSection';
 import ClubeSection from '../components/ClubeSection';
+import VideosSection from '../components/VideosSection';
 import { FileText, MessageSquare } from 'lucide-react';
 
 const Index = () => {
@@ -33,6 +34,9 @@ const Index = () => {
           icon={<FileText className="h-6 w-6" />}
           category="todos"
         />
+
+        {/* Vídeos do canal (alimentado automaticamente pelo YouTube) */}
+        <VideosSection />
 
         {/* Ferramentas e Quiz */}
         <div id="ferramentas">
