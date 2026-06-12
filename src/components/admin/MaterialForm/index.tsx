@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import MaterialFormFields from './MaterialFormFields';
 import FileUploadSection from './FileUploadSection';
 import PdfPreview from './PdfPreview';
+import CoverPicker from './CoverPicker';
 
 interface MaterialFormProps {
   onMaterialAdded: () => void;
@@ -19,6 +20,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState<'material' | 'legislacao' | 'ferramenta'>('material');
   const [isNew, setIsNew] = useState(false);
+  const [coverUrl, setCoverUrl] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
@@ -60,6 +62,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
     setDescription('');
     setCategory('material');
     setIsNew(false);
+    setCoverUrl(null);
     setFile(null);
     
     // Limpar preview
@@ -89,6 +92,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
         description,
         category,
         is_new: isNew,
+        cover_url: coverUrl,
       });
       
       resetForm();
@@ -130,6 +134,8 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
             setIsNew={setIsNew}
           />
           
+          <CoverPicker coverUrl={coverUrl} setCoverUrl={setCoverUrl} />
+
           <FileUploadSection
             file={file}
             onFileChange={handleFileChange}

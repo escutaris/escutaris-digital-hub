@@ -16,7 +16,7 @@ const Header = () => {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-escutaris-offwhite/95 backdrop-blur-sm border-b border-escutaris-verde/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Logo size="h-10 w-10" />
+          <Logo size="h-10 w-10" showName />
 
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
             <a href="#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>

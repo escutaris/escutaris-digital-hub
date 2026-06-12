@@ -7,4 +7,5 @@ export type Material = {
   is_new: boolean;
   created_at: string;
   category: 'material' | 'legislacao' | 'ferramenta';
+  cover_url?: string | null;
 };

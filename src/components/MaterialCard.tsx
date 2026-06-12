@@ -31,7 +31,16 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
 
   return (
     <>
-      <div className="glass-card group flex flex-col h-full">
+      <div className="glass-card group flex flex-col h-full overflow-hidden">
+        {material.cover_url && (
+          <img
+            src={material.cover_url}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            className="w-full aspect-[16/9] object-cover"
+          />
+        )}
         <div className="p-5 flex flex-col h-full">
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
