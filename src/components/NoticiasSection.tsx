@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Newspaper, ArrowRight } from 'lucide-react';
+import { Newspaper, ExternalLink } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface NewsItem {
   id: string;
   title: string;
-  description: string;
   slug: string;
   published_at: string;
   source_name: string | null;
+  source_url: string | null;
 }
 
 const fetchLatestNews = async (): Promise<NewsItem[]> => {
   const { data, error } = await (supabase as any)
     .from('news')
-    .select('id, title, description, slug, published_at, source_name')
+    .select('id, title, slug, published_at, source_name, source_url')
     .eq('is_published', true)
     .order('published_at', { ascending: false })
-    .limit(4);
+    .limit(8);
 
   if (error) {
     console.error('Erro ao buscar notícias:', error);
@@ -39,52 +39,53 @@ const NoticiasSection = () => {
 
   return (
     <section className="section-padding" id="noticias">
-      <div className="mb-8">
+      <div className="mb-6">
         <p className="font-poppins text-xs tracking-widest uppercase text-escutaris-terracota mb-2">
           Curadoria do clube
         </p>
         <h2 className="section-title flex items-center gap-3">
-          <Newspaper className="h-6 w-6" /> O que está acontecendo
+          <Newspaper className="h-6 w-6" /> Últimas notícias
         </h2>
         <p className="font-poppins text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">
-          Normas, decisões e novidades sobre NR-1, riscos psicossociais e saúde mental
-          no trabalho — selecionadas para você não precisar garimpar.
+          O que saiu sobre NR-1, riscos psicossociais e saúde mental no trabalho —
+          direto das fontes, para você ler se quiser.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {noticias.map((n) => (
-          <Link
-            key={n.id}
-            to={`/noticias/${n.slug}`}
-            className="glass-card group p-5 flex flex-col"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              {n.source_name && (
-                <span className="font-poppins text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-0.5 rounded-sm">
-                  {n.source_name}
-                </span>
-              )}
-              <span className="font-poppins text-xs text-muted-foreground">
-                {new Date(n.published_at).toLocaleDateString('pt-BR', {
-                  day: '2-digit', month: 'short', year: 'numeric',
-                })}
-              </span>
+      <div className="bg-white border border-border rounded-lg divide-y divide-border">
+        {noticias.map((n) => {
+          const externa = !!n.source_url;
+          const Linha = (
+            <div className="flex items-start justify-between gap-4 px-5 py-4 group">
+              <div className="min-w-0">
+                <p className="font-poppins text-sm text-foreground leading-snug group-hover:text-escutaris-terracota transition-colors">
+                  {n.title}
+                </p>
+                <p className="font-poppins text-xs text-muted-foreground mt-1">
+                  {n.source_name ?? 'Escutaris'}
+                  {' · '}
+                  {new Date(n.published_at).toLocaleDateString('pt-BR', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                  })}
+                </p>
+              </div>
+              <ExternalLink
+                size={14}
+                className="text-muted-foreground/40 group-hover:text-escutaris-terracota transition-colors flex-shrink-0 mt-1"
+              />
             </div>
+          );
 
-            <h3 className="font-cormorant text-xl font-semibold text-escutaris-verde leading-snug mb-2 line-clamp-2">
-              {n.title}
-            </h3>
-
-            <p className="font-poppins text-xs text-muted-foreground leading-relaxed line-clamp-2 flex-1 mb-3">
-              {n.description}
-            </p>
-
-            <span className="inline-flex items-center gap-1.5 text-xs font-poppins font-medium text-escutaris-terracota group-hover:gap-2.5 transition-all">
-              Ler mais <ArrowRight size={13} />
-            </span>
-          </Link>
-        ))}
+          return externa ? (
+            <a key={n.id} href={n.source_url!} target="_blank" rel="noopener noreferrer" className="block">
+              {Linha}
+            </a>
+          ) : (
+            <Link key={n.id} to={`/noticias/${n.slug}`} className="block">
+              {Linha}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
