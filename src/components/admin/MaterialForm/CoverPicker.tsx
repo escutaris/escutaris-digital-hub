@@ -4,6 +4,24 @@ import { Check, ImageOff } from 'lucide-react';
 
 // Banco de capas da marca (em public/assets/covers/)
 const COVERS = [
+  // capas sóbrias (estilo coleção editorial)
+  'sobria_legislacao',
+  'sobria_material',
+  'sobria_ferramenta',
+  'sobria_nr1',
+  'sobria_nr17',
+  'sobria_nr1_cap15',
+  'sobria_portaria_1419',
+  'sobria_gro_pgr',
+  'sobria_riscos_psicossociais',
+  'sobria_lideranca',
+  'sobria_ambiente_positivo',
+  'sobria_doencas_trabalho',
+  'sobria_c190_oit',
+  'sobria_who_ilo',
+  'sobria_assedio',
+  'sobria_guia_lilas',
+  // fotos da marca
   'analise_relatorios_corporativos',
   'auditoria_conformidade_documentos',
   'colaboracao_resolucao_desafios',

@@ -128,7 +128,10 @@ export default {
 			},
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
-				'cormorant': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+				// identidade Escutaris: títulos em Garet, corpo em Poppins
+				// (token mantém o nome 'cormorant' para não tocar nos componentes)
+				'cormorant': ['Garet', 'Poppins', 'sans-serif'],
+				'garet': ['Garet', 'Poppins', 'sans-serif'],
 				'poppins': ['Poppins', 'sans-serif'],
 			}
 		}
