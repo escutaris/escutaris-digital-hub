@@ -6,25 +6,30 @@ import Logo from '@/components/Logo';
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-escutaris-green-light/20 to-escutaris-terracotta-light/10 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-escutaris-offwhite p-4">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <div className="flex flex-col items-center mb-6">
           <Link to="/">
-            <Logo size="h-20 w-20" className="mb-4" />
+            <Logo size="h-16 w-16" className="mb-4" />
           </Link>
-          <h2 className="text-2xl font-bold text-escutaris-green">Login Administrativo</h2>
-          <p className="text-muted-foreground text-center mt-2">
-            Entre para gerenciar os materiais da Central Escutaris
+          <h2 className="font-cormorant text-3xl font-semibold text-escutaris-verde text-center">
+            Que bom te ver de novo
+          </h2>
+          <p className="font-poppins text-sm text-muted-foreground text-center mt-2">
+            Entre na sua conta da Comunidade Escutaris
           </p>
         </div>
-        
+
         <AuthForm type="login" />
-        
-        <div className="mt-6 text-center">
-          <Link 
-            to="/" 
-            className="text-escutaris-terracotta hover:underline"
-          >
+
+        <div className="mt-6 text-center space-y-2">
+          <p className="font-poppins text-sm text-muted-foreground">
+            Ainda não é da comunidade?{' '}
+            <Link to="/cadastro" className="text-escutaris-terracota hover:underline">
+              Criar conta gratuita
+            </Link>
+          </p>
+          <Link to="/" className="font-poppins text-xs text-muted-foreground/70 hover:underline block">
             Voltar para o site
           </Link>
         </div>

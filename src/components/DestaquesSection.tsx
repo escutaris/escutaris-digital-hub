@@ -4,22 +4,22 @@ import { Brain, Bot, FileText, ExternalLink } from 'lucide-react';
 const DestaquesSection = () => {
   const acessos = [
     {
-      title: 'Quiz Interativo',
-      icon: <Brain className="h-5 w-5" />,
-      url: 'https://quiz-gptconsultor.escutaris.com/',
-      description: 'Avalie suas competências',
-    },
-    {
-      title: 'Consultor Digital',
-      icon: <Bot className="h-5 w-5" />,
-      url: 'https://chatgpt.com/g/g-6758b41e39988191b59b0e966fe3a6a8-consultor-psicossocial-digital',
-      description: 'GPT especializado',
-    },
-    {
       title: 'Materiais Técnicos',
       icon: <FileText className="h-5 w-5" />,
       url: '#materiais',
       description: 'Biblioteca completa',
+    },
+    {
+      title: 'Vídeos',
+      icon: <Brain className="h-5 w-5" />,
+      url: '#videos',
+      description: 'Direto do canal',
+    },
+    {
+      title: 'Publicações',
+      icon: <Bot className="h-5 w-5" />,
+      url: '#publicacoes',
+      description: 'Livro e guias da Dra. Ana Paula',
     },
   ];
 

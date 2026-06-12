@@ -16,6 +16,8 @@ import InstallPWA from "./components/InstallPWA";
 const Admin = lazy(() => import("./pages/Admin"));
 const NewsDetail = lazy(() => import("./pages/NewsDetail"));
 const Favorites = lazy(() => import("./pages/Favorites"));
+const Cadastro = lazy(() => import("./pages/Cadastro"));
+const Conta = lazy(() => import("./pages/Conta"));
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,12 @@ const App = () => (
                 <Route path="/favoritos" element={<Favorites />} />
                 <Route path="/noticias/:slug" element={<NewsDetail />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/conta" element={
+                  <ProtectedRoute>
+                    <Conta />
+                  </ProtectedRoute>
+                } />
                 <Route path="/admin" element={
                   <ProtectedRoute>
                     <Admin />

@@ -21,6 +21,8 @@ interface MaterialFormFieldsProps {
   setCategory: (value: 'material' | 'legislacao' | 'ferramenta') => void;
   isNew: boolean;
   setIsNew: (value: boolean) => void;
+  isAutoral: boolean;
+  setIsAutoral: (value: boolean) => void;
 }
 
 const MaterialFormFields: React.FC<MaterialFormFieldsProps> = ({
@@ -32,6 +34,8 @@ const MaterialFormFields: React.FC<MaterialFormFieldsProps> = ({
   setCategory,
   isNew,
   setIsNew,
+  isAutoral,
+  setIsAutoral,
 }) => {
   return (
     <>
@@ -81,6 +85,15 @@ const MaterialFormFields: React.FC<MaterialFormFieldsProps> = ({
           onCheckedChange={setIsNew}
         />
         <Label htmlFor="is-new">Marcar como "Novo"</Label>
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <Switch
+          id="is-autoral"
+          checked={isAutoral}
+          onCheckedChange={setIsAutoral}
+        />
+        <Label htmlFor="is-autoral">Material autoral da Escutaris (aparece na seção "Materiais Escutaris")</Label>
       </div>
     </>
   );

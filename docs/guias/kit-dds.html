@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartilha DDS - Escutaris: Saúde Mental e Segurança</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Garet';
+            src: url('https://fonts.cdnfonts.com/s/49040/Garet-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Garet';
+            src: url('https://fonts.cdnfonts.com/s/49040/Garet-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Cores da Marca v2 */
+            --poseidon: #222D19;
+            --apollo: #2B180A;
+            --verde-marca: #46603A;
+            --verde-musgo: #565E48;
+            --oliva-neutro: #757050;
+            --ambar: #C98A42;
+            --cobre: #A95821;
+            --terracota: #B95839;
+            --ares: #823112;
+            --brasa: #BE3A1B;
+            --off-white: #F8F7F4;
+            --areia-creme: #F6F0E9;
+            --oat-oliva: #F0F0E8;
+            --cinza-quente: #E4DFD9;
+            --branco: #FEFEFE;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--off-white);
+            color: var(--poseidon);
+            line-height: 1.6;
+            font-size: 11pt;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 0 auto;
+            background: var(--branco);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            page-break-after: always;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* CAPA */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            background-color: var(--verde-marca);
+            color: var(--branco);
+            padding: 40mm 20mm;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('dds-img/dds_capa.jpg') no-repeat center center;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .cover-logo {
+            max-width: 150px;
+            margin-bottom: 30px;
+            background-color: var(--branco);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .cover-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .cover-page h1 {
+            font-family: 'Garet', 'Outfit', sans-serif;
+            font-weight: bold;
+            font-size: 48pt;
+            margin-bottom: 10pt;
+            line-height: 1.1;
+            color: var(--branco);
+        }
+
+        .cover-page .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 20pt;
+            color: var(--areia-creme);
+            margin-bottom: 20pt;
+        }
+
+        .cover-page .description {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 14pt;
+            color: var(--oat-oliva);
+            max-width: 70%;
+            margin-bottom: 40pt;
+        }
+
+        .cover-footer {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 50pt;
+        }
+
+        .cover-footer a {
+            color: var(--ambar);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 10pt;
+            padding: 8px 15px;
+            border: 1px solid var(--ambar);
+            border-radius: 20px;
+        }
+
+        /* INTRODUÇÃO GERAL */
+        .intro-section {
+            background-color: var(--areia-creme);
+            padding: 30px;
+            border-left: 5px solid var(--terracota);
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .intro-section h2 {
+            font-family: 'Garet', 'Outfit', sans-serif;
+            font-weight: bold;
+            font-size: 24pt;
+            color: var(--verde-marca);
+            margin-bottom: 15pt;
+        }
+
+        .intro-section h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 14pt;
+            color: var(--apollo);
+            margin-top: 15pt;
+            margin-bottom: 8pt;
+        }
+
+        .intro-section p {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 11pt;
+            color: var(--poseidon);
+            margin-bottom: 10pt;
+        }
+
+        .intro-section strong {
+            font-weight: 500;
+            color: var(--terracota);
+        }
+
+        /* SEÇÃO DDS INDIVIDUAL */
+        .dds-section-full {
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--cinza-quente);
+        }
+
+        .dds-section-full:last-of-type {
+            border-bottom: none;
+        }
+
+        .dds-section-full h2 {
+            font-family: 'Garet', 'Outfit', sans-serif;
+            font-weight: bold;
+            font-size: 20pt;
+            color: var(--verde-marca);
+            margin-bottom: 10pt;
+            border-left: 4px solid var(--terracota);
+            padding-left: 10px;
+        }
+
+        .dds-section-full h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 14pt;
+            color: var(--apollo);
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+        }
+
+        .dds-section-full h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 12pt;
+            color: var(--verde-musgo);
+            margin-top: 14pt;
+            margin-bottom: 8pt;
+        }
+
+        .dds-section-full p {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 11pt;
+            color: var(--poseidon);
+            margin-bottom: 8pt;
+            text-align: justify;
+        }
+
+        .dds-section-full ul {
+            margin-left: 20px;
+            margin-bottom: 10pt;
+        }
+
+        .dds-section-full li {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 11pt;
+            color: var(--poseidon);
+            margin-bottom: 5pt;
+        }
+
+        .dds-section-full strong {
+            font-weight: 500;
+            color: var(--terracota);
+        }
+
+        .dds-image-container {
+            text-align: center;
+            margin: 20pt 0;
+        }
+
+        .dds-image-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--cinza-quente);
+        }
+
+        /* FOOTER GERAL */
+        .general-footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--poseidon);
+            color: var(--branco);
+            border-top: 5px solid var(--terracota);
+            font-size: 10pt;
+        }
+
+        .general-footer p {
+            margin-bottom: 5px;
+            font-weight: 300;
+        }
+
+        .general-footer a {
+            color: var(--ambar);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+            }
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+            .cover-page {
+                page-break-after: always;
+            }
+            .dds-section-full {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CAPA -->
+    <div class="page cover-page">
+        <div class="cover-content">
+            <div class="cover-logo">
+                <img src="../../public/assets/logo-escutaris.png" alt="Logo Escutaris">
+            </div>
+            <h1>Kit DDS</h1>
+            <p class="subtitle">12 Diálogos Semanais sobre Saúde Mental e Segurança</p>
+            <p class="description">
+                Roteiros de 5 minutos para líderes e SESMT utilizarem com equipes operacionais, promovendo um ambiente de trabalho mais saudável e seguro.
+            </p>
+        </div>
+        <div class="cover-footer">
+            <a href="https://www.escutaris.com.br" target="_blank">www.escutaris.com.br</a>
+            <a href="https://www.linkedin.com/in/escutaris/" target="_blank">LinkedIn</a>
+            <a href="https://www.instagram.com/escutarissaudemental/" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@Escutaris" target="_blank">YouTube</a>
+        </div>
+    </div>
+
+    <!-- INTRODUÇÃO E COMO USAR -->
+    <div class="page">
+        <div class="intro-section">
+            <h2>Apresentação do Kit DDS Escutaris</h2>
+            <p>
+                Bem-vindo ao <strong>Kit DDS Escutaris</strong>, uma coleção de 12 roteiros de Diálogos Diários de Segurança (DDS) especialmente desenvolvidos para líderes e membros do SESMT que desejam promover a saúde mental e a segurança no ambiente corporativo.
+            </p>
+            <p>
+                Cada roteiro foi cuidadosamente elaborado para ser executado em aproximadamente <strong>5 minutos</strong>, oferecendo uma abordagem prática, acessível e alinhada com a missão da Escutaris: <strong>democratizar o acesso qualificado a diagnósticos de saúde mental no trabalho e fatores psicossociais, promovendo ambientes de trabalho mais seguros e saudáveis</strong>.
+            </p>
+            <h3>Objetivo Geral</h3>
+            <p>
+                Fortalecer a cultura de saúde mental nas organizações, capacitando líderes e profissionais de segurança a conduzirem conversas significativas e educativas com suas equipes operacionais, criando um ambiente psicologicamente seguro onde o bem-estar é valorizado como componente essencial da segurança.
+            </p>
+        </div>
+
+        <div class="intro-section" style="background-color: var(--oat-oliva); border-left-color: var(--verde-marca);">
+            <h2>Como Usar Este Kit</h2>
+            <p><strong>1. Escolha o Tema:</strong> Selecione o DDS que melhor se adequa ao momento ou à necessidade da sua equipe.</p>
+            <p><strong>2. Prepare-se:</strong> Leia o roteiro com antecedência para se familiarizar com o conteúdo e as perguntas de reflexão.</p>
+            <p><strong>3. Crie um Espaço Seguro:</strong> Reserve um tempo livre de interrupções, reúna a equipe em um local confortável e estabeleça um tom acolhedor.</p>
+            <p><strong>4. Conduza com Autenticidade:</strong> Use o roteiro como guia, mas sinta-se à vontade para adaptar exemplos e perguntas à realidade da sua equipe.</p>
+            <p><strong>5. Incentive a Participação:</strong> Abra espaço para perguntas, comentários e reflexões. O diálogo é mais valioso que a transmissão de informações.</p>
+            <p><strong>6. Acompanhe:</strong> Observe se há necessidade de suporte adicional para algum membro da equipe e oriente sobre os recursos disponíveis.</p>
+        </div>
+    </div>
+
+    <!-- DDS 1 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 1: O que é Saúde Mental no Trabalho?</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes serão capazes de compreender que saúde mental vai além da ausência de doenças, reconhecendo sua importância para o desempenho profissional e a segurança no ambiente de trabalho.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_saude_mental.jpg" alt="Ilustração de Saúde Mental no Trabalho">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia a todos! Hoje vamos conversar sobre um tema fundamental para o nosso bem-estar e para a segurança de todos: a <strong>saúde mental no trabalho</strong>. Muitas vezes, quando falamos em saúde, pensamos logo na saúde física, não é? Mas a saúde mental é igualmente importante e está diretamente ligada à nossa capacidade de realizar as tarefas diárias, de nos relacionarmos com os colegas e, claro, de trabalhar com segurança.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>Vamos desmistificar um pouco o que é saúde mental. Não se trata apenas de não ter uma doença como depressão ou ansiedade. Saúde mental é um estado de bem-estar onde a pessoa consegue usar suas próprias habilidades, lidar com o estresse normal da vida, trabalhar de forma produtiva e contribuir para a comunidade. No nosso dia a dia, isso significa:</p>
+            <ul>
+                <li><strong>Capacidade de Lidar com Desafios:</strong> Ter a mente saudável nos ajuda a enfrentar os problemas e as pressões do trabalho de forma mais equilibrada, buscando soluções em vez de nos paralisarmos.</li>
+                <li><strong>Impacto na Segurança:</strong> Quando nossa mente está bem, estamos mais atentos, focados e tomamos decisões mais seguras. Um momento de distração ou preocupação excessiva pode levar a um acidente. Por outro lado, quando estamos mentalmente exaustos ou sobrecarregados, nossa atenção diminui, aumentando os riscos.</li>
+                <li><strong>Relações Interpessoais:</strong> A saúde mental também influencia como nos comunicamos e interagimos com os colegas. Um ambiente de trabalho onde as pessoas se sentem bem mentalmente é mais colaborativo e produtivo.</li>
+            </ul>
+            <p><em>Pensem em um dia em que vocês estavam muito preocupados ou cansados. Como isso afetou a concentração de vocês? E a segurança?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Então, lembrem-se: cuidar da nossa saúde mental é tão vital quanto cuidar da nossa saúde física. É um investimento no nosso bem-estar, na nossa produtividade e, acima de tudo, na nossa segurança e na segurança de quem trabalha conosco. Se precisarem de apoio ou sentirem que algo não vai bem, não hesitem em procurar ajuda. Estamos aqui para construir um ambiente de trabalho cada vez mais saudável e seguro para todos. Contem com a gente! Obrigado.</p>
+        </div>
+    </div>
+
+    <!-- DDS 2 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 2: Estresse no Trabalho: Como Identificar e Lidar</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes serão capazes de identificar os sinais de estresse em si e nos colegas, e aprender estratégias simples para lidar com ele no ambiente de trabalho.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_estresse.jpg" alt="Ilustração de Estresse no Trabalho">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, pessoal! Hoje vamos falar sobre algo que, em algum momento, todos nós já sentimos: o <strong>estresse no trabalho</strong>. É uma reação natural do nosso corpo a situações de pressão ou desafio. Um pouco de estresse pode até nos impulsionar, mas quando ele se torna excessivo e constante, pode prejudicar nossa saúde e segurança. Vamos entender como identificá-lo e o que fazer a respeito.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>O estresse se manifesta de diversas formas, tanto no corpo quanto na mente. É importante estar atento a esses sinais, em nós mesmos e nos nossos colegas. Alguns sinais comuns incluem:</p>
+            <ul>
+                <li><strong>Sinais Físicos:</strong> Dores de cabeça frequentes, tensão muscular (principalmente nos ombros e pescoço), cansaço constante, problemas para dormir, alterações no apetite.</li>
+                <li><strong>Sinais Emocionais e Comportamentais:</strong> Irritabilidade, dificuldade de concentração, esquecimento, ansiedade, desânimo, impaciência, ou até mesmo isolamento. No trabalho, isso pode se traduzir em erros mais frequentes, dificuldade em tomar decisões ou em se relacionar com a equipe.</li>
+            </ul>
+            <p>Mas o que podemos fazer para lidar com o estresse? Aqui vão algumas dicas práticas:</p>
+            <ul>
+                <li><strong>Faça Pausas Curtas:</strong> Levante-se, alongue-se, beba água. Pequenas pausas ajudam a clarear a mente.</li>
+                <li><strong>Organize suas Tarefas:</strong> Priorize o que é mais importante e tente fazer uma coisa de cada vez. Isso reduz a sensação de sobrecarga.</li>
+                <li><strong>Comunique-se:</strong> Se estiver se sentindo sobrecarregado, converse com seu líder ou com um colega de confiança. Muitas vezes, compartilhar o que estamos sentindo já ajuda bastante.</li>
+                <li><strong>Respire Fundo:</strong> Em momentos de tensão, faça algumas respirações profundas. Isso acalma o sistema nervoso e ajuda a retomar o controle.</li>
+            </ul>
+            <p><em>Alguém já percebeu algum desses sinais em si ou em um colega? Como vocês costumam lidar com isso?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>O estresse faz parte da vida, mas não podemos deixar que ele nos domine. Identificar os sinais e aplicar pequenas estratégias no dia a dia pode fazer uma grande diferença na nossa saúde mental e, consequentemente, na nossa segurança e produtividade. Lembrem-se de que cuidar de si mesmo é uma atitude de segurança. Se o estresse estiver muito intenso, não hesitem em buscar ajuda profissional. Estamos juntos nessa jornada por um ambiente de trabalho mais saudável e seguro. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 3 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 3: A Importância da Comunicação Aberta: Criando um Ambiente de Escuta</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes compreenderão a importância da comunicação aberta e da escuta ativa para prevenir conflitos, fortalecer o trabalho em equipe e promover um ambiente de apoio e segurança.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_comunicacao.jpg" alt="Ilustração de Comunicação Aberta">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia a todos! Hoje vamos falar sobre uma ferramenta poderosa que temos em nossas mãos e que impacta diretamente nosso dia a dia, tanto no trabalho quanto na vida pessoal: a <strong>comunicação</strong>. Mais especificamente, sobre a importância de uma comunicação aberta e da escuta ativa para construirmos um ambiente de trabalho mais seguro, produtivo e harmonioso.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>Uma comunicação eficaz não é apenas falar, mas também saber ouvir. Quando nos comunicamos de forma aberta e praticamos a escuta ativa, colhemos muitos benefícios:</p>
+            <ul>
+                <li><strong>Prevenção de Conflitos e Erros:</strong> Muitas falhas e desentendimentos no trabalho surgem de uma comunicação deficiente. Ao expressarmos nossas ideias e preocupações de forma clara e ao ouvirmos atentamente o que o outro tem a dizer, evitamos interpretações erradas e minimizamos a chance de erros que podem comprometer a segurança.</li>
+                <li><strong>Fortalecimento do Trabalho em Equipe:</strong> Um ambiente onde todos se sentem à vontade para expressar suas opiniões, fazer perguntas e dar sugestões é um ambiente mais colaborativo. A comunicação aberta constrói confiança e fortalece os laços entre os colegas, tornando a equipe mais unida e eficiente.</li>
+                <li><strong>Promoção de um Ambiente de Apoio:</strong> Saber que podemos conversar sobre dificuldades, seja com um colega ou com a liderança, sem medo de julgamento, é fundamental para a saúde mental. A escuta ativa demonstra empatia e mostra que nos importamos uns com os outros, criando uma rede de apoio essencial.</li>
+            </ul>
+            <p><em>Pensem em alguma situação em que uma boa comunicação evitou um problema ou resolveu uma questão rapidamente. Ou, ao contrário, em um momento em que a falta de comunicação gerou um mal-entendido.</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Lembrem-se: a comunicação é uma via de mão dupla. Falar com clareza e, principalmente, ouvir com atenção são habilidades que podemos e devemos desenvolver todos os dias. Ao praticarmos a comunicação aberta e a escuta ativa, estamos não apenas melhorando nosso trabalho, mas também construindo um ambiente mais seguro, respeitoso e acolhedor para todos. Vamos praticar isso hoje? Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 4 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 4: Equilíbrio entre Vida Pessoal e Profissional</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes aprenderão estratégias para gerenciar o tempo e as demandas do trabalho e da vida pessoal, protegendo seu bem-estar e evitando o esgotamento.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_equilibrio.jpg" alt="Ilustração de Equilíbrio entre Vida Pessoal e Profissional">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, equipe! Hoje vamos abordar um tema crucial para a nossa saúde mental e qualidade de vida: o <strong>equilíbrio entre a vida pessoal e profissional</strong>. Em um mundo cada vez mais conectado e exigente, é fácil nos perdermos nas demandas do trabalho e esquecermos da importância de cuidar de nós mesmos fora daqui. Mas, para sermos produtivos e seguros no trabalho, precisamos estar bem em todas as áreas da nossa vida.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>Manter um bom equilíbrio não significa dividir o tempo exatamente ao meio, mas sim garantir que ambas as áreas recebam a atenção necessária para que você se sinta realizado e descansado. Aqui estão algumas dicas práticas para evitar o esgotamento:</p>
+            <ul>
+                <li><strong>Defina Limites Claros:</strong> Quando o expediente termina, tente desconectar-se do trabalho. Evite verificar e-mails ou mensagens relacionadas ao trabalho fora do horário. Seu tempo pessoal é para você e sua família.</li>
+                <li><strong>Priorize o Autocuidado:</strong> Reserve um tempo para atividades que você gosta e que te relaxam. Pode ser um hobby, praticar exercícios físicos, ler um livro, passar tempo com amigos e família, ou simplesmente descansar. O autocuidado não é um luxo, é uma necessidade.</li>
+                <li><strong>Organize suas Tarefas:</strong> No trabalho, aprenda a priorizar. Nem tudo é urgente. Use ferramentas de organização, faça listas e concentre-se em uma tarefa por vez. Isso reduz a sensação de sobrecarga e aumenta a eficiência.</li>
+                <li><strong>Aprenda a Dizer 'Não':</strong> Às vezes, aceitamos mais responsabilidades do que podemos realmente dar conta, seja no trabalho ou na vida pessoal. Saber dizer 'não' de forma educada e assertiva é uma habilidade importante para proteger seu tempo e energia.</li>
+            </ul>
+            <p><em>Alguém aqui já sentiu que a balança estava pendendo demais para um lado? Como vocês tentam equilibrar essas duas áreas da vida?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Lembrem-se, o equilíbrio entre vida pessoal e profissional é um processo contínuo e individual. O que funciona para um pode não funcionar para outro. O importante é estar atento aos sinais do seu corpo e da sua mente, e fazer ajustes quando necessário. Cuidar de si mesmo é a melhor forma de garantir que você terá energia e disposição para dar o seu melhor, tanto no trabalho quanto na vida. Vamos buscar esse equilíbrio juntos! Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 5 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 5: Prevenção ao Burnout: Sinais de Alerta e Autocuidado</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes conhecerão os sintomas da Síndrome de Burnout e a importância de práticas de autocuidado e pausas para preveni-la.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_burnout.jpg" alt="Ilustração de Prevenção ao Burnout">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia a todos! Hoje vamos falar sobre um assunto muito sério e que tem se tornado cada vez mais comum: a <strong>Síndrome de Burnout</strong>, ou esgotamento profissional. É um estado de exaustão física, emocional e mental causado por estresse prolongado no trabalho. Identificar os sinais precocemente e adotar medidas de prevenção é fundamental para a nossa saúde e segurança.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>O Burnout não acontece da noite para o dia. Ele é um processo gradual. Por isso, é crucial estarmos atentos aos sinais de alerta, tanto em nós mesmos quanto nos nossos colegas:</p>
+            <ul>
+                <li><strong>Exaustão Extrema:</strong> Sensação de cansaço constante, falta de energia, dificuldade para dormir ou acordar já se sentindo exausto.</li>
+                <li><strong>Distanciamento e Cinismo:</strong> Sentimento de alienação em relação ao trabalho, perda de interesse, irritabilidade com colegas ou clientes, e uma atitude negativa ou cínica.</li>
+                <li><strong>Queda no Desempenho:</strong> Dificuldade de concentração, esquecimentos frequentes, diminuição da produtividade e sensação de incompetência ou falta de realização profissional.</li>
+            </ul>
+            <p>Para prevenir o Burnout, o autocuidado é a nossa principal ferramenta. Algumas práticas importantes incluem:</p>
+            <ul>
+                <li><strong>Respeite seus Limites:</strong> Não tente abraçar o mundo. Reconheça quando você está sobrecarregado e peça ajuda ou renegocie prazos.</li>
+                <li><strong>Faça Pausas Reais:</strong> Durante o expediente, faça pequenas pausas para descansar a mente. Nas folgas e férias, desconecte-se verdadeiramente do trabalho.</li>
+                <li><strong>Cuide da Saúde Física:</strong> Alimentação equilibrada, sono de qualidade e exercícios físicos regulares são a base para uma boa saúde mental.</li>
+                <li><strong>Busque Apoio:</strong> Se você estiver sentindo os sintomas do Burnout, não hesite em procurar ajuda profissional, como um psicólogo ou médico.</li>
+            </ul>
+            <p><em>Vocês já se sentiram próximos desse esgotamento? O que vocês fazem para recarregar as energias?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>O Burnout é um sinal de que algo precisa mudar, seja na forma como trabalhamos ou na forma como lidamos com o estresse. Não ignorem os sinais. Cuidar da saúde mental é uma responsabilidade de todos nós. Vamos criar um ambiente onde possamos falar sobre isso abertamente e nos apoiar mutuamente. Lembrem-se: a prevenção é sempre o melhor caminho. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 6 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 6: Resiliência no Ambiente de Trabalho: Desenvolvendo a Capacidade de Superação</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes compreenderão o conceito de resiliência e aprenderão como desenvolver a capacidade de se adaptar e se recuperar de desafios e adversidades no ambiente de trabalho.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_resiliencia.jpg" alt="Ilustração de Resiliência no Ambiente de Trabalho">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, pessoal! Hoje vamos conversar sobre uma qualidade muito importante para o nosso dia a dia, tanto no trabalho quanto na vida: a <strong>resiliência</strong>. Resiliência é a capacidade de se adaptar e se recuperar diante de situações difíceis, desafios e pressões. No ambiente de trabalho, onde enfrentamos mudanças e imprevistos, ser resiliente é fundamental para manter a saúde mental e a produtividade.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>Ser resiliente não significa não sentir o impacto dos problemas, mas sim ter a capacidade de superá-los e aprender com eles. Como podemos desenvolver essa capacidade?</p>
+            <ul>
+                <li><strong>Mude a Perspectiva:</strong> Em vez de ver um problema como um obstáculo intransponível, tente encará-lo como um desafio ou uma oportunidade de aprendizado. Pergunte-se: O que posso aprender com essa situação?</li>
+                <li><strong>Desenvolva o Autoconhecimento:</strong> Entender suas próprias emoções, seus pontos fortes e fracos, ajuda a reagir de forma mais consciente e menos impulsiva diante das adversidades. Saiba o que te fortalece e o que te desgasta.</li>
+                <li><strong>Construa uma Rede de Apoio:</strong> Ter pessoas em quem confiar, seja na família, entre amigos ou colegas de trabalho, é essencial. Compartilhar suas preocupações e receber apoio pode aliviar o peso dos desafios.</li>
+                <li><strong>Cuide do seu Bem-Estar:</strong> Práticas de autocuidado, como uma boa alimentação, exercícios físicos, sono adequado e momentos de lazer, fortalecem sua mente e corpo, tornando-o mais preparado para lidar com o estresse.</li>
+            </ul>
+            <p><em>Alguém pode compartilhar uma situação em que a resiliência foi importante para superar um desafio no trabalho?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>A resiliência é como um músculo: quanto mais a exercitamos, mais forte ela se torna. Desenvolver essa capacidade nos ajuda a navegar pelas incertezas do dia a dia com mais confiança e menos desgaste. Lembrem-se que é normal ter dias difíceis, mas o importante é como nos levantamos depois de cada queda. Vamos juntos fortalecer nossa resiliência para um ambiente de trabalho mais seguro e saudável. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 7 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 7: Apoio Mútuo e Empatia entre Colegas: Construindo uma Rede de Suporte</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes compreenderão a importância de observar e oferecer suporte aos colegas, criando um ambiente de trabalho mais humano, empático e seguro.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_apoio_mutuo.jpg" alt="Ilustração de Apoio Mútuo e Empatia">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, pessoal! Hoje vamos falar sobre um pilar fundamental para um ambiente de trabalho saudável e seguro: o <strong>apoio mútuo e a empatia entre colegas</strong>. Muitas vezes, estamos tão focados em nossas próprias tarefas que esquecemos de olhar para o lado. Mas somos uma equipe, e o bem-estar de um impacta o de todos. Vamos entender como podemos fortalecer essa rede de suporte.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>A empatia é a capacidade de se colocar no lugar do outro, de tentar entender o que ele está sentindo ou passando. Quando praticamos a empatia e oferecemos apoio, construímos um ambiente de trabalho muito mais positivo:</p>
+            <ul>
+                <li><strong>Identificação de Sinais de Dificuldade:</strong> Ao estarmos atentos aos nossos colegas, podemos perceber sinais de que alguém não está bem – seja por estresse, cansaço, preocupação ou dificuldade em alguma tarefa. Uma mudança de comportamento, um silêncio incomum ou uma irritabilidade podem ser indicativos.</li>
+                <li><strong>Oferecer Ajuda e Escuta:</strong> Não é preciso ser um especialista para ajudar. Muitas vezes, um simples "Você está bem?", "Precisa de ajuda?" ou "Quer conversar?" pode fazer toda a diferença. Oferecer uma escuta sem julgamentos é um dos maiores apoios que podemos dar.</li>
+                <li><strong>Fortalecimento da Segurança:</strong> Um colega que se sente apoiado e compreendido tende a trabalhar com mais confiança e menos pressão. Isso reduz a probabilidade de erros e acidentes, pois a mente está mais tranquila e focada. Além disso, um ambiente empático incentiva a comunicação de riscos e problemas.</li>
+            </ul>
+            <p><em>Pensem em um momento em que um colega te ajudou ou te ouviu quando você precisava. Como isso fez você se sentir?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Lembrem-se: somos mais fortes juntos. Praticar o apoio mútuo e a empatia não é apenas uma questão de boa convivência, é uma estratégia de segurança e de promoção da saúde mental no trabalho. Vamos olhar uns para os outros com mais atenção e carinho, construindo uma rede de suporte onde todos se sintam valorizados e seguros. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 8 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 8: Como Lidar com a Pressão e Cobrança: Estratégias Saudáveis</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes aprenderão técnicas para gerenciar a pressão e a cobrança do dia a dia no trabalho sem comprometer a saúde mental.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_pressao.jpg" alt="Ilustração de Como Lidar com Pressão e Cobrança">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, pessoal! No ambiente de trabalho, é natural que enfrentemos momentos de <strong>pressão e cobrança</strong>. Prazos apertados, metas desafiadoras, a necessidade de entregar resultados – tudo isso faz parte da nossa rotina. O desafio é aprender a lidar com essa pressão de forma saudável, sem deixar que ela afete nossa saúde mental e, consequentemente, nossa segurança. Vamos conversar sobre isso hoje.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>A pressão, quando bem gerenciada, pode até nos motivar. O problema surge quando ela se torna excessiva e nos sentimos sobrecarregados. Aqui estão algumas estratégias para lidar com a pressão e a cobrança de maneira mais eficaz:</p>
+            <ul>
+                <li><strong>Organize e Priorize:</strong> Diante de muitas tarefas, o primeiro passo é organizar. Faça uma lista do que precisa ser feito, identifique as prioridades e comece pelo mais importante. Dividir grandes tarefas em etapas menores também ajuda a diminuir a sensação de sobrecarga.</li>
+                <li><strong>Comunique-se com Clareza:</strong> Se você se sentir sobrecarregado ou se um prazo parecer irreal, converse com seu líder. Explique a situação, apresente alternativas e peça ajuda se necessário. Uma comunicação transparente pode evitar frustrações e encontrar soluções em conjunto.</li>
+                <li><strong>Faça Pausas Estratégicas:</strong> Mesmo em momentos de alta pressão, pequenas pausas são essenciais. Levante-se, respire fundo, beba água. Isso ajuda a clarear a mente, reduzir a tensão e até a encontrar novas perspectivas para o problema.</li>
+                <li><strong>Foque no que Você Pode Controlar:</strong> Muitas vezes, nos preocupamos com coisas que estão fora do nosso controle. Concentre sua energia no que você pode realmente fazer e influenciar. Aceitar que nem tudo depende de você pode aliviar um grande peso.</li>
+            </ul>
+            <p><em>Alguém tem alguma estratégia que usa para lidar com a pressão no dia a dia?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Lidar com a pressão e a cobrança é uma habilidade que podemos desenvolver. Ao adotarmos essas estratégias, não apenas protegemos nossa saúde mental, mas também nos tornamos mais eficientes e seguros em nossas atividades. Lembrem-se: o objetivo não é eliminar a pressão, mas sim aprender a navegar por ela sem se afogar. Contem com o apoio da equipe e da liderança. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 9 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 9: Saúde Mental e Segurança Física: A Conexão Indissociável</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes compreenderão como o estado mental (atenção, foco, estresse) impacta diretamente a segurança física e a prevenção de acidentes no ambiente de trabalho.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_seguranca_fisica.jpg" alt="Ilustração de Saúde Mental e Segurança Física">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, pessoal! Hoje vamos falar sobre uma conexão muito importante que nem sempre percebemos claramente: a relação entre a <strong>saúde mental e a segurança física</strong> no nosso dia a dia de trabalho. Muitas vezes, pensamos na segurança como algo puramente físico – equipamentos de proteção, procedimentos, sinalização. Mas a verdade é que a nossa mente desempenha um papel crucial na prevenção de acidentes. Vamos entender como.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>A mente e o corpo estão intrinsecamente ligados. Quando nossa saúde mental não está em dia, isso pode se refletir diretamente na nossa capacidade de realizar as tarefas com segurança:</p>
+            <ul>
+                <li><strong>Atenção e Foco:</strong> Um estado mental alterado por estresse, ansiedade, preocupação ou cansaço excessivo pode diminuir drasticamente nossa capacidade de atenção e concentração. Isso nos torna mais propensos a cometer erros, a não perceber riscos iminentes ou a reagir tardiamente a situações perigosas. Por exemplo, um momento de distração ao operar uma máquina pode ter consequências graves.</li>
+                <li><strong>Tomada de Decisão:</strong> A saúde mental influencia a clareza do nosso raciocínio. Sob pressão ou com a mente perturbada, podemos tomar decisões precipitadas ou inadequadas, colocando a nós mesmos e aos colegas em risco. A impulsividade ou a lentidão na resposta podem ser fatais em certas situações.</li>
+                <li><strong>Reação a Imprevistos:</strong> Em situações de emergência, a capacidade de reagir rapidamente e de forma eficaz é vital. Um estado de exaustão mental pode retardar nossos reflexos e nossa habilidade de agir sob pressão, aumentando a vulnerabilidade a acidentes.</li>
+            </ul>
+            <p><em>Pensem em um dia em que vocês estavam preocupados ou com a cabeça cheia. Vocês sentiram que a atenção de vocês estava diferente? Como isso poderia impactar a segurança de vocês ou de um colega?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>A mensagem de hoje é clara: cuidar da nossa saúde mental é uma medida de segurança fundamental. Uma mente saudável é uma mente atenta, focada e capaz de tomar as melhores decisões, protegendo a nós mesmos e a todos ao nosso redor. Não podemos separar o bem-estar mental do bem-estar físico. Vamos continuar priorizando a nossa saúde mental para garantir um ambiente de trabalho cada vez mais seguro para todos. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 10 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 10: O Papel do Líder na Saúde Mental da Equipe: Como Apoiar</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os líderes e membros do SESMT compreenderão seu papel fundamental na promoção de um ambiente psicologicamente seguro e no apoio à saúde mental da equipe.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_lider.jpg" alt="Ilustração do Papel do Líder na Saúde Mental da Equipe">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, líderes e colegas do SESMT! Hoje, vamos direcionar nossa conversa para um papel crucial que todos nós, em posições de liderança ou suporte, desempenhamos: o <strong>papel do líder na saúde mental da equipe</strong>. Nossa influência vai muito além das tarefas e metas; ela molda o ambiente de trabalho e impacta diretamente o bem-estar de cada colaborador. Entender como podemos ser agentes de apoio é fundamental.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>Como líderes, temos a responsabilidade e a oportunidade de criar um ambiente onde a saúde mental seja valorizada e protegida. Aqui estão algumas formas práticas de como podemos apoiar nossas equipes:</p>
+            <ul>
+                <li><strong>Seja um Observador Atento:</strong> Esteja presente e observe as mudanças de comportamento em seus liderados. Um colaborador que antes era engajado e agora está isolado, irritado ou com queda de desempenho pode estar sinalizando que algo não vai bem. Não ignore esses sinais.</li>
+                <li><strong>Promova a Comunicação Aberta:</strong> Crie um espaço seguro onde os colaboradores se sintam à vontade para expressar suas preocupações, dificuldades e ideias, sem medo de julgamento ou retaliação. Incentive a escuta ativa e a empatia dentro da equipe.</li>
+                <li><strong>Gerencie a Carga de Trabalho:</strong> Esteja atento à distribuição de tarefas e aos prazos. O excesso de trabalho e a pressão constante são grandes gatilhos para o estresse e o Burnout. Ajude a equipe a priorizar e a encontrar um ritmo saudável.</li>
+                <li><strong>Ofereça Flexibilidade e Apoio:</strong> Sempre que possível, considere a flexibilidade para lidar com questões pessoais. Mostre que a empresa se importa com o bem-estar do indivíduo. Se identificar que um colaborador precisa de ajuda profissional, oriente-o sobre os recursos disponíveis (se houver na empresa) ou incentive a busca por apoio externo.</li>
+                <li><strong>Seja Exemplo:</strong> Cuide da sua própria saúde mental. Ao demonstrar que você também valoriza seu bem-estar, você encoraja sua equipe a fazer o mesmo. Peça ajuda quando precisar e mostre que vulnerabilidade não é fraqueza.</li>
+            </ul>
+            <p><em>Alguém já teve uma experiência positiva com um líder que demonstrou preocupação com a saúde mental da equipe? Como isso impactou vocês?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Nosso papel como líderes é construir um ambiente de trabalho não apenas produtivo, mas também psicologicamente seguro e acolhedor. Ao estarmos atentos, promovendo a comunicação, gerenciando a carga de trabalho e sendo um exemplo, contribuímos significativamente para a saúde mental e a segurança de todos. Lembrem-se: uma equipe com saúde mental é uma equipe mais engajada, resiliente e segura. Contem com o apoio da empresa para desenvolverem essa liderança. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 11 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 11: Recursos de Apoio Disponíveis na Empresa: Onde Buscar Ajuda</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes serão informados sobre os canais e profissionais disponíveis para suporte em saúde mental, tanto dentro quanto fora da empresa.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_recursos_apoio.jpg" alt="Ilustração de Recursos de Apoio Disponíveis">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, pessoal! Já conversamos bastante sobre a importância da saúde mental e como identificar sinais de estresse e esgotamento. Hoje, quero focar em um ponto muito importante: <strong>onde buscar ajuda</strong> quando precisamos. É fundamental saber que ninguém precisa enfrentar dificuldades sozinho e que existem recursos e pessoas prontas para oferecer suporte. Vamos conhecer alguns deles.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>É natural que, em algum momento, precisemos de um apoio extra para lidar com as pressões da vida e do trabalho. A boa notícia é que existem caminhos para isso. Aqui na empresa, e também fora dela, temos opções:</p>
+            <p><strong>Canais Internos de Apoio:</strong></p>
+            <ul>
+                <li><strong>SESMT (Serviços Especializados em Engenharia de Segurança e em Medicina do Trabalho):</strong> Nossa equipe de segurança e saúde está sempre disponível para ouvir e orientar. Eles podem ser o primeiro ponto de contato para conversar sobre questões de saúde mental e direcionar para o apoio adequado.</li>
+                <li><strong>Recursos Humanos:</strong> O RH também é um canal importante para buscar orientação sobre políticas da empresa relacionadas à saúde e bem-estar, ou para discutir questões que afetam seu desempenho e bem-estar no trabalho.</li>
+                <li><strong>Liderança Direta:</strong> Como seus líderes, estamos aqui para apoiar. Se você se sentir confortável, converse conosco. Podemos não ter todas as respostas, mas podemos ajudar a encontrar o caminho ou a ajustar a carga de trabalho, se necessário.</li>
+            </ul>
+            <p><strong>Recursos Externos e Profissionais:</strong></p>
+            <ul>
+                <li><strong>Profissionais de Saúde Mental:</strong> Psicólogos e psiquiatras são os profissionais mais indicados para diagnosticar e tratar questões de saúde mental. Não há vergonha em procurar ajuda profissional; pelo contrário, é um ato de coragem e autocuidado.</li>
+                <li><strong>Serviços de Apoio Psicológico:</strong> Algumas empresas oferecem programas de apoio psicológico ou convênios com clínicas. Verifiquem se a nossa empresa possui esse benefício e como acessá-lo.</li>
+                <li><strong>Canais de Ajuda Gratuitos:</strong> Existem organizações como o CVV (Centro de Valorização da Vida), que oferece apoio emocional e prevenção do suicídio, atendendo de forma gratuita e sigilosa por telefone (188), e-mail e chat.</li>
+            </ul>
+            <p><em>O mais importante é não guardar para si. Falar sobre o que está sentindo é o primeiro passo para encontrar a solução. Alguém já utilizou algum desses canais ou conhece outros que poderiam ser úteis?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Lembrem-se: buscar ajuda é um sinal de força, não de fraqueza. A saúde mental é um direito e uma necessidade. Não hesitem em procurar os recursos disponíveis, seja aqui na empresa ou fora dela. Estamos construindo um ambiente onde o cuidado com a saúde mental é prioridade. Contem conosco para o que precisarem. Obrigado!</p>
+        </div>
+    </div>
+
+    <!-- DDS 12 -->
+    <div class="page">
+        <div class="dds-section-full">
+            <h2>DDS 12: Celebrando Pequenas Conquistas e o Bem-Estar Geral</h2>
+            <h3>Objetivo Específico</h3>
+            <p>Ao final deste DDS, os participantes compreenderão a importância de reconhecer o progresso, valorizar o trabalho e promover um ambiente positivo, celebrando pequenas conquistas para o bem-estar geral.</p>
+            <div class="dds-image-container">
+                <img src="dds-img/dds_conquistas.jpg" alt="Ilustração de Celebrando Pequenas Conquistas">
+            </div>
+            <h3>Roteiro</h3>
+            <h4>Introdução (1 minuto)</h4>
+            <p>Bom dia, equipe! Chegamos ao nosso último DDS desta série, e para fechar com chave de ouro, vamos falar sobre algo que muitas vezes esquecemos de fazer: <strong>celebrar as pequenas conquistas e valorizar o nosso bem-estar geral</strong>. No dia a dia corrido, é fácil focar apenas nos desafios e nas metas futuras, mas reconhecer o que já foi feito e o progresso alcançado é fundamental para a nossa motivação e saúde mental.</p>
+            <h4>Desenvolvimento (3 minutos)</h4>
+            <p>Celebrar não significa apenas grandes festas. Significa reconhecer o valor do nosso esforço e do nosso trabalho, por menor que pareça. Isso traz muitos benefícios:</p>
+            <ul>
+                <li><strong>Aumento da Motivação e Engajamento:</strong> Quando reconhecemos as pequenas vitórias, liberamos hormônios que nos dão uma sensação de prazer e nos motivam a continuar. Isso fortalece o engajamento com o trabalho e com a equipe.</li>
+                <li><strong>Fortalecimento da Autoestima e Confiança:</strong> Celebrar o progresso, mesmo que pequeno, nos lembra de nossas capacidades e do impacto positivo que geramos. Isso eleva a autoestima e a confiança, tanto individualmente quanto como equipe.</li>
+                <li><strong>Promoção de um Ambiente Positivo:</strong> Um ambiente onde as conquistas são reconhecidas e celebradas é um ambiente mais leve, positivo e colaborativo. Isso contribui para a saúde mental de todos, reduzindo o estresse e aumentando a satisfação no trabalho.</li>
+                <li><strong>Conexão com o Propósito:</strong> Ao celebrar, relembramos o propósito do nosso trabalho e como cada um contribui para o sucesso geral. Isso nos ajuda a manter a perspectiva e a valorizar o nosso papel.</li>
+            </ul>
+            <p><em>Pensem em algo que vocês realizaram recentemente, por menor que seja, e que lhes trouxe satisfação. Pode ser ter finalizado uma tarefa difícil, ajudado um colega, ou aprendido algo novo. Como vocês se sentiram?</em> (Pausa para breve reflexão ou uma pergunta rápida para a equipe).</p>
+            <h4>Conclusão (1 minuto)</h4>
+            <p>Lembrem-se de que a jornada é feita de passos, e cada passo merece ser reconhecido. Vamos criar o hábito de celebrar as pequenas conquistas, valorizar o esforço de cada um e promover um ambiente onde o bem-estar geral seja uma prioridade. Ao fazer isso, não apenas melhoramos nosso dia a dia, mas também construímos uma equipe mais feliz, produtiva e segura. Obrigado a todos por participarem desta série de DDS!</p>
+        </div>
+    </div>
+
+    <!-- FOOTER GERAL -->
+    <div class="page general-footer">
+        <p><strong>Escutaris | Diagnóstico dos Fatores Psicossociais e Saúde Mental no Trabalho</strong></p>
+        <p>Transformando ambientes de trabalho através de soluções personalizadas em saúde mental no trabalho.</p>
+        <p>Contato: <a href="mailto:contato@escutaris.com.br">contato@escutaris.com.br</a> | WhatsApp: (75) 8221-7557</p>
+        <p style="margin-top: 15px;">© 2026 Escutaris. Todos os direitos reservados.</p>
+    </div>
+</body>
+</html>

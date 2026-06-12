@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia Prático | Conversas de Acolhimento</title>
+  <style>
+    :root {
+      --ink: #222D19;
+      --muted: #757050;
+      --paper: #F8F7F4;
+      --white: #FEFEFE;
+      --line: #E4DFD9;
+      --blue: #222D19;
+      --teal: #46603A;
+      --teal-soft: #F0F0E8;
+      --gold: #C98A42;
+      --coral: #B95839;
+      --soft-coral: #F6F0E9;
+      --terracotta: #B95839;
+      --ares: #823112;
+      --radius: 8px;
+      --shadow: 0 18px 60px rgba(34, 45, 25, 0.10);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a { color: var(--teal); }
+
+    .page {
+      width: min(1120px, calc(100% - 28px));
+      margin: 28px auto;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1.1fr);
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .hero-side {
+      padding: 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 48px;
+      border-right: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .brand-logo {
+      width: 204px;
+      max-width: 68%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-main {
+      padding: 42px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #F6F0E9;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 850;
+      font-size: 0.78rem;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(2.3rem, 5vw, 4.35rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: rgba(255,255,255,0.82);
+      font-size: 1.08rem;
+    }
+
+    .hero-note {
+      color: rgba(255,255,255,0.76);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+
+    .hero-note strong { color: var(--white); }
+
+    .content {
+      padding: 36px 42px 44px;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .toc-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--white);
+      min-height: 96px;
+    }
+
+    .toc-item strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .toc-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: var(--ink);
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0 0 14px; }
+
+    .muted { color: var(--muted); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: var(--white);
+    }
+
+    .box.teal {
+      border-color: #E4DFD9;
+      background: var(--teal-soft);
+    }
+
+    .box.warn {
+      border-color: #B95839;
+      background: var(--soft-coral);
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: var(--white);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--terracotta);
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .phrase-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .phrase-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .phrase-list li {
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .good h3 { color: var(--teal); }
+    .avoid h3 { color: var(--coral); }
+
+    .script {
+      border-left: 4px solid var(--terracotta);
+      background: #F6F0E9;
+      padding: 18px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .script p {
+      margin-bottom: 12px;
+    }
+
+    .checklist {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+
+    .checklist li {
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.35em;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 2px solid var(--terracotta);
+    }
+
+    .cta {
+      margin-top: 8px;
+      background: var(--blue);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.82);
+      margin: 8px 0 0;
+    }
+
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 16px;
+      color: var(--white);
+      background: var(--terracotta);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .references {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media print {
+      body { background: var(--white); }
+      .page { box-shadow: none; margin: 0; width: 100%; border: 0; }
+      .cta { break-inside: avoid; }
+      section { break-inside: avoid; }
+    }
+
+    @media (max-width: 880px) {
+      .hero,
+      .grid-2,
+      .grid-3,
+      .phrase-table,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-side,
+      .hero-main,
+      .content {
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .toc {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-side">
+        <img class="brand-logo" src="../../public/assets/logo-escutaris.png" alt="Escutaris">
+        <p class="hero-note"><strong>Material para líderes, RH e SESMT.</strong><br>Use este guia para acolher com respeito, reconhecer limites do papel da liderança e encaminhar com segurança.</p>
+      </div>
+      <div class="hero-main">
+        <p class="eyebrow">Guia prático</p>
+        <h1>Como conversar com um colaborador em sofrimento emocional</h1>
+        <p class="subtitle">Frases recomendadas, frases a evitar e um roteiro simples para conduzir uma conversa de acolhimento sem tentar diagnosticar, minimizar ou resolver tudo sozinho.</p>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="toc" aria-label="Resumo do guia">
+        <div class="toc-item"><strong>1. Preparar</strong><span>Ambiente, intenção e segurança psicológica.</span></div>
+        <div class="toc-item"><strong>2. Acolher</strong><span>Como abrir a conversa sem invadir.</span></div>
+        <div class="toc-item"><strong>3. Encaminhar</strong><span>Quando envolver RH, SESMT, saúde ocupacional ou rede externa.</span></div>
+        <div class="toc-item"><strong>4. Acompanhar</strong><span>Combinados, registro mínimo e retorno.</span></div>
+      </div>
+
+      <section>
+        <h2>Antes de tudo: o papel do líder</h2>
+        <div class="grid-3">
+          <div class="box teal">
+            <h3>O líder pode</h3>
+            <p>Perceber mudanças, abrir espaço de conversa, escutar sem julgamento, ajustar demandas possíveis e conectar a pessoa à rede adequada.</p>
+          </div>
+          <div class="box">
+            <h3>O líder não deve</h3>
+            <p>Diagnosticar, investigar vida pessoal, prometer sigilo absoluto, fazer terapia informal ou assumir sozinho uma situação de risco.</p>
+          </div>
+          <div class="box warn">
+            <h3>Em risco imediato</h3>
+            <p>Se houver risco de autoagressão, suicídio, violência, confusão intensa ou incapacidade de permanecer em segurança, acione ajuda imediata.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Sinais de atenção</h2>
+        <p class="muted">Um sinal isolado não significa adoecimento. O ponto de atenção é a mudança persistente no funcionamento, no comportamento ou na segurança da pessoa.</p>
+        <div class="grid-2">
+          <div class="box">
+            <h3>No comportamento</h3>
+            <ul class="checklist">
+              <li>Isolamento incomum ou irritabilidade frequente.</li>
+              <li>Choro recorrente, apatia ou perda visível de energia.</li>
+              <li>Conflitos que aumentam sem explicação clara.</li>
+              <li>Falas de desesperança, inutilidade ou exaustão extrema.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>No trabalho</h3>
+            <ul class="checklist">
+              <li>Queda brusca de desempenho ou concentração.</li>
+              <li>Atrasos, faltas ou presenteísmo recorrente.</li>
+              <li>Erros incomuns em tarefas conhecidas.</li>
+              <li>Dificuldade para cumprir prazos antes administráveis.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Roteiro ACOLHER</h2>
+        <p class="muted">Use como trilho de conversa. Não precisa virar formulário. O objetivo é criar segurança, entender necessidades e combinar próximos passos.</p>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <h3>Aproxime-se com cuidado</h3>
+              <p>Escolha um local reservado, sem interrupções. Fale sobre fatos observáveis, não sobre rótulos.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Convide, não pressione</h3>
+              <p>Abra espaço para a pessoa falar, mas respeite se ela não quiser conversar naquele momento.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Ouça sem julgamento</h3>
+              <p>Evite interromper, corrigir, comparar ou trazer soluções rápidas. Escutar bem já reduz isolamento.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Levante necessidades de trabalho</h3>
+              <p>Pergunte o que está dificultando a rotina e que ajustes realistas poderiam ajudar.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Humanize e valide</h3>
+              <p>Reconheça o sofrimento sem dramatizar. Validação não é concordar com tudo; é mostrar que você levou a pessoa a sério.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Encaminhe com responsabilidade</h3>
+              <p>Ofereça caminhos: RH, saúde ocupacional, programa de apoio, serviço médico, rede de confiança ou ajuda externa.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Retorne e acompanhe</h3>
+              <p>Combine uma próxima conversa, acompanhe ajustes e registre apenas o necessário para gestão e proteção da pessoa.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Frases recomendadas e frases a evitar</h2>
+        <div class="phrase-table">
+          <div class="box good">
+            <h3>Ajuda dizer</h3>
+            <ul class="phrase-list">
+              <li>“Percebi algumas mudanças e queria saber como você está.”</li>
+              <li>“Você não precisa me contar detalhes que não quiser.”</li>
+              <li>“O que no trabalho está tornando este momento mais difícil?”</li>
+              <li>“Que tipo de apoio seria útil agora?”</li>
+              <li>“Podemos pensar juntos em próximos passos.”</li>
+              <li>“Se houver risco à sua segurança, eu vou precisar acionar ajuda.”</li>
+            </ul>
+          </div>
+          <div class="box avoid">
+            <h3>Evite dizer</h3>
+            <ul class="phrase-list">
+              <li>“Isso é coisa da sua cabeça.”</li>
+              <li>“Todo mundo está sobrecarregado.”</li>
+              <li>“Você precisa ser mais forte.”</li>
+              <li>“Eu sei exatamente como você se sente.”</li>
+              <li>“Me conta tudo, senão não consigo ajudar.”</li>
+              <li>“Prometo que não vou contar para ninguém.”</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Roteiro de conversa em 10 minutos</h2>
+        <div class="script">
+          <p><strong>1. Abrir:</strong> “Queria conversar em particular porque percebi algumas mudanças nos últimos dias. Este é um espaço de cuidado, não de cobrança.”</p>
+          <p><strong>2. Convidar:</strong> “Como você tem se sentido em relação ao trabalho?”</p>
+          <p><strong>3. Escutar:</strong> “Obrigado por me contar. O que tem pesado mais neste momento?”</p>
+          <p><strong>4. Focar no trabalho:</strong> “Existe algo na carga, nos prazos, nas relações, no papel ou nas mudanças recentes que esteja contribuindo para isso?”</p>
+          <p><strong>5. Apoiar:</strong> “Que ajuste possível ajudaria nos próximos dias?”</p>
+          <p><strong>6. Encaminhar:</strong> “Acho importante envolvermos o apoio adequado. Podemos acionar RH, saúde ocupacional ou outro recurso de confiança?”</p>
+          <p><strong>7. Fechar:</strong> “Vamos combinar um próximo contato e acompanhar se o ajuste ajudou.”</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Quando acionar ajuda</h2>
+        <div class="grid-2">
+          <div class="box">
+            <h3>Acione RH, SESMT ou saúde ocupacional quando</h3>
+            <ul class="checklist">
+              <li>O sofrimento interfere de forma relevante na rotina ou segurança.</li>
+              <li>Há afastamento, retorno ao trabalho ou necessidade de ajuste.</li>
+              <li>Há relato de assédio, violência, discriminação ou conflito grave.</li>
+              <li>O líder não sabe como apoiar sem ultrapassar seu papel.</li>
+            </ul>
+          </div>
+          <div class="box warn">
+            <h3>Procure ajuda imediata quando</h3>
+            <ul class="checklist">
+              <li>A pessoa fala em morte, suicídio, autoagressão ou despedida.</li>
+              <li>Há plano, meio disponível ou comportamento impulsivo.</li>
+              <li>A pessoa parece incapaz de permanecer segura sozinha.</li>
+              <li>Existe ameaça de violência contra si ou contra terceiros.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:16px;">No Brasil, o CVV oferece apoio emocional gratuito pelo telefone 188, 24 horas por dia. Em emergência médica, acione o serviço local de urgência, como o SAMU 192, quando disponível.</p>
+      </section>
+
+      <section>
+        <h2>O que registrar</h2>
+        <div class="grid-2">
+          <div class="box teal">
+            <h3>Registre o necessário</h3>
+            <ul class="checklist">
+              <li>Data da conversa e participantes.</li>
+              <li>Demandas de trabalho relatadas, sem detalhes íntimos desnecessários.</li>
+              <li>Ajustes combinados e responsáveis.</li>
+              <li>Encaminhamentos realizados e data de acompanhamento.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Evite registrar</h3>
+            <ul class="checklist">
+              <li>Diagnósticos não informados por profissional habilitado.</li>
+              <li>Julgamentos sobre personalidade ou intenção.</li>
+              <li>Detalhes pessoais que não tenham relação com o trabalho.</li>
+              <li>Promessas de confidencialidade absoluta.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Checklist final para líderes</h2>
+        <div class="box">
+          <ul class="checklist">
+            <li>Conversei em local reservado e sem interrupções.</li>
+            <li>Falei sobre fatos observáveis, sem diagnóstico ou julgamento.</li>
+            <li>Ouvi mais do que expliquei.</li>
+            <li>Perguntei sobre fatores de trabalho que podem estar contribuindo.</li>
+            <li>Combinei próximos passos realistas.</li>
+            <li>Acionei apoio adequado quando necessário.</li>
+            <li>Marquei um retorno para acompanhar.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="cta">
+          <div>
+            <h2 style="color:var(--white); margin:0;">Quer preparar suas lideranças para conversas seguras?</h2>
+            <p>A Escutaris apoia empresas na identificação de riscos psicossociais, capacitação de líderes e construção de planos de ação com base técnica.</p>
+          </div>
+          <a href="https://www.escutaris.com.br/" target="_blank" rel="noopener">Falar com a Escutaris</a>
+        </div>
+      </section>
+
+      <section class="references">
+        <h2>Referências usadas</h2>
+        <p>HSE Talking Toolkit: Preventing work-related stress; HSE Management Standards; CVV - Centro de Valorização da Vida; boas práticas de primeiros cuidados psicológicos e encaminhamento responsável. Este material é educativo e não substitui avaliação clínica, jurídica ou ocupacional especializada.</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

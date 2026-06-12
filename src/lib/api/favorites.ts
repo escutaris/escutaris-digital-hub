@@ -114,6 +114,49 @@ export const getMaterialDownloadCount = async (materialId: string): Promise<numb
   return count || 0;
 };
 
+export interface UserDownloadEntry {
+  id: string;
+  downloaded_at: string;
+  title: string;
+  file_url: string;
+}
+
+export const fetchUserDownloads = async (): Promise<UserDownloadEntry[]> => {
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('download_history')
+    .select(`
+      id,
+      downloaded_at,
+      materials:material_id (
+        title,
+        file_url
+      )
+    `)
+    .eq('user_id', user.id)
+    .order('downloaded_at', { ascending: false })
+    .limit(50);
+
+  if (error) {
+    console.error('Erro ao buscar histórico de downloads:', error);
+    return [];
+  }
+
+  return (data || [])
+    .filter((d: any) => d.materials)
+    .map((d: any) => ({
+      id: d.id,
+      downloaded_at: d.downloaded_at,
+      title: d.materials.title,
+      file_url: d.materials.file_url,
+    }));
+};
+
 export const fetchFavoriteMaterials = async (): Promise<MaterialWithStats[]> => {
   const { data: { user } } = await supabase.auth.getUser();
   
@@ -132,7 +175,8 @@ export const fetchFavoriteMaterials = async (): Promise<MaterialWithStats[]> => 
         file_url,
         category,
         is_new,
-        created_at
+        created_at,
+        cover_url
       )
     `)
     .eq('user_id', user.id)

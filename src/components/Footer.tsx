@@ -17,19 +17,52 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-3 font-poppins text-sm">
+            <span className="font-poppins text-xs tracking-widest uppercase text-white/40">
+              Escutaris
+            </span>
             <a
-              href="https://escutaris.com.br/"
+              href="https://www.escutaris.com.br/"
               target="_blank"
               rel="noreferrer"
               className="hover:text-white transition-colors"
             >
-              escutaris.com.br
+              www.escutaris.com.br
             </a>
             <a
               href="mailto:contato@escutaris.com.br"
               className="hover:text-white transition-colors"
             >
               contato@escutaris.com.br
+            </a>
+          </div>
+
+          <div className="flex flex-col gap-3 font-poppins text-sm">
+            <span className="font-poppins text-xs tracking-widest uppercase text-white/40">
+              Publicações
+            </span>
+            <a
+              href="https://livrotrabalhodoi.escutaris.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Quando o Trabalho Dói — o livro
+            </a>
+            <a
+              href="https://guia.anateixeiramed.com.br/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Do Relato à Tomada de Decisão — guia técnico
+            </a>
+            <a
+              href="https://guiaquandoelafala.escutaris.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Quando Ela Fala, Todo Mundo Ouve — guia
             </a>
           </div>
 
