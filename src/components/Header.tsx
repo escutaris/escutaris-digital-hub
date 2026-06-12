@@ -21,7 +21,7 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
             <a href="#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>
             <a href="#materiais" className="hover:text-escutaris-verde transition-colors">Materiais</a>
-            <a href="#ferramentas" className="hover:text-escutaris-verde transition-colors">Ferramentas</a>
+            <a href="#videos" className="hover:text-escutaris-verde transition-colors">Vídeos</a>
             <a href="#contato" className="hover:text-escutaris-verde transition-colors">Contato</a>
           </div>
 
@@ -121,8 +121,8 @@ const Header = () => {
             <BookOpen size={15} /> Materiais técnicos
           </a>
           <span className="text-border hidden sm:block">|</span>
-          <a href="#ferramentas" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
-            <Wrench size={15} /> Ferramentas e quiz
+          <a href="#videos" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+            <Wrench size={15} /> Vídeos
           </a>
           <span className="text-border hidden sm:block">|</span>
           <a href="#comunidade" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">

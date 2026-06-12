@@ -4,8 +4,6 @@ import MaterialsSection from '../components/MaterialsSection';
 import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
-import QuizSection from '../components/QuizSection';
-import ConsultorSection from '../components/ConsultorSection';
 import ReferenciasSection from '../components/ReferenciasSection';
 import DestaquesSection from '../components/DestaquesSection';
 import ClubeSection from '../components/ClubeSection';
@@ -42,12 +40,6 @@ const Index = () => {
 
         {/* Notícias aprovadas pela curadoria */}
         <NoticiasSection />
-
-        {/* Ferramentas e Quiz */}
-        <div id="ferramentas">
-          <QuizSection />
-          <ConsultorSection />
-        </div>
 
         {/* Publicações da Dra. Ana Paula */}
         <PublicacoesSection />

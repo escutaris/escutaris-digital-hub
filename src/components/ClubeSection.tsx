@@ -7,7 +7,7 @@ const beneficiosGratuitos = [
   'Biblioteca completa de materiais técnicos para baixar',
   'Favoritos e histórico — retome de onde parou',
   'Notícias e atualizações sobre NR-1 e riscos psicossociais',
-  'Quiz para avaliar suas competências',
+  'Vídeos novos do canal toda semana',
 ];
 
 const beneficiosPremium = [
