@@ -1,11 +1,19 @@
--- Perfis dos membros do clube: criados automaticamente no cadastro
+-- Perfis dos membros do clube: criados automaticamente no cadastro.
+-- ATENÇÃO: no banco de produção já existia uma tabela profiles legada
+-- (name, bio, area, crm, whatsapp, avatar_url) — por isso a coluna de
+-- nome é `name`, e `email` é adicionada via ALTER.
 CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID NOT NULL PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  full_name TEXT,
-  email TEXT,
+  name TEXT,
+  bio TEXT,
+  area TEXT,
+  crm TEXT,
+  whatsapp TEXT,
+  avatar_url TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
 
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
@@ -39,7 +47,7 @@ SECURITY DEFINER SET search_path = public
 AS $$
 BEGIN
   BEGIN
-    INSERT INTO public.profiles (id, full_name, email)
+    INSERT INTO public.profiles (id, name, email)
     VALUES (
       NEW.id,
       COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
