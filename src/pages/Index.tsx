@@ -7,6 +7,7 @@ import WhatsAppButton from '../components/WhatsAppButton';
 import ReferenciasSection from '../components/ReferenciasSection';
 import DestaquesSection from '../components/DestaquesSection';
 import ClubeSection from '../components/ClubeSection';
+import MateriaisEscutarisSection from '../components/MateriaisEscutarisSection';
 import VideosSection from '../components/VideosSection';
 import NoticiasSection from '../components/NoticiasSection';
 import PublicacoesSection from '../components/PublicacoesSection';
@@ -26,6 +27,9 @@ const Index = () => {
 
         {/* A Comunidade: gratuito vs premium */}
         <ClubeSection />
+
+        {/* Materiais autorais da Escutaris */}
+        <MateriaisEscutarisSection />
 
         {/* Materiais técnicos */}
         <MaterialsSection

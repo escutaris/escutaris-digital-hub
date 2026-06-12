@@ -20,6 +20,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState<'material' | 'legislacao' | 'ferramenta'>('material');
   const [isNew, setIsNew] = useState(false);
+  const [isAutoral, setIsAutoral] = useState(false);
   const [coverUrl, setCoverUrl] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -62,6 +63,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
     setDescription('');
     setCategory('material');
     setIsNew(false);
+    setIsAutoral(false);
     setCoverUrl(null);
     setFile(null);
     
@@ -92,6 +94,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
         description,
         category,
         is_new: isNew,
+        is_autoral: isAutoral,
         cover_url: coverUrl,
       });
       
@@ -132,6 +135,8 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ onMaterialAdded }) => {
             setCategory={setCategory}
             isNew={isNew}
             setIsNew={setIsNew}
+            isAutoral={isAutoral}
+            setIsAutoral={setIsAutoral}
           />
           
           <CoverPicker coverUrl={coverUrl} setCoverUrl={setCoverUrl} />

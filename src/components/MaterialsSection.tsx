@@ -39,9 +39,11 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
     }
   }, [error, toast]);
 
-  const filteredMaterials = category && category !== 'todos' 
-    ? materials?.filter(m => m.category === category)
-    : materials;
+  // materiais autorais têm seção própria (Materiais Escutaris)
+  const naoAutorais = materials?.filter(m => !m.is_autoral);
+  const filteredMaterials = category && category !== 'todos'
+    ? naoAutorais?.filter(m => m.category === category)
+    : naoAutorais;
 
   // Paginação
   const totalPages = filteredMaterials ? Math.ceil(filteredMaterials.length / itemsPerPage) : 0;

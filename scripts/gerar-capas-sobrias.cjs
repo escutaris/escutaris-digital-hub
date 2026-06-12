@@ -52,6 +52,7 @@ const CAPAS = [
   { nome: 'sobria_assedio',              cat: 'prevencao',  sigla: ['Prevenção', 'ao Assédio'],  simbolo: 'dialogo',   fonte: 'MTE' },
   { nome: 'sobria_guia_lilas',           cat: 'prevencao',  sigla: ['Guia', 'Lilás'],            simbolo: 'escudo',    fonte: 'CGU • 2024' },
   { nome: 'sobria_acolhimento',          cat: 'prevencao',  sigla: ['Conversas de', 'Acolhimento'], simbolo: 'dialogo',   fonte: 'ESCUTARIS • GUIA PRÁTICO' },
+  { nome: 'sobria_10_condutas',          cat: 'prevencao',  sigla: ['10', 'Condutas'],            simbolo: 'rede',      fonte: 'ESCUTARIS • CARTILHA' },
   // genéricas para o seletor do admin
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },

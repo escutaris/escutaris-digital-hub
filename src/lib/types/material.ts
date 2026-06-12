@@ -8,4 +8,5 @@ export type Material = {
   created_at: string;
   category: 'material' | 'legislacao' | 'ferramenta';
   cover_url?: string | null;
+  is_autoral?: boolean;
 };
