@@ -56,6 +56,14 @@ const Footer = () => {
             >
               Do Relato à Tomada de Decisão — guia técnico
             </a>
+            <a
+              href="https://guiaquandoelafala.escutaris.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Quando Ela Fala, Todo Mundo Ouve — guia
+            </a>
           </div>
 
           <div className="flex gap-5">
