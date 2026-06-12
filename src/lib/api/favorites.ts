@@ -175,7 +175,8 @@ export const fetchFavoriteMaterials = async (): Promise<MaterialWithStats[]> => 
         file_url,
         category,
         is_new,
-        created_at
+        created_at,
+        cover_url
       )
     `)
     .eq('user_id', user.id)
