@@ -19,7 +19,7 @@ const Header = () => {
           <Logo size="h-10 w-10" />
 
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
-            <a href="#clube" className="hover:text-escutaris-verde transition-colors">O Clube</a>
+            <a href="#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>
             <a href="#materiais" className="hover:text-escutaris-verde transition-colors">Materiais</a>
             <a href="#ferramentas" className="hover:text-escutaris-verde transition-colors">Ferramentas</a>
             <a href="#contato" className="hover:text-escutaris-verde transition-colors">Contato</a>
@@ -65,8 +65,15 @@ const Header = () => {
       </nav>
 
       {/* Hero */}
-      <section className="bg-escutaris-verde text-white py-20 md:py-28 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative bg-escutaris-verde text-white py-20 md:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <img
+          src="/assets/comunidade-hero.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-escutaris-verde/70 via-escutaris-verde/60 to-escutaris-verde/90" />
+        <div className="relative max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-xs font-poppins tracking-widest uppercase mb-8 text-white/80">
             Comunidade &nbsp;·&nbsp; NR-1 &nbsp;·&nbsp; ISO 45003
           </div>
@@ -118,8 +125,8 @@ const Header = () => {
             <Wrench size={15} /> Ferramentas e quiz
           </a>
           <span className="text-border hidden sm:block">|</span>
-          <a href="#clube" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
-            <Newspaper size={15} /> O clube
+          <a href="#comunidade" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+            <Newspaper size={15} /> A comunidade
           </a>
           <span className="text-border hidden sm:block">|</span>
           <a href="#contato" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">

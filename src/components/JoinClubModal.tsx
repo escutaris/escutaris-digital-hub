@@ -35,7 +35,7 @@ const JoinClubModal = ({ open, onClose }: Props) => {
             Conteúdo para membros
           </p>
           <h2 className="font-cormorant text-3xl font-semibold text-escutaris-verde leading-tight mb-2">
-            Entre no clube para baixar
+            Entre na comunidade para baixar
           </h2>
           <p className="font-poppins text-sm text-muted-foreground mb-5 leading-relaxed">
             A conta é gratuita e leva 30 segundos. Como membro, você ganha:
@@ -45,7 +45,7 @@ const JoinClubModal = ({ open, onClose }: Props) => {
             {[
               'Download de todos os materiais técnicos',
               'Favoritos e histórico dos seus downloads',
-              'Aviso em primeira mão das novidades do clube',
+              'Aviso em primeira mão das novidades da comunidade',
             ].map((item) => (
               <li key={item} className="flex items-start gap-2.5 font-poppins text-sm text-foreground/80 leading-relaxed">
                 <Check size={15} className="text-escutaris-terracota mt-0.5 flex-shrink-0" />

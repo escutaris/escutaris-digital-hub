@@ -25,7 +25,7 @@ const Index = () => {
         {/* Destaques / Acesso rápido */}
         <DestaquesSection />
 
-        {/* O Clube: gratuito vs premium */}
+        {/* A Comunidade: gratuito vs premium */}
         <ClubeSection />
 
         {/* Materiais técnicos */}

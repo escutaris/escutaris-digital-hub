@@ -80,7 +80,7 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
 
         if (error) {
           if (error.message.includes('already registered')) {
-            throw new Error('Este e-mail já tem conta no clube. Use "Entrar".');
+            throw new Error('Este e-mail já tem conta na comunidade. Use "Entrar".');
           }
           throw error;
         }
@@ -88,7 +88,7 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
         // Quando a confirmação de e-mail está desligada, a sessão já vem criada
         if (data.session) {
           toast({
-            title: 'Bem-vinda(o) ao clube!',
+            title: 'Bem-vinda(o) à comunidade!',
             description: 'Sua conta foi criada. Bons downloads!',
           });
           setTimeout(() => {

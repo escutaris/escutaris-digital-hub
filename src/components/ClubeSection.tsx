@@ -14,23 +14,34 @@ const beneficiosPremium = [
   'Ferramentas completas e modelos prontos para aplicar na empresa',
   'Consultor Psicossocial Digital incluído na assinatura',
   'Conteúdos exclusivos e aprofundados',
-  'Condição especial para quem entrar no clube desde o início',
+  'Condição especial para quem entrar na comunidade desde o início',
 ];
 
 const ClubeSection = () => {
   const { user } = useAuth();
 
   return (
-    <section className="section-padding" id="clube">
-      <div className="text-center mb-10">
-        <p className="font-poppins text-xs tracking-widest uppercase text-escutaris-terracota mb-3">
-          Como funciona
-        </p>
-        <h2 className="section-title mb-3">Um clube para quem cuida de quem trabalha</h2>
-        <p className="font-poppins text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
-          Profissionais de RH, SST e lideranças reunidos em torno de um mesmo objetivo:
-          ambientes de trabalho mais saudáveis — com técnica, norma e prática.
-        </p>
+    <section className="section-padding" id="comunidade">
+      <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+        <div>
+          <p className="font-poppins text-xs tracking-widest uppercase text-escutaris-terracota mb-3">
+            Como funciona
+          </p>
+          <h2 className="section-title mb-3">
+            Uma comunidade para quem cuida de quem trabalha
+          </h2>
+          <p className="font-poppins text-sm text-muted-foreground leading-relaxed">
+            Profissionais de RH, SST e lideranças reunidos em torno de um mesmo objetivo:
+            ambientes de trabalho mais saudáveis — com técnica, norma e prática.
+            A Comunidade Escutaris é o lugar onde esse conhecimento circula.
+          </p>
+        </div>
+        <img
+          src="/assets/comunidade-grupo.webp"
+          alt="Profissionais conversando em grupo em ambiente de trabalho acolhedor"
+          loading="lazy"
+          className="rounded-lg shadow-md w-full object-cover aspect-[3/2]"
+        />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -40,7 +51,7 @@ const ClubeSection = () => {
             Disponível agora
           </p>
           <h3 className="font-cormorant text-3xl font-semibold text-escutaris-verde mb-1">
-            Membro do clube
+            Membro da comunidade
           </h3>
           <p className="font-poppins text-sm text-muted-foreground mb-6">
             Gratuito — conta criada em 30 segundos
@@ -60,7 +71,7 @@ const ClubeSection = () => {
               href="#materiais"
               className="bg-escutaris-verde text-white font-poppins font-medium text-center px-6 py-3 rounded-sm hover:bg-escutaris-verde/90 transition-colors"
             >
-              Você já é do clube — explorar materiais
+              Você já é da comunidade — explorar materiais
             </a>
           ) : (
             <Link
@@ -85,7 +96,7 @@ const ClubeSection = () => {
             Membro premium
           </h3>
           <p className="font-poppins text-sm text-white/60 mb-6">
-            Assinatura — quem já for do clube fica sabendo primeiro
+            Assinatura — quem já é da comunidade fica sabendo primeiro
           </p>
 
           <ul className="space-y-3 mb-8 flex-1">
@@ -106,7 +117,7 @@ const ClubeSection = () => {
               to="/cadastro"
               className="border border-white/30 text-white font-poppins font-medium text-center px-6 py-3 rounded-sm hover:bg-white/10 transition-colors"
             >
-              Entrar no clube para ser avisada(o)
+              Entrar na comunidade para ser avisada(o)
             </Link>
           )}
         </div>

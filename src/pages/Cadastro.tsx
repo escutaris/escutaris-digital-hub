@@ -13,7 +13,7 @@ const Cadastro = () => {
             <Logo size="h-16 w-16" className="mb-4" />
           </Link>
           <h2 className="font-cormorant text-3xl font-semibold text-escutaris-verde text-center">
-            Entre no clube
+            Entre na Comunidade Escutaris
           </h2>
           <p className="font-poppins text-sm text-muted-foreground text-center mt-2">
             Conta gratuita — leva 30 segundos

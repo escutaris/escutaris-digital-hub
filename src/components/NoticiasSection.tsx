@@ -41,7 +41,7 @@ const NoticiasSection = () => {
     <section className="section-padding" id="noticias">
       <div className="mb-6">
         <p className="font-poppins text-xs tracking-widest uppercase text-escutaris-terracota mb-2">
-          Curadoria do clube
+          Curadoria da comunidade
         </p>
         <h2 className="section-title flex items-center gap-3">
           <Newspaper className="h-6 w-6" /> Últimas notícias

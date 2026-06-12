@@ -44,7 +44,7 @@ const Conta = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
           <div>
             <p className="font-poppins text-xs tracking-widest uppercase text-escutaris-terracota mb-2">
-              Membro do clube
+              Membro da comunidade
             </p>
             <h1 className="font-cormorant text-4xl font-semibold text-escutaris-verde">
               Olá, {nome}

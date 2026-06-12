@@ -16,7 +16,7 @@ const Login = () => {
             Que bom te ver de novo
           </h2>
           <p className="font-poppins text-sm text-muted-foreground text-center mt-2">
-            Entre na sua conta do clube Escutaris
+            Entre na sua conta da Comunidade Escutaris
           </p>
         </div>
 
@@ -24,7 +24,7 @@ const Login = () => {
 
         <div className="mt-6 text-center space-y-2">
           <p className="font-poppins text-sm text-muted-foreground">
-            Ainda não é do clube?{' '}
+            Ainda não é da comunidade?{' '}
             <Link to="/cadastro" className="text-escutaris-terracota hover:underline">
               Criar conta gratuita
             </Link>
