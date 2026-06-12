@@ -48,12 +48,14 @@ BEGIN
     SELECT unnest(xpath('/a:feed/a:entry', feed_xml, ns)) AS entry
   ),
   parsed AS (
+    -- caminhos absolutos: o fragmento extraído vira um documento cujo
+    -- elemento raiz é <entry>, então busca relativa não encontra nada
     SELECT
-      (xpath('yt:videoId/text()', entry, ns))[1]::TEXT AS video_id,
-      (xpath('a:title/text()', entry, ns))[1]::TEXT AS title,
-      (xpath('media:group/media:description/text()', entry, ns))[1]::TEXT AS description,
-      ((xpath('media:group/media:thumbnail/@url', entry, ns))[1])::TEXT AS thumbnail_url,
-      ((xpath('a:published/text()', entry, ns))[1])::TEXT::TIMESTAMPTZ AS published_at
+      (xpath('/a:entry/yt:videoId/text()', entry, ns))[1]::TEXT AS video_id,
+      (xpath('/a:entry/a:title/text()', entry, ns))[1]::TEXT AS title,
+      (xpath('/a:entry/media:group/media:description/text()', entry, ns))[1]::TEXT AS description,
+      ((xpath('/a:entry/media:group/media:thumbnail/@url', entry, ns))[1])::TEXT AS thumbnail_url,
+      ((xpath('/a:entry/a:published/text()', entry, ns))[1])::TEXT::TIMESTAMPTZ AS published_at
     FROM entries
   ),
   ins AS (

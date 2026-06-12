@@ -97,24 +97,26 @@ BEGIN
       FOREACH item IN ARRAY items LOOP
         EXIT WHEN per_source >= 5;
         BEGIN
-          v_title := (xpath('title/text()', item))[1]::TEXT;
+          -- caminhos absolutos: cada item extraído vira um documento próprio,
+          -- então a busca precisa partir da raiz (/item ou /a:entry)
+          v_title := (xpath('/item/title/text()', item))[1]::TEXT;
           IF v_title IS NULL THEN
-            v_title := (xpath('a:title/text()', item, ns))[1]::TEXT;
+            v_title := (xpath('/a:entry/a:title/text()', item, ns))[1]::TEXT;
           END IF;
 
-          v_link := (xpath('link/text()', item))[1]::TEXT;
+          v_link := (xpath('/item/link/text()', item))[1]::TEXT;
           IF v_link IS NULL THEN
-            v_link := ((xpath('a:link/@href', item, ns))[1])::TEXT;
+            v_link := ((xpath('/a:entry/a:link/@href', item, ns))[1])::TEXT;
           END IF;
 
-          v_desc := (xpath('description/text()', item))[1]::TEXT;
+          v_desc := (xpath('/item/description/text()', item))[1]::TEXT;
           IF v_desc IS NULL THEN
-            v_desc := (xpath('a:summary/text()', item, ns))[1]::TEXT;
+            v_desc := (xpath('/a:entry/a:summary/text()', item, ns))[1]::TEXT;
           END IF;
 
-          v_pub := (xpath('pubDate/text()', item))[1]::TEXT;
+          v_pub := (xpath('/item/pubDate/text()', item))[1]::TEXT;
           IF v_pub IS NULL THEN
-            v_pub := (xpath('a:published/text()', item, ns))[1]::TEXT;
+            v_pub := (xpath('/a:entry/a:published/text()', item, ns))[1]::TEXT;
           END IF;
 
           CONTINUE WHEN v_title IS NULL OR v_link IS NULL;
