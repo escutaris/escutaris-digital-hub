@@ -38,13 +38,18 @@ LANGUAGE plpgsql
 SECURITY DEFINER SET search_path = public
 AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, email)
-  VALUES (
-    NEW.id,
-    COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
-    NEW.email
-  )
-  ON CONFLICT (id) DO NOTHING;
+  BEGIN
+    INSERT INTO public.profiles (id, full_name, email)
+    VALUES (
+      NEW.id,
+      COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
+      NEW.email
+    )
+    ON CONFLICT (id) DO NOTHING;
+  EXCEPTION WHEN OTHERS THEN
+    -- a ficha nunca pode impedir o cadastro; se falhar, cria-se depois
+    RAISE WARNING 'Falha ao criar perfil para %: %', NEW.id, SQLERRM;
+  END;
   RETURN NEW;
 END;
 $$;
