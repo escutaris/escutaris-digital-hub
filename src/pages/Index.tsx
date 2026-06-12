@@ -10,6 +10,7 @@ import ReferenciasSection from '../components/ReferenciasSection';
 import DestaquesSection from '../components/DestaquesSection';
 import ClubeSection from '../components/ClubeSection';
 import VideosSection from '../components/VideosSection';
+import NoticiasSection from '../components/NoticiasSection';
 import { FileText, MessageSquare } from 'lucide-react';
 
 const Index = () => {
@@ -37,6 +38,9 @@ const Index = () => {
 
         {/* Vídeos do canal (alimentado automaticamente pelo YouTube) */}
         <VideosSection />
+
+        {/* Notícias aprovadas pela curadoria */}
+        <NoticiasSection />
 
         {/* Ferramentas e Quiz */}
         <div id="ferramentas">

@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS public.videos (
 ALTER TABLE public.videos ENABLE ROW LEVEL SECURITY;
 
 -- Qualquer visitante pode ver os vídeos; só o robô (função) escreve
+DROP POLICY IF EXISTS "Anyone can view videos" ON public.videos;
 CREATE POLICY "Anyone can view videos"
 ON public.videos
 FOR SELECT
@@ -81,7 +82,7 @@ $$;
 -- A função roda como o robô do banco; visitantes não podem chamá-la
 REVOKE EXECUTE ON FUNCTION public.fetch_youtube_videos() FROM PUBLIC, anon, authenticated;
 
--- Agenda: confere o canal a cada 6 horas
+-- Agenda: confere o canal 1x ao dia (18h na Bahia = 21h UTC)
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'fetch-youtube-videos') THEN
@@ -89,7 +90,7 @@ BEGIN
   END IF;
   PERFORM cron.schedule(
     'fetch-youtube-videos',
-    '15 */6 * * *',
+    '0 21 * * *',
     'SELECT public.fetch_youtube_videos()'
   );
 END;
