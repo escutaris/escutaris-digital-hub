@@ -15,7 +15,7 @@ const JoinClubModal = ({ open, onClose }: Props) => {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'rgba(28, 53, 32, 0.7)' }}
+      style={{ background: 'rgba(34, 45, 25, 0.7)' }}
       onClick={onClose}
     >
       <div

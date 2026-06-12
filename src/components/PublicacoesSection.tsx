@@ -21,7 +21,7 @@ const PublicacoesSection = () => {
           href="https://livrotrabalhodoi.escutaris.com/"
           target="_blank"
           rel="noreferrer"
-          className="group bg-escutaris-verde text-white rounded-lg p-8 flex flex-col hover:shadow-xl transition-shadow"
+          className="group bg-escutaris-verde-marca text-white rounded-lg p-8 flex flex-col hover:shadow-xl transition-shadow"
         >
           <div className="flex items-center gap-2 mb-5">
             <BookOpen size={16} className="text-escutaris-terracota" />

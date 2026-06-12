@@ -7,26 +7,27 @@
 
 @layer base {
   :root {
-    /* Off-white editorial — #F0EDE6 */
-    --background: 42 25% 92%;
-    --foreground: 129 31% 16%;
+    /* Paleta v2 — Off-white #F8F7F4 */
+    --background: 45 22% 96%;
+    --foreground: 93 29% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 129 31% 16%;
+    --card-foreground: 93 29% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 129 31% 16%;
+    --popover-foreground: 93 29% 14%;
 
-    /* Verde-noturno — #1C3520 */
-    --primary: 129 31% 16%;
-    --primary-foreground: 42 25% 92%;
+    /* Poseidon — #222D19 */
+    --primary: 93 29% 14%;
+    --primary-foreground: 45 22% 96%;
 
-    /* Terracota — #B95839 */
+    /* Terracota — #B95839 (assinatura, mantida) */
     --secondary: 15 53% 47%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 42 15% 88%;
-    --muted-foreground: 129 12% 42%;
+    /* Cinza-quente #E4DFD9 / Oliva-neutro #757050 */
+    --muted: 33 17% 87%;
+    --muted-foreground: 52 19% 39%;
 
     --accent: 15 53% 47%;
     --accent-foreground: 0 0% 100%;
@@ -34,9 +35,9 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 129 12% 82%;
+    --border: 40 12% 82%;
     --input: 0 0% 100%;
-    --ring: 129 31% 16%;
+    --ring: 93 29% 14%;
 
     --radius: 0.375rem;
   }
@@ -93,9 +94,9 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #F0EDE6; }
-::-webkit-scrollbar-thumb { background: #1C3520; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2d5033; }
+::-webkit-scrollbar-track { background: #F8F7F4; }
+::-webkit-scrollbar-thumb { background: #222D19; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #46603A; }
 
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(12px); }

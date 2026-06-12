@@ -5,13 +5,13 @@
 const fs = require('fs');
 const path = require('path');
 
-// Sistema de cores por categoria (feedback da consultoria de design)
+// Sistema de cores por categoria — paleta v2 do guia de marca (jun/2026)
 const CORES = {
-  legislacao: { bg: '#1C3520', texto: '#F0EDE6', acento: '#C97B5D' },  // verde profundo
-  manual:     { bg: '#F0EDE6', texto: '#3E5230', acento: '#8F3F25' },  // verde-musgo s/ claro
-  diretrizes: { bg: '#A7B8AC', texto: '#1C3520', acento: '#F0EDE6' },  // verde-sálvia
-  prevencao:  { bg: '#8F3F25', texto: '#F0EDE6', acento: '#E8C9B8' },  // terracota sóbrio
-  ferramenta: { bg: '#E5DCC8', texto: '#1C3520', acento: '#8F3F25' },  // bege com verde
+  legislacao: { bg: '#46603A', texto: '#F8F7F4', acento: '#C98A42' },  // verde-marca + âmbar
+  manual:     { bg: '#F6F0E9', texto: '#222D19', acento: '#A95821' },  // areia-creme + cobre
+  diretrizes: { bg: '#565E48', texto: '#F8F7F4', acento: '#C98A42' },  // verde-musgo + âmbar
+  prevencao:  { bg: '#823112', texto: '#F8F7F4', acento: '#F6F0E9' },  // Ares (terracota profunda)
+  ferramenta: { bg: '#E4DFD9', texto: '#222D19', acento: '#A95821' },  // cinza-quente + cobre
 };
 
 const ROTULO = {

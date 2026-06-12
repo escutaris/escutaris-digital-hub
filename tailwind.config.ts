@@ -53,20 +53,31 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				'escutaris-verde': '#1C3520',
-				'escutaris-terracota': '#B95839',
-				'escutaris-offwhite': '#F0EDE6',
+				// Paleta v2 (jun/2026) — guia de marca Escutaris
+				'escutaris-verde': '#222D19',        // Poseidon: texto principal e fundos pesados
+				'escutaris-verde-marca': '#46603A',  // autoridade e blocos de conteúdo
+				'escutaris-musgo': '#565E48',        // Hermes: transição, respiro, overlay
+				'escutaris-oliva': '#757050',        // Athena: texto secundário, linhas
+				'escutaris-terracota': '#B95839',    // assinatura e CTA (mantida)
+				'escutaris-ambar': '#C98A42',        // Zeus: destaque suave
+				'escutaris-cobre': '#A95821',        // Hades: transição quente
+				'escutaris-ares': '#823112',         // terracota profunda, ênfase madura
+				'escutaris-brasa': '#BE3A1B',        // Ember: dado crítico
+				'escutaris-offwhite': '#F8F7F4',     // fundo geral dominante
+				'escutaris-areia': '#F6F0E9',        // superfície quente
+				'escutaris-oat': '#F0F0E8',          // superfície com sopro de verde
+				'escutaris-cinza': '#E4DFD9',        // Epic Gray: respiro
 				// aliases para compatibilidade com código existente
 				escutaris: {
 					green: {
-						light: '#E8EDE9',
-						DEFAULT: '#1C3520',
-						dark: '#111F14'
+						light: '#F0F0E8',
+						DEFAULT: '#46603A',
+						dark: '#222D19'
 					},
 					terracotta: {
-						light: '#F5E4DE',
+						light: '#F6F0E9',
 						DEFAULT: '#B95839',
-						dark: '#8F3F25'
+						dark: '#823112'
 					}
 				}
 			},

@@ -84,7 +84,7 @@ const ClubeSection = () => {
         </div>
 
         {/* Premium — em breve */}
-        <div className="bg-escutaris-verde text-white rounded-lg p-8 flex flex-col relative overflow-hidden">
+        <div className="bg-escutaris-verde-marca text-white rounded-lg p-8 flex flex-col relative overflow-hidden">
           <span className="absolute top-4 right-4 bg-escutaris-terracota text-white text-[10px] font-poppins tracking-widest uppercase px-3 py-1 rounded-full">
             Em breve
           </span>
