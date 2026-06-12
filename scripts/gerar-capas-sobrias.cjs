@@ -9,8 +9,8 @@ const path = require('path');
 const CORES = {
   legislacao: { bg: '#46603A', texto: '#F8F7F4', acento: '#C98A42' },  // verde-marca + âmbar
   manual:     { bg: '#F6F0E9', texto: '#222D19', acento: '#A95821' },  // areia-creme + cobre
-  diretrizes: { bg: '#565E48', texto: '#F8F7F4', acento: '#C98A42' },  // verde-musgo + âmbar
-  prevencao:  { bg: '#823112', texto: '#F8F7F4', acento: '#F6F0E9' },  // Ares (terracota profunda)
+  diretrizes: { bg: '#823112', texto: '#F8F7F4', acento: '#F6F0E9' },  // Ares (terracota profunda)
+  prevencao:  { bg: '#565E48', texto: '#F8F7F4', acento: '#C98A42' },  // verde-musgo + âmbar
   ferramenta: { bg: '#E4DFD9', texto: '#222D19', acento: '#A95821' },  // cinza-quente + cobre
 };
 
