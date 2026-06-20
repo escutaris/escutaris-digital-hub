@@ -60,7 +60,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="https://api.whatsapp.com/send?phone=557582217557&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20seus%20servi%C3%A7os"
+              href="https://api.whatsapp.com/send?phone=5571981357004&text=Ol%C3%A1!%20Vim%20da%20Comunidade%20Escutaris%20e%20gostaria%20de%20atendimento."
               target="_blank"
               rel="noreferrer"
               className="btn-secondary inline-flex items-center justify-center gap-2"

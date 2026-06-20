@@ -16,7 +16,7 @@ const Header = () => {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-escutaris-offwhite/95 backdrop-blur-sm border-b border-escutaris-verde/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Logo size="h-10 w-10" showName />
+          <Logo size="h-10 w-10" />
 
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
             <a href="#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>
@@ -75,7 +75,7 @@ const Header = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-escutaris-verde/70 via-escutaris-verde/60 to-escutaris-verde/90" />
         <div className="relative max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-xs font-poppins tracking-widest uppercase mb-8 text-white/80">
-            Comunidade &nbsp;·&nbsp; NR-1 &nbsp;·&nbsp; ISO 45003
+            Comunidade Escutaris
           </div>
 
           <h1 className="font-cormorant text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6">

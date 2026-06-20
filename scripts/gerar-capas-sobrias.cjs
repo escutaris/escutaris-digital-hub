@@ -54,6 +54,7 @@ const CAPAS = [
   { nome: 'sobria_acolhimento',          cat: 'prevencao',  sigla: ['Conversas de', 'Acolhimento'], simbolo: 'dialogo',   fonte: 'ESCUTARIS • GUIA PRÁTICO' },
   { nome: 'sobria_10_condutas',          cat: 'prevencao',  sigla: ['10', 'Condutas'],            simbolo: 'rede',      fonte: 'ESCUTARIS • CARTILHA' },
   { nome: 'sobria_kit_dds',              cat: 'ferramenta', sigla: ['Kit DDS'],                  simbolo: 'dialogo',   fonte: 'ESCUTARIS • 12 ROTEIROS' },
+  { nome: 'sobria_checklist_nr1',        cat: 'ferramenta', sigla: ['Checklist', 'NR-1'],        simbolo: 'documento', fonte: 'ESCUTARIS • CHECKLIST' },
   // genéricas para o seletor do admin
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
