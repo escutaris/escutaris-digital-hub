@@ -58,7 +58,7 @@ const InstallPWA: React.FC = () => {
           <div className="flex-1">
             <h3 className="font-semibold text-sm mb-1">Instalar App</h3>
             <p className="text-xs text-muted-foreground mb-3">
-              Instale a Central Escutaris para acesso rápido e offline
+              Instale a Comunidade Escutaris para acesso rápido e offline
             </p>
             <div className="flex gap-2">
               <Button 
