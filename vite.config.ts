@@ -14,9 +14,9 @@ export default defineConfig(() => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Central Escutaris',
+        name: 'Comunidade Escutaris',
         short_name: 'Escutaris',
-        description: 'Central de conhecimento e materiais Escutaris',
+        description: 'Comunidade de conhecimento e materiais Escutaris',
         theme_color: '#16a34a',
         background_color: '#ffffff',
         display: 'standalone',
@@ -27,14 +27,16 @@ export default defineConfig(() => ({
             type: 'image/x-icon'
           },
           {
-            src: 'placeholder.svg',
+            src: 'assets/icon-192.png',
             sizes: '192x192',
-            type: 'image/svg+xml'
+            type: 'image/png',
+            purpose: 'any maskable'
           },
           {
-            src: 'placeholder.svg',
+            src: 'assets/icon-512.png',
             sizes: '512x512',
-            type: 'image/svg+xml'
+            type: 'image/png',
+            purpose: 'any maskable'
           }
         ]
       },
