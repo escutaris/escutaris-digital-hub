@@ -2,7 +2,7 @@
 
 Central digital de conteúdos da Escutaris — materiais técnicos sobre NR-1, ISO 45003 e riscos psicossociais para RH, SST e lideranças.
 
-**URL ao vivo:** https://hub.escutaris.com
+**URL ao vivo:** https://comunidade.escutaris.com
 
 ## Stack
 
