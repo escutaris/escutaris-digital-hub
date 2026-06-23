@@ -105,7 +105,7 @@ const Header = () => {
               </Link>
             )}
             <a
-              href="#materiais"
+              href="#materiais-escutaris"
               className="border border-white/30 text-white font-poppins px-8 py-3 rounded-sm hover:bg-white/10 transition-colors text-center"
             >
               Conhecer o acervo

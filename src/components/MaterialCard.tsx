@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download } from 'lucide-react';
+import { FileText, Download, ExternalLink } from 'lucide-react';
 import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { recordDownload } from '@/lib/api/favorites';
@@ -19,6 +19,9 @@ const categoryLabel: Record<string, string> = {
 const MaterialCard = ({ material }: MaterialCardProps) => {
   const { user } = useAuth();
   const [showJoinModal, setShowJoinModal] = useState(false);
+
+  // Materiais que são páginas web (guias online) abrem em vez de baixar
+  const isWebGuide = /guia-cuidado\.escutaris\.com\.br/.test(material.file_url);
 
   const handleDownloadClick = (e: React.MouseEvent) => {
     if (!user) {
@@ -77,8 +80,8 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
               onClick={handleDownloadClick}
               className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors"
             >
-              <Download size={13} />
-              Baixar material
+              {isWebGuide ? <ExternalLink size={13} /> : <Download size={13} />}
+              {isWebGuide ? 'Abrir guia' : 'Baixar material'}
             </a>
           </div>
         </div>
