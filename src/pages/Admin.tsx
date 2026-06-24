@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import MaterialForm from '@/components/admin/MaterialForm';
 import MaterialsList from '@/components/admin/MaterialsList';
 import NewsManagement from '@/components/admin/NewsManagement';
 import DashboardStats from '@/components/admin/DashboardStats';
 import UserManagement from '@/components/admin/UserManagement';
-import { LayoutDashboard, Upload, List, Newspaper, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Upload, List, Newspaper, ShieldCheck, ArrowLeft } from 'lucide-react';
 
 const Admin = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -18,14 +20,22 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-escutaris-green mb-2 flex items-center gap-2">
-            <LayoutDashboard className="h-8 w-8" />
-            Painel Administrativo
-          </h1>
-          <p className="text-gray-600">
-            Gerencie materiais, conteúdos e configurações da Central Escutaris
-          </p>
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-escutaris-green mb-2 flex items-center gap-2">
+              <LayoutDashboard className="h-8 w-8" />
+              Painel Administrativo
+            </h1>
+            <p className="text-gray-600">
+              Gerencie materiais, conteúdos e configurações da Comunidade Escutaris
+            </p>
+          </div>
+          <Button asChild variant="outline" className="shrink-0">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Voltar ao site
+            </Link>
+          </Button>
         </div>
 
         <Tabs defaultValue="dashboard" className="space-y-6">

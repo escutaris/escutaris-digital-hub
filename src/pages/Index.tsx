@@ -9,7 +9,7 @@ import DestaquesSection from '../components/DestaquesSection';
 import ClubeSection from '../components/ClubeSection';
 import MateriaisEscutarisSection from '../components/MateriaisEscutarisSection';
 import VideosSection from '../components/VideosSection';
-import NoticiasSection from '../components/NoticiasSection';
+// import NoticiasSection from '../components/NoticiasSection'; // oculto por enquanto
 import PublicacoesSection from '../components/PublicacoesSection';
 import { FileText, MessageSquare } from 'lucide-react';
 
@@ -42,8 +42,8 @@ const Index = () => {
         {/* Vídeos do canal (alimentado automaticamente pelo YouTube) */}
         <VideosSection />
 
-        {/* Notícias aprovadas pela curadoria */}
-        <NoticiasSection />
+        {/* Notícias aprovadas pela curadoria — OCULTO por enquanto (reativar: descomentar a linha abaixo) */}
+        {/* <NoticiasSection /> */}
 
         {/* Publicações da Dra. Ana Paula */}
         <PublicacoesSection />
