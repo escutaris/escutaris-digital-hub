@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
 import ReferenciasSection from '../components/ReferenciasSection';
+import ArteSection from '../components/ArteSection';
 import DestaquesSection from '../components/DestaquesSection';
 import ClubeSection from '../components/ClubeSection';
 import MateriaisEscutarisSection from '../components/MateriaisEscutarisSection';
@@ -50,6 +51,9 @@ const Index = () => {
 
         {/* Referências */}
         <ReferenciasSection />
+
+        {/* Arte */}
+        <ArteSection />
 
         {/* Fale com a Escutaris */}
         <section className="section-padding text-center border-t border-border" id="contato">

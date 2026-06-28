@@ -22,6 +22,16 @@ const ReferenciasSection = () => {
           description: 'Fundação Jorge Duprat Figueiredo de Segurança e Medicina do Trabalho.',
           url: 'https://www.fundacentro.gov.br/',
         },
+        {
+          title: 'Observatório de Saúde Mental e Trabalho',
+          description: 'Iniciativa dedicada ao monitoramento e produção de conhecimento sobre saúde mental no contexto do trabalho.',
+          url: 'https://observatoriosaudementaltrabalho.com/proposta/',
+        },
+        {
+          title: 'Observatório de SST — TST',
+          description: 'Observatório de Segurança e Saúde no Trabalho do Tribunal Superior do Trabalho.',
+          url: 'https://www.tst.jus.br/web/trabalhoseguro/observatorio-sst',
+        },
       ],
     },
     {
@@ -52,6 +62,21 @@ const ReferenciasSection = () => {
           title: 'ISO 45003:2021',
           description: 'Gestão de saúde e segurança ocupacional - Saúde e segurança psicológica no trabalho.',
           url: 'https://www.iso.org/standard/64283.html',
+        },
+        {
+          title: 'Convenção nº 155 da OIT — Segurança e Saúde dos Trabalhadores',
+          description: 'Estrutura o dever de prevenção dos riscos relacionados ao trabalho e o ambiente de trabalho seguro e saudável.',
+          url: 'https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C155',
+        },
+        {
+          title: 'Convenção nº 161 da OIT — Serviços de Saúde no Trabalho',
+          description: 'Define o monitoramento da saúde das pessoas trabalhadoras e a estrutura dos serviços de saúde ocupacional.',
+          url: 'https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C161',
+        },
+        {
+          title: 'Convenção nº 187 da OIT — Quadro Promocional para SST',
+          description: 'Estabelece a gestão contínua de riscos e um sistema nacional de segurança e saúde no trabalho.',
+          url: 'https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C187',
         },
       ],
     },
