@@ -32,6 +32,8 @@ const publicacoes: Publicacao[] = [
     descricao:
       'Avaliação técnica do nexo entre transtornos de saúde mental e contexto ocupacional, em 12 passos — com base na NR-1, NR-17 e Portaria MTE 1.419/2024.',
     cta: 'Conhecer o guia',
+    capa: '/assets/capa-guia-relato-decisao.webp',
+    capaAlt: 'Capa do guia técnico Do Relato à Tomada de Decisão',
   },
   {
     url: 'https://guiaquandoelafala.escutaris.com/',
