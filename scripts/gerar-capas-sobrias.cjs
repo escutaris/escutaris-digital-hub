@@ -65,6 +65,9 @@ const CAPAS = [
   { nome: 'sobria_formacao_sst',         cat: 'manual',     sigla: ['Formação', 'em SST'],       simbolo: 'escudo',    fonte: 'ESCUTARIS • GOVERNANÇA' },
   { nome: 'sobria_perguntas_fatores',    cat: 'ferramenta', sigla: ['13', 'Fatores'],            simbolo: 'dialogo',   fonte: 'ESCUTARIS • ROTEIRO' },
 
+  { nome: 'sobria_guia_hse',             cat: 'prevencao',  sigla: ['7 Fatores', 'do HSE'],      simbolo: 'rede',      fonte: 'ESCUTARIS • GUIA ONLINE' },
+  { nome: 'sobria_mapa_nr1',             cat: 'ferramenta', sigla: ['NR-1', 'aplicada'],         simbolo: 'circulos',  fonte: 'ESCUTARIS • MAPA DO CICLO' },
+
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_ferramenta',           cat: 'ferramenta', sigla: ['Ferramenta'],               simbolo: 'fluxo',     fonte: 'ESCUTARIS' },

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#565E48"/>
+  <text x="640" y="112" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="26" letter-spacing="10" fill="#C98A42">PREVENÇÃO</text>
+  <text x="640" y="262" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="92" font-weight="bold" fill="#F8F7F4">7 Fatores</text>
+       <text x="640" y="362" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="92" font-weight="bold" fill="#F8F7F4">do HSE</text>
+  <g transform="translate(640, 524)" stroke="#C98A42" stroke-width="3.5" fill="none" opacity="0.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="-48" cy="26" r="13"/><circle cx="0" cy="-38" r="13"/><circle cx="48" cy="26" r="13"/><line x1="-38" y1="17" x2="-9" y2="-29"/><line x1="38" y1="17" x2="9" y2="-29"/><line x1="-35" y1="26" x2="35" y2="26"/>
+  </g>
+  <text x="640" y="668" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="23" letter-spacing="7" fill="#F8F7F4" fill-opacity="0.7">ESCUTARIS • GUIA ONLINE</text>
+</svg>

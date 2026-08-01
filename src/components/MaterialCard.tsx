@@ -21,8 +21,8 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
   const { user } = useAuth();
   const [showJoinModal, setShowJoinModal] = useState(false);
 
-  // Materiais que são páginas web (guias online) abrem em vez de baixar
-  const isWebGuide = /guia-cuidado\.escutaris\.com\.br/.test(material.file_url);
+  // Material que não é arquivo é página web (guia online): abre em vez de baixar
+  const isWebGuide = !/\.(pdf|docx?|xlsx?|pptx?|zip)(\?|#|$)/i.test(material.file_url);
 
   const handleDownloadClick = (e: React.MouseEvent) => {
     if (EXIGIR_LOGIN_PARA_BAIXAR && !user) {
