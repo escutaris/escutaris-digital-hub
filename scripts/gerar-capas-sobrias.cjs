@@ -79,6 +79,8 @@ const CAPAS = [
 
   { nome: 'sobria_glossario',            cat: 'ferramenta', sigla: ['Glossário'],                simbolo: 'dialogo',   fonte: 'ESCUTARIS • 59 TERMOS' },
 
+  { nome: 'sobria_aep_pgr',              cat: 'ferramenta', sigla: ['AEP', 'e PGR'],             simbolo: 'escudo',    fonte: 'ESCUTARIS • MODELO EDITÁVEL' },
+
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_ferramenta',           cat: 'ferramenta', sigla: ['Ferramenta'],               simbolo: 'fluxo',     fonte: 'ESCUTARIS' },
