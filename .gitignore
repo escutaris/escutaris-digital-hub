@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 tmp-capas/
 .vercel
+.env*
+tmp-pdfs-terceiros/
