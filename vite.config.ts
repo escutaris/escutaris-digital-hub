@@ -41,6 +41,10 @@ export default defineConfig(() => ({
         ]
       },
       workbox: {
+        // Sem isto, o service worker responde QUALQUER navegação com o index.html.
+        // Abrir um PDF de /assets/ é uma navegação, então o React Router recebia
+        // a rota do arquivo e mostrava a tela de 404 em vez de baixar o material.
+        navigateFallbackDenylist: [/^\/assets\//, /\.pdf$/i],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/ywmqphwdzbmntfusemkl\.supabase\.co\/.*/i,
