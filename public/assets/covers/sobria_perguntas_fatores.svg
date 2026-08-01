@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#E4DFD9"/>
+  <text x="640" y="112" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="26" letter-spacing="10" fill="#A95821">FERRAMENTA</text>
+  <text x="640" y="262" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="92" font-weight="bold" fill="#222D19">13</text>
+       <text x="640" y="362" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="92" font-weight="bold" fill="#222D19">Fatores</text>
+  <g transform="translate(640, 524)" stroke="#A95821" stroke-width="3.5" fill="none" opacity="0.6" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="-38" cy="-8" rx="30" ry="22"/><path d="M -52 12 L -58 30 L -36 14" fill="none"/><ellipse cx="42" cy="2" rx="30" ry="22"/><path d="M 56 22 L 62 40 L 40 24" fill="none"/><line x1="2" y1="-44" x2="2" y2="48" stroke-dasharray="7 7"/>
+  </g>
+  <text x="640" y="668" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="23" letter-spacing="7" fill="#222D19" fill-opacity="0.7">ESCUTARIS • ROTEIRO</text>
+</svg>

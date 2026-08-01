@@ -56,6 +56,15 @@ const CAPAS = [
   { nome: 'sobria_kit_dds',              cat: 'ferramenta', sigla: ['Kit DDS'],                  simbolo: 'dialogo',   fonte: 'ESCUTARIS • 12 ROTEIROS' },
   { nome: 'sobria_checklist_nr1',        cat: 'ferramenta', sigla: ['Checklist', 'NR-1'],        simbolo: 'documento', fonte: 'ESCUTARIS • CHECKLIST' },
   // genéricas para o seletor do admin
+  // Instrumentos e roteiros acrescentados em 31/07/2026
+  { nome: 'sobria_copsoq',               cat: 'manual',     sigla: ['COPSOQ'],                   simbolo: 'documento', fonte: 'UNIV. AVEIRO • 2013' },
+  { nome: 'sobria_eri',                  cat: 'ferramenta', sigla: ['ERI'],                      simbolo: 'fluxo',     fonte: 'SIEGRIST • VERSÃO BR' },
+  { nome: 'sobria_hse_ms',               cat: 'ferramenta', sigla: ['HSE-MS'],                   simbolo: 'rede',      fonte: 'HSE • 7 DOMÍNIOS' },
+  { nome: 'sobria_nasa_tlx',             cat: 'ferramenta', sigla: ['NASA', 'TLX'],              simbolo: 'pulso',     fonte: 'CARGA MENTAL' },
+  { nome: 'sobria_proart',               cat: 'manual',     sigla: ['PROART'],                   simbolo: 'ondas',     fonte: 'UnB • PSICODINÂMICA' },
+  { nome: 'sobria_formacao_sst',         cat: 'manual',     sigla: ['Formação', 'em SST'],       simbolo: 'escudo',    fonte: 'ESCUTARIS • GOVERNANÇA' },
+  { nome: 'sobria_perguntas_fatores',    cat: 'ferramenta', sigla: ['13', 'Fatores'],            simbolo: 'dialogo',   fonte: 'ESCUTARIS • ROTEIRO' },
+
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_ferramenta',           cat: 'ferramenta', sigla: ['Ferramenta'],               simbolo: 'fluxo',     fonte: 'ESCUTARIS' },

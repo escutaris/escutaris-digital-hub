@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#F6F0E9"/>
+  <text x="640" y="112" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="26" letter-spacing="10" fill="#A95821">MANUAL TÉCNICO</text>
+  <text x="640" y="361.2" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="120" font-weight="bold" fill="#222D19">PROART</text>
+  <g transform="translate(640, 524)" stroke="#A95821" stroke-width="3.5" fill="none" opacity="0.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M -64 18 Q -32 -30 0 18 Q 32 66 64 18" fill="none"/><path d="M -64 -14 Q -32 -62 0 -14 Q 32 34 64 -14" fill="none" opacity="0.55"/>
+  </g>
+  <text x="640" y="668" text-anchor="middle" font-family="Century Gothic, Segoe UI, Arial, sans-serif" font-size="23" letter-spacing="7" fill="#222D19" fill-opacity="0.7">UnB • PSICODINÂMICA</text>
+</svg>
