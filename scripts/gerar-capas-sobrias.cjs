@@ -83,6 +83,8 @@ const CAPAS = [
 
   { nome: 'sobria_inventario_riscos',   cat: 'ferramenta', sigla: ['Inventário', 'de Riscos'],  simbolo: 'documento', fonte: 'ESCUTARIS • MATRIZ 5x5' },
 
+  { nome: 'sobria_matriz_risco',        cat: 'manual',     sigla: ['Matriz', 'de Risco'],       simbolo: 'fluxo',     fonte: 'ESCUTARIS • PROBABILIDADE E SEVERIDADE' },
+
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_ferramenta',           cat: 'ferramenta', sigla: ['Ferramenta'],               simbolo: 'fluxo',     fonte: 'ESCUTARIS' },
