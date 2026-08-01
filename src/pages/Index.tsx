@@ -6,7 +6,8 @@ import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
 import ReferenciasSection from '../components/ReferenciasSection';
 import ArteSection from '../components/ArteSection';
-import DestaquesSection from '../components/DestaquesSection';
+// import DestaquesSection from '../components/DestaquesSection'; // "Acesso rápido" oculto a pedido dela (01/08/2026)
+import DestaqueAutodiagnostico from '../components/DestaqueAutodiagnostico';
 import ClubeSection from '../components/ClubeSection';
 import MateriaisEscutarisSection from '../components/MateriaisEscutarisSection';
 import VideosSection from '../components/VideosSection';
@@ -23,8 +24,10 @@ const Index = () => {
       <Header />
 
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Destaques / Acesso rápido */}
-        <DestaquesSection />
+        {/* Destaque: autodiagnóstico NR-1 */}
+        <DestaqueAutodiagnostico />
+
+        {/* <DestaquesSection /> — "Acesso rápido" oculto por enquanto */}
 
         {/* A Comunidade: gratuito vs premium */}
         <ClubeSection />

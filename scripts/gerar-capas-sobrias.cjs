@@ -74,6 +74,9 @@ const CAPAS = [
 
   { nome: 'sobria_miniguia_7_etapas',    cat: 'manual',     sigla: ['7 Etapas'],                 simbolo: 'fluxo',     fonte: 'ESCUTARIS • MINIGUIA' },
 
+  { nome: 'sobria_apostila_gro',         cat: 'manual',     sigla: ['GRO', 'na prática'],        simbolo: 'curva',     fonte: 'ESCUTARIS • APOSTILA' },
+  { nome: 'sobria_passo_a_passo_gro',    cat: 'ferramenta', sigla: ['12 Passos'],                simbolo: 'fluxo',     fonte: 'ESCUTARIS • GUIA RÁPIDO' },
+
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_ferramenta',           cat: 'ferramenta', sigla: ['Ferramenta'],               simbolo: 'fluxo',     fonte: 'ESCUTARIS' },
