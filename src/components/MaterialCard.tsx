@@ -4,6 +4,7 @@ import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { recordDownload } from '@/lib/api/favorites';
 import { useAuth } from '@/lib/useAuth';
+import { EXIGIR_LOGIN_PARA_BAIXAR } from '@/lib/config';
 import JoinClubModal from './JoinClubModal';
 
 interface MaterialCardProps {
@@ -24,12 +25,13 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
   const isWebGuide = /guia-cuidado\.escutaris\.com\.br/.test(material.file_url);
 
   const handleDownloadClick = (e: React.MouseEvent) => {
-    if (!user) {
+    if (EXIGIR_LOGIN_PARA_BAIXAR && !user) {
       e.preventDefault();
       setShowJoinModal(true);
-    } else {
-      recordDownload(material.id);
+      return;
     }
+    // registra o download mesmo sem conta (fica anônimo, sem user_id)
+    recordDownload(material.id);
   };
 
   return (
