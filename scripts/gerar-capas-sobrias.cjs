@@ -72,6 +72,8 @@ const CAPAS = [
   { nome: 'sobria_livreto_hse',          cat: 'manual',     sigla: ['Livreto', 'HSE'],           simbolo: 'dialogo',   fonte: 'ESCUTARIS • PARA EQUIPES' },
   { nome: 'sobria_hse_it_guia',          cat: 'ferramenta', sigla: ['HSE-IT'],                   simbolo: 'documento', fonte: 'ESCUTARIS • APLICAÇÃO' },
 
+  { nome: 'sobria_miniguia_7_etapas',    cat: 'manual',     sigla: ['7 Etapas'],                 simbolo: 'fluxo',     fonte: 'ESCUTARIS • MINIGUIA' },
+
   { nome: 'sobria_legislacao',           cat: 'legislacao', sigla: ['Norma'],                    simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_material',             cat: 'manual',     sigla: ['Guia'],                     simbolo: 'documento', fonte: 'ESCUTARIS' },
   { nome: 'sobria_ferramenta',           cat: 'ferramenta', sigla: ['Ferramenta'],               simbolo: 'fluxo',     fonte: 'ESCUTARIS' },
