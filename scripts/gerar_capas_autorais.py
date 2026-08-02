@@ -98,13 +98,17 @@ def gerar(pdf, slug, categoria, rotulo, titulo):
     f_rot = ImageFont.truetype(POPPINS_SB, 21)
     f_pe = ImageFont.truetype(POPPINS_L, 20)
 
+    # diminui ate caber em 3 linhas E nenhuma linha estourar a largura.
+    # so contar linhas nao basta: uma palavra longa e indivisivel cabe em uma
+    # linha e mesmo assim invade a miniatura.
     tam = 46
-    while tam >= 30:
+    while tam >= 22:
         f_tit = ImageFont.truetype(GARET, tam)
         linhas = quebra(d, titulo, f_tit, largura_txt)
-        if len(linhas) <= 3:
+        mais_larga = max(d.textlength(l, font=f_tit) for l in linhas)
+        if len(linhas) <= 3 and mais_larga <= largura_txt:
             break
-        tam -= 3
+        tam -= 2
 
     espacado(d, (margem, 64), rotulo, f_rot, ACENTO, esp=4)
 
