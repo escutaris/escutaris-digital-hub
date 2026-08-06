@@ -46,6 +46,8 @@ MATERIAIS = [
     ("perguntas-reconhecimento-fatores-psicossociais.pdf","perguntas_fatores",  "ferramenta", "ROTEIRO",    "Perguntas para reconhecer os fatores"),
     ("procedimento-governanca-saude-mental.pdf",         "governanca",          "ferramenta", "MODELO",     "Governança em saúde mental"),
     ("guia-questionario-hse-it.pdf",                     "hse_it_guia",         "ferramenta", "GUIA",       "Questionário HSE-IT"),
+    ("dinamicas-silencio-desengajamento.pdf",            "dinamicas_silencio",  "material",   "SÍNTESE",    "Dinâmicas de silêncio no trabalho"),
+    ("quebrando-o-ciclo-do-silencio.pdf",                "ciclo_do_silencio",   "material",   "EBOOK",      "Quebrando o ciclo do silêncio"),
 ]
 
 
