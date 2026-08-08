@@ -1,0 +1,68 @@
+<!--
+  Template do e-mail de link de entrada (magic link) da Comunidade Escutaris.
+
+  Onde colar: painel do Supabase, projeto Marketing Hub,
+  Authentication > Emails > Templates > Magic Link.
+  Assunto: Seu link de entrada na Comunidade Escutaris
+
+  Guardado aqui para nao se perder: o painel do Supabase e a unica copia viva.
+
+  Regras que este arquivo respeita e que valem se alguem for edita-lo:
+  - fundo do botao no <td bgcolor>, nunca no <a>, senao o Gmail come o fundo
+  - so Arial/Helvetica; Garet e Poppins nao carregam em cliente de e-mail
+  - o endereco repetido em texto no rodape, para quem o botao nao funciona
+  - {{ .ConfirmationURL }} e a variavel do Supabase, nao trocar
+-->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F0EDE6;padding:32px 16px;font-family:Arial,Helvetica,sans-serif">
+  <tr>
+    <td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;background-color:#ffffff;border-radius:4px">
+        <tr>
+          <td style="padding:40px 40px 8px 40px">
+            <p style="margin:0 0 24px 0;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B95839">
+              Comunidade Escutaris
+            </p>
+            <h1 style="margin:0 0 16px 0;font-size:24px;line-height:1.3;color:#1C3520;font-weight:bold">
+              Seu link de entrada
+            </h1>
+            <p style="margin:0 0 12px 0;font-size:15px;line-height:1.6;color:#3a3a3a">
+              Clique no botão abaixo e você entra na hora. Não existe senha para criar
+              nem para lembrar depois.
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="center" style="padding:20px 40px 28px 40px">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td bgcolor="#B95839" style="background-color:#B95839;border-radius:4px;padding:14px 34px">
+                  <a href="{{ .ConfirmationURL }}" style="color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;font-family:Arial,Helvetica,sans-serif">
+                    Entrar na comunidade
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:0 40px 32px 40px">
+            <p style="margin:0 0 20px 0;font-size:14px;line-height:1.6;color:#6b6b6b">
+              O link serve uma vez só e vale por uma hora. Se não foi você quem pediu,
+              é só ignorar este e-mail. Nada acontece.
+            </p>
+            <p style="margin:0;padding-top:20px;border-top:1px solid #e6e2d9;font-size:12px;line-height:1.6;color:#9a9a9a">
+              Se o botão não abrir, copie este endereço e cole no seu navegador:<br>
+              <span style="color:#6b6b6b;word-break:break-all">{{ .ConfirmationURL }}</span>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:24px 0 0 0;font-size:12px;color:#9a9a9a;font-family:Arial,Helvetica,sans-serif">
+        Escutaris · comunidade.escutaris.com
+      </p>
+    </td>
+  </tr>
+</table>
