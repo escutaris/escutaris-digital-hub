@@ -243,8 +243,10 @@ export type Database = {
           bio: string | null
           created_at: string
           crm: string | null
+          email: string | null
           id: string
           name: string | null
+          organizacao: string | null
           updated_at: string
           whatsapp: string | null
         }
@@ -254,8 +256,10 @@ export type Database = {
           bio?: string | null
           created_at?: string
           crm?: string | null
+          email?: string | null
           id: string
           name?: string | null
+          organizacao?: string | null
           updated_at?: string
           whatsapp?: string | null
         }
@@ -265,8 +269,10 @@ export type Database = {
           bio?: string | null
           created_at?: string
           crm?: string | null
+          email?: string | null
           id?: string
           name?: string | null
+          organizacao?: string | null
           updated_at?: string
           whatsapp?: string | null
         }

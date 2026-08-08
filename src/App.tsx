@@ -12,6 +12,7 @@ import { AuthProvider } from "./lib/useAuth";
 import { ProtectedRoute } from "./lib/useAuth";
 import { ThemeProvider } from "./hooks/use-theme";
 import InstallPWA from "./components/InstallPWA";
+import CompletarPerfilModal from "./components/CompletarPerfilModal";
 
 const Admin = lazy(() => import("./pages/Admin"));
 const NewsDetail = lazy(() => import("./pages/NewsDetail"));
@@ -29,6 +30,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <InstallPWA />
+          <CompletarPerfilModal />
           <BrowserRouter>
             <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><div className="h-8 w-8 animate-spin rounded-full border-4 border-escutaris-green border-t-transparent" /></div>}>
               <Routes>

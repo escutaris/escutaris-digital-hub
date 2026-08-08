@@ -16,7 +16,7 @@ const Cadastro = () => {
             Entre na Comunidade Escutaris
           </h2>
           <p className="font-poppins text-sm text-muted-foreground text-center mt-2">
-            Conta gratuita — leva 30 segundos
+            Conta gratuita e sem senha
           </p>
         </div>
 

@@ -38,7 +38,8 @@ const JoinClubModal = ({ open, onClose }: Props) => {
             Entre na comunidade para baixar
           </h2>
           <p className="font-poppins text-sm text-muted-foreground mb-5 leading-relaxed">
-            A conta é gratuita e leva 30 segundos. Como membro, você ganha:
+            A conta é gratuita e não tem senha — entre pelo Google ou por um link no seu
+            e-mail. Como membro, você ganha:
           </p>
 
           <ul className="space-y-2.5 mb-7">

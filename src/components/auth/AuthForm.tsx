@@ -16,16 +16,30 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MailCheck } from 'lucide-react';
 
-const loginSchema = z.object({
+/**
+ * Duas portas de entrada, nenhuma com senha para o membro novo:
+ *   1. Google  — um clique, e-mail já verificado.
+ *   2. Link no e-mail (magic link) — para quem não usa Google.
+ *
+ * A senha continua existindo, escondida atrás de "Entrar com senha", porque as
+ * contas antigas e a conta admin reserva foram criadas com senha. Ninguém novo
+ * cria senha, então não há senha para esquecer.
+ */
+
+const linkSchema = z.object({
   name: z.string().optional(),
-  email: z.string().email({ message: 'Email inválido' }),
-  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }),
+  email: z.string().email({ message: 'E-mail inválido' }),
 });
 
-const signupSchema = loginSchema.extend({
+const linkSignupSchema = linkSchema.extend({
   name: z.string().min(2, { message: 'Informe seu nome' }),
+});
+
+const senhaSchema = z.object({
+  email: z.string().email({ message: 'E-mail inválido' }),
+  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }),
 });
 
 const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
@@ -33,6 +47,8 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [modoSenha, setModoSenha] = useState(false);
+  const [linkEnviadoPara, setLinkEnviadoPara] = useState<string | null>(null);
 
   const handleGoogle = async () => {
     setGoogleLoading(true);
@@ -55,89 +71,99 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
     }
   };
 
-  const form = useForm<z.infer<typeof signupSchema>>({
-    resolver: zodResolver(type === 'signup' ? signupSchema : loginSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-    },
+  const linkForm = useForm<z.infer<typeof linkSignupSchema>>({
+    resolver: zodResolver(type === 'signup' ? linkSignupSchema : linkSchema),
+    defaultValues: { name: '', email: '' },
   });
 
-  const onSubmit = async (values: z.infer<typeof signupSchema>) => {
+  const senhaForm = useForm<z.infer<typeof senhaSchema>>({
+    resolver: zodResolver(senhaSchema),
+    defaultValues: { email: '', password: '' },
+  });
+
+  const enviarLink = async (values: z.infer<typeof linkSignupSchema>) => {
     setLoading(true);
-
     try {
-      if (type === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: values.email,
-          password: values.password,
-        });
+      const { error } = await supabase.auth.signInWithOtp({
+        email: values.email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          shouldCreateUser: true,
+          data: values.name?.trim() ? { full_name: values.name.trim() } : undefined,
+        },
+      });
+      if (error) throw error;
 
-        if (error) {
-          if (error.message.includes('Invalid login credentials')) {
-            throw new Error('Email ou senha incorretos. Por favor, tente novamente.');
-          }
-          throw error;
-        }
-
-        toast({
-          title: 'Que bom ter você de volta!',
-        });
-
-        // Wait for auth state to update before navigating
-        setTimeout(() => {
-          setLoading(false);
-          navigate('/', { replace: true });
-        }, 500);
-
-      } else {
-        const { data, error } = await supabase.auth.signUp({
-          email: values.email,
-          password: values.password,
-          options: {
-            data: { full_name: values.name.trim() },
-          },
-        });
-
-        if (error) {
-          if (error.message.includes('already registered')) {
-            throw new Error('Este e-mail já tem conta na comunidade. Use "Entrar".');
-          }
-          throw error;
-        }
-
-        // Quando a confirmação de e-mail está desligada, a sessão já vem criada
-        if (data.session) {
-          toast({
-            title: 'Bem-vinda(o) à comunidade!',
-            description: 'Sua conta foi criada. Bons downloads!',
-          });
-          setTimeout(() => {
-            setLoading(false);
-            navigate('/', { replace: true });
-          }, 500);
-        } else {
-          toast({
-            title: 'Quase lá!',
-            description: 'Enviamos um e-mail de confirmação. Clique no link para ativar sua conta.',
-          });
-          setLoading(false);
-        }
-      }
+      setLinkEnviadoPara(values.email);
     } catch (error: any) {
       toast({
         variant: 'destructive',
-        title: type === 'login' ? 'Falha no login' : 'Falha no cadastro',
+        title: 'Não consegui enviar o link',
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const entrarComSenha = async (values: z.infer<typeof senhaSchema>) => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          throw new Error('E-mail ou senha incorretos. Se preferir, entre pelo link no e-mail.');
+        }
+        throw error;
+      }
+
+      toast({ title: 'Que bom ter você de volta!' });
+
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/', { replace: true });
+      }, 500);
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Falha no login',
         description: error.message,
       });
       setLoading(false);
     }
   };
 
+  // Confirmação de link enviado — substitui o formulário para a pessoa não reenviar sem parar.
+  if (linkEnviadoPara) {
+    return (
+      <div className="text-center space-y-4 py-2">
+        <MailCheck className="mx-auto h-10 w-10 text-escutaris-terracota" />
+        <div className="space-y-2">
+          <p className="font-poppins font-medium text-foreground">Enviamos seu link de entrada</p>
+          <p className="font-poppins text-sm text-muted-foreground leading-relaxed">
+            Abra o e-mail que acabou de chegar em{' '}
+            <span className="font-medium text-foreground">{linkEnviadoPara}</span> e clique no botão
+            para entrar. Se não achar, olhe no spam ou na aba Promoções.
+          </p>
+        </div>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={() => setLinkEnviadoPara(null)}
+        >
+          Usar outro e-mail
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <Form {...form}>
-      <div className="space-y-4">
+    <div className="space-y-4">
       <Button
         type="button"
         variant="outline"
@@ -167,64 +193,108 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
         </div>
       </div>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {type === 'signup' && (
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nome</FormLabel>
-                <FormControl>
-                  <Input placeholder="Como podemos te chamar?" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+      {!modoSenha ? (
+        <Form {...linkForm}>
+          <form onSubmit={linkForm.handleSubmit(enviarLink)} className="space-y-4">
+            {type === 'signup' && (
+              <FormField
+                control={linkForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nome</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Como podemos te chamar?" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             )}
-          />
-        )}
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="seu@email.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={linkForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>E-mail</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="seu@email.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Senha</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="******" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <Button type="submit" className="w-full" disabled={loading || googleLoading}>
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Enviando o link...
+                </>
+              ) : (
+                'Receber link de entrada'
+              )}
+            </Button>
 
-        <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {type === 'login' ? 'Entrando...' : 'Criando sua conta...'}
-            </>
-          ) : (
-            type === 'login' ? 'Entrar' : 'Criar conta gratuita'
-          )}
-        </Button>
-      </form>
-      </div>
-    </Form>
+            <p className="font-poppins text-xs text-center text-muted-foreground leading-relaxed">
+              Sem senha para criar nem para esquecer. Você recebe um link no e-mail e entra por ele.
+            </p>
+          </form>
+        </Form>
+      ) : (
+        <Form {...senhaForm}>
+          <form onSubmit={senhaForm.handleSubmit(entrarComSenha)} className="space-y-4">
+            <FormField
+              control={senhaForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>E-mail</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="seu@email.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={senhaForm.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Senha</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="******" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full" disabled={loading || googleLoading}>
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Entrando...
+                </>
+              ) : (
+                'Entrar'
+              )}
+            </Button>
+          </form>
+        </Form>
+      )}
+
+      <button
+        type="button"
+        onClick={() => setModoSenha((v) => !v)}
+        className="w-full font-poppins text-xs text-muted-foreground/80 hover:text-escutaris-terracota hover:underline transition-colors"
+      >
+        {modoSenha ? 'Prefiro receber o link no e-mail' : 'Já tenho senha nesta conta'}
+      </button>
+    </div>
   );
 };
 
