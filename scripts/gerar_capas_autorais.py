@@ -48,6 +48,9 @@ MATERIAIS = [
     ("guia-questionario-hse-it.pdf",                     "hse_it_guia",         "ferramenta", "GUIA",       "Questionário HSE-IT"),
     ("dinamicas-silencio-desengajamento.pdf",            "dinamicas_silencio",  "material",   "SÍNTESE",    "Dinâmicas de silêncio no trabalho"),
     ("quebrando-o-ciclo-do-silencio.pdf",                "ciclo_do_silencio",   "material",   "EBOOK",      "Quebrando o ciclo do silêncio"),
+    ("comunicado-institucional-pilar-controle.pdf",      "comunicado_controle", "ferramenta", "MODELO",     "Comunicado institucional: Controle"),
+    ("guia-liderancas-pilar-controle.pdf",               "guia_lideres_controle","material",  "GUIA",       "Autonomia no trabalho: lideranças"),
+    ("guia-empregados-pilar-controle.pdf",               "guia_equipes_controle","material",  "GUIA",       "Autonomia no trabalho: equipes"),
 ]
 
 
