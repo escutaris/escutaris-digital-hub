@@ -29,8 +29,10 @@ const Index = () => {
 
         {/* <DestaquesSection /> — "Acesso rápido" oculto por enquanto */}
 
-        {/* A Comunidade: gratuito vs premium */}
-        <ClubeSection />
+        {/* A Comunidade: gratuito vs premium — oculto a pedido dela em 18/08/2026.
+            O componente segue inteiro em ClubeSection.tsx; para voltar, basta
+            descomentar a linha abaixo. Mesmo tratamento do "Acesso rápido". */}
+        {/* <ClubeSection /> */}
 
         {/* Materiais autorais da Escutaris */}
         <MateriaisEscutarisSection />
