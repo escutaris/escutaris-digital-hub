@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { FileText, Download, ExternalLink } from 'lucide-react';
+import { FileText, Download, ExternalLink, Loader2 } from 'lucide-react';
 import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { recordDownload } from '@/lib/api/favorites';
+import { fetchMaterialLink, registrarBloqueio } from '@/lib/api/materials';
+import { guardarDownloadPendente } from '@/lib/downloadPendente';
 import { useAuth } from '@/lib/useAuth';
+import { useToast } from '@/hooks/use-toast';
 import { EXIGIR_LOGIN_PARA_BAIXAR } from '@/lib/config';
 import JoinClubModal from './JoinClubModal';
 
@@ -19,19 +22,49 @@ const categoryLabel: Record<string, string> = {
 
 const MaterialCard = ({ material }: MaterialCardProps) => {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [showJoinModal, setShowJoinModal] = useState(false);
+  const [buscandoLink, setBuscandoLink] = useState(false);
 
-  // Material que não é arquivo é página web (guia online): abre em vez de baixar
-  const isWebGuide = !/\.(pdf|docx?|xlsx?|pptx?|zip)(\?|#|$)/i.test(material.file_url);
+  // Guia online abre a página; material de verdade baixa o arquivo. Quem decide
+  // é o banco (coluna is_web_guide), porque o endereço do arquivo não vem mais
+  // na listagem pública.
+  const isWebGuide = material.is_web_guide === true;
 
-  const handleDownloadClick = (e: React.MouseEvent) => {
+  const handleDownloadClick = async () => {
     if (EXIGIR_LOGIN_PARA_BAIXAR && !user) {
-      e.preventDefault();
+      // guarda o que ela queria, para entregar sozinho assim que a conta existir
+      guardarDownloadPendente(material.id, material.title);
+      registrarBloqueio(material.id);
       setShowJoinModal(true);
       return;
     }
-    // registra o download mesmo sem conta (fica anônimo, sem user_id)
+
+    // A aba precisa ser aberta AGORA, dentro do clique: se esperar a resposta do
+    // banco, o navegador entende como pop-up e bloqueia.
+    const aba = window.open('about:blank', '_blank', 'noopener,noreferrer');
+
+    setBuscandoLink(true);
+    const url = await fetchMaterialLink(material.id);
+    setBuscandoLink(false);
+
+    if (!url) {
+      aba?.close();
+      toast({
+        variant: 'destructive',
+        title: 'Não consegui abrir este material',
+        description: 'Tente de novo em instantes. Se continuar, escreva para contato@escutaris.com.br.',
+      });
+      return;
+    }
+
     recordDownload(material.id);
+
+    if (aba) {
+      aba.location.href = url;
+    } else {
+      window.location.href = url;
+    }
   };
 
   return (
@@ -75,16 +108,21 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
 
           {/* Footer */}
           <div className="border-t border-border/50 pt-3 mt-auto">
-            <a
-              href={material.file_url}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
               onClick={handleDownloadClick}
-              className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors"
+              disabled={buscandoLink}
+              className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors disabled:opacity-60"
             >
-              {isWebGuide ? <ExternalLink size={13} /> : <Download size={13} />}
+              {buscandoLink ? (
+                <Loader2 size={13} className="animate-spin" />
+              ) : isWebGuide ? (
+                <ExternalLink size={13} />
+              ) : (
+                <Download size={13} />
+              )}
               {isWebGuide ? 'Abrir guia' : 'Baixar material'}
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -18,7 +18,8 @@ export type MaterialWithStats = {
   id: string;
   title: string;
   description: string | null;
-  file_url: string;
+  file_url?: string;
+  is_web_guide?: boolean;
   is_new: boolean;
   created_at: string;
   category: 'material' | 'legislacao' | 'ferramenta';

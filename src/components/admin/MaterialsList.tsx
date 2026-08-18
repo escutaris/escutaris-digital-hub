@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Material } from '@/lib/types/material';
-import { fetchMaterials, updateMaterial, deleteMaterial } from '@/lib/api/materials';
+import { fetchMaterialsAdmin, updateMaterial, deleteMaterial } from '@/lib/api/materials';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader } from 'lucide-react';
 import MaterialsFilter from './MaterialsFilter';
@@ -32,7 +32,7 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
     const loadMaterials = async () => {
       try {
         setLoading(true);
-        const data = await fetchMaterials();
+        const data = await fetchMaterialsAdmin();
         setMaterials(data);
         setFilteredMaterials(data);
       } catch (error) {

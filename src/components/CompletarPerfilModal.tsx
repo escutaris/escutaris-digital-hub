@@ -3,6 +3,8 @@ import { X, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { lerDownloadPendente } from '@/lib/downloadPendente';
+import { EVENTO_ENTREGUE } from './RetomarDownload';
 
 /**
  * Perguntado UMA vez, depois que a pessoa já entrou — nunca antes.
@@ -38,8 +40,19 @@ const CompletarPerfilModal = () => {
   const [organizacao, setOrganizacao] = useState('');
   const [area, setArea] = useState('');
 
+  // Quem entrou para buscar um material recebe o material primeiro. Perguntar
+  // antes disso é cobrar pedágio na porta, exatamente o que queremos evitar.
+  const [materialNaFrente, setMaterialNaFrente] = useState(() => !!lerDownloadPendente());
+
   useEffect(() => {
-    if (authLoading || !user) return;
+    if (!materialNaFrente) return;
+    const liberar = () => setMaterialNaFrente(false);
+    window.addEventListener(EVENTO_ENTREGUE, liberar);
+    return () => window.removeEventListener(EVENTO_ENTREGUE, liberar);
+  }, [materialNaFrente]);
+
+  useEffect(() => {
+    if (authLoading || !user || materialNaFrente) return;
 
     const adiadoAte = Number(localStorage.getItem(ADIAR_KEY) ?? 0);
     if (Date.now() < adiadoAte) return;
@@ -64,7 +77,7 @@ const CompletarPerfilModal = () => {
     return () => {
       cancelado = true;
     };
-  }, [user, authLoading]);
+  }, [user, authLoading, materialNaFrente]);
 
   const adiar = () => {
     localStorage.setItem(ADIAR_KEY, String(Date.now() + ADIAR_DIAS * 24 * 60 * 60 * 1000));

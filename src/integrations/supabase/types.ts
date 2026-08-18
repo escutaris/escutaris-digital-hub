@@ -167,31 +167,56 @@ export type Database = {
         }
         Relationships: []
       }
+      download_blocks: {
+        Row: {
+          created_at: string
+          id: string
+          material_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          material_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          material_id?: string | null
+        }
+        Relationships: []
+      }
       materials: {
         Row: {
           category: string
+          cover_url: string | null
           created_at: string
           description: string | null
           file_url: string
           id: string
+          is_autoral: boolean
           is_new: boolean | null
+          is_web_guide: boolean
           title: string
         }
         Insert: {
           category: string
+          cover_url?: string | null
           created_at?: string
           description?: string | null
           file_url: string
           id?: string
+          is_autoral?: boolean
           is_new?: boolean | null
           title: string
         }
         Update: {
           category?: string
+          cover_url?: string | null
           created_at?: string
           description?: string | null
           file_url?: string
           id?: string
+          is_autoral?: boolean
           is_new?: boolean | null
           title?: string
         }
