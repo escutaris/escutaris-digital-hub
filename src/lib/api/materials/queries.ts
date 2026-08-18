@@ -5,10 +5,10 @@ import type { MaterialWithStats } from "../../types/favorites";
 import { sanitizeText } from "../../security";
 
 /**
- * Colunas que qualquer visitante pode ler. O `file_url` ficou de fora de
- * propósito: o endereço do arquivo só é entregue a quem tem conta, na hora do
- * clique (ver `fetchMaterialLink`). O banco também revoga essa coluna para o
- * visitante, então pedir '*' aqui daria erro de permissão.
+ * A vitrine é pública e continua sendo: título, descrição, capa e categoria de
+ * todos os materiais aparecem para quem nunca se cadastrou — é o que faz a
+ * pessoa querer a conta. O que não vem aqui é o endereço do arquivo, que mora
+ * em `material_files` e só é entregue no clique de quem tem sessão.
  */
 const COLUNAS_PUBLICAS =
   'id, created_at, title, description, category, is_new, cover_url, is_autoral, is_web_guide';
@@ -102,7 +102,7 @@ export const fetchMaterialsWithStats = async (
 export const fetchMaterialsAdmin = async (): Promise<Material[]> => {
   const { data, error } = await supabase
     .from('materials')
-    .select('*')
+    .select('*, material_files(file_url)')
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -110,18 +110,23 @@ export const fetchMaterialsAdmin = async (): Promise<Material[]> => {
     return [];
   }
 
-  return data as Material[];
+  return (data || []).map((m: any) => ({
+    ...m,
+    file_url: m.material_files?.file_url ?? undefined,
+    material_files: undefined,
+  })) as Material[];
 };
 
 /**
- * Entrega o endereço do arquivo de UM material. Depende de sessão: para o
- * visitante o banco recusa a coluna, e é isso que sustenta a exigência de conta.
+ * Entrega o endereço do arquivo de UM material. O endereço mora em
+ * `material_files`, tabela que o visitante não enxerga: é isso que sustenta a
+ * exigência de conta, sem tocar na vitrine, que segue pública para todos.
  */
 export const fetchMaterialLink = async (materialId: string): Promise<string | null> => {
   const { data, error } = await supabase
-    .from('materials')
+    .from('material_files')
     .select('file_url')
-    .eq('id', materialId)
+    .eq('material_id', materialId)
     .maybeSingle();
 
   if (error || !data) {

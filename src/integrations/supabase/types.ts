@@ -185,13 +185,27 @@ export type Database = {
         }
         Relationships: []
       }
+      material_files: {
+        Row: {
+          file_url: string
+          material_id: string
+        }
+        Insert: {
+          file_url: string
+          material_id: string
+        }
+        Update: {
+          file_url?: string
+          material_id?: string
+        }
+        Relationships: []
+      }
       materials: {
         Row: {
           category: string
           cover_url: string | null
           created_at: string
           description: string | null
-          file_url: string
           id: string
           is_autoral: boolean
           is_new: boolean | null
@@ -203,7 +217,6 @@ export type Database = {
           cover_url?: string | null
           created_at?: string
           description?: string | null
-          file_url: string
           id?: string
           is_autoral?: boolean
           is_new?: boolean | null
@@ -214,7 +227,6 @@ export type Database = {
           cover_url?: string | null
           created_at?: string
           description?: string | null
-          file_url?: string
           id?: string
           is_autoral?: boolean
           is_new?: boolean | null

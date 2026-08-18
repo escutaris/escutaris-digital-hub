@@ -135,7 +135,7 @@ export const fetchUserDownloads = async (): Promise<UserDownloadEntry[]> => {
       downloaded_at,
       materials:material_id (
         title,
-        file_url
+        material_files ( file_url )
       )
     `)
     .eq('user_id', user.id)
@@ -153,7 +153,7 @@ export const fetchUserDownloads = async (): Promise<UserDownloadEntry[]> => {
       id: d.id,
       downloaded_at: d.downloaded_at,
       title: d.materials.title,
-      file_url: d.materials.file_url,
+      file_url: d.materials.material_files?.file_url ?? '',
     }));
 };
 
@@ -172,11 +172,12 @@ export const fetchFavoriteMaterials = async (): Promise<MaterialWithStats[]> => 
         id,
         title,
         description,
-        file_url,
         category,
         is_new,
+        is_web_guide,
         created_at,
-        cover_url
+        cover_url,
+        material_files ( file_url )
       )
     `)
     .eq('user_id', user.id)

@@ -51,10 +51,7 @@ export const uploadMaterial = async (
   // 3. Insert record into the database
   const { data, error } = await supabase
     .from('materials')
-    .insert({
-      ...sanitizedData,
-      file_url
-    })
+    .insert(sanitizedData)
     .select()
     .single();
 
@@ -65,10 +62,22 @@ export const uploadMaterial = async (
     throw error;
   }
 
+  // 4. O endereço do arquivo mora em tabela própria, fora do alcance do visitante
+  const { error: linkError } = await supabase
+    .from('material_files')
+    .insert({ material_id: data.id, file_url });
+
+  if (linkError) {
+    console.error('Error inserting material file:', linkError);
+    await supabase.from('materials').delete().eq('id', data.id);
+    await supabase.storage.from('materials').remove([filePath]);
+    throw linkError;
+  }
+
   // Log security event
   await logSecurityEvent('INSERT', 'materials', data.id, null, data);
 
-  return data as Material;
+  return { ...(data as Material), file_url };
 };
 
 export const updateMaterial = async (
