@@ -60,6 +60,12 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* O cabecalho fica grudado no topo: sem esta folga, clicar num item do menu
+     para a pagina com o titulo da secao escondido atras dele. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
 }
 
 @layer components {
