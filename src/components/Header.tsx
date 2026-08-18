@@ -20,7 +20,7 @@ const Header = () => {
 
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
             <a href="#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>
-            <a href="#materiais" className="hover:text-escutaris-verde transition-colors">Materiais</a>
+            <a href="#materiais-escutaris" className="hover:text-escutaris-verde transition-colors">Materiais</a>
             <a href="#videos" className="hover:text-escutaris-verde transition-colors">Vídeos</a>
             <a href="#contato" className="hover:text-escutaris-verde transition-colors">Contato</a>
           </div>
