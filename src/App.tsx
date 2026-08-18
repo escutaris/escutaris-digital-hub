@@ -30,7 +30,9 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <InstallPWA />
+          {/* Convite "Instalar App" oculto a pedido dela em 18/08/2026. O componente
+              segue inteiro em InstallPWA.tsx; para voltar, descomentar a linha. */}
+          {/* <InstallPWA /> */}
           <RetomarDownload />
           <CompletarPerfilModal />
           <BrowserRouter>
