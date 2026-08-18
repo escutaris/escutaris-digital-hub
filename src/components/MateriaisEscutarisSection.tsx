@@ -3,10 +3,13 @@ import { useQuery } from '@tanstack/react-query';
 import { PenLine } from 'lucide-react';
 import { fetchMaterials } from '@/lib/api/materials';
 import MaterialCard from './MaterialCard';
+import { useAuth } from '@/lib/useAuth';
 
 const MateriaisEscutarisSection = () => {
+  const { user } = useAuth();
+
   const { data: materials, isLoading } = useQuery({
-    queryKey: ['materials', ''],
+    queryKey: ['materials', '', user?.id ?? 'visitante'],
     queryFn: () => fetchMaterials('', ''),
     staleTime: 1000 * 60 * 5,
   });

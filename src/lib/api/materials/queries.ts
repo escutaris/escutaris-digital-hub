@@ -17,8 +17,18 @@ export const fetchMaterials = async (
   search: string = '',
   category: string = ''
 ): Promise<Material[]> => {
+  // Com sessao, o endereco do arquivo vem junto com a lista. Isso deixa o botao
+  // ser um link de verdade: o navegador abre a nova aba sozinho, no gesto do
+  // clique. Buscar o endereco DEPOIS do clique obrigava a abrir uma aba em
+  // branco e preenche-la em seguida, e era isso que fazia o download acontecer
+  // na pagina errada.
+  const { data: { session } } = await supabase.auth.getSession();
+  const colunas = session
+    ? `${COLUNAS_PUBLICAS}, material_files ( file_url )`
+    : COLUNAS_PUBLICAS;
+
   let query = supabase.from('materials')
-    .select(COLUNAS_PUBLICAS)
+    .select(colunas)
     .order('is_new', { ascending: false })
     .order('created_at', { ascending: false });
 
@@ -41,7 +51,11 @@ export const fetchMaterials = async (
     return [];
   }
 
-  return data as Material[];
+  return (data || []).map((m: any) => ({
+    ...m,
+    file_url: m.material_files?.file_url ?? undefined,
+    material_files: undefined,
+  })) as Material[];
 };
 
 export const fetchMaterialsWithStats = async (

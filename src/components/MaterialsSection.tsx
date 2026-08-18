@@ -8,6 +8,7 @@ import { Loader, FileText, Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery } from '@tanstack/react-query';
 import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
+import { useAuth } from '@/lib/useAuth';
 
 interface MaterialsSectionProps {
   sectionId: string;
@@ -23,8 +24,12 @@ const MaterialsSection: React.FC<MaterialsSectionProps> = ({ sectionId, title, i
   const searchInputRef = useRef<HTMLInputElement>(null);
   const itemsPerPage = 9;
   
+  const { user } = useAuth();
+
   const { data: materials, isLoading, error } = useQuery({
-    queryKey: ['materials', search],
+    // o id da pessoa entra na chave porque a lista muda de conteudo com sessao:
+    // e com ela que vem o endereco do arquivo
+    queryKey: ['materials', search, user?.id ?? 'visitante'],
     queryFn: () => fetchMaterials(search, ''),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });

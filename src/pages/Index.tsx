@@ -4,6 +4,7 @@ import MaterialsSection from '../components/MaterialsSection';
 import Footer from '../components/Footer';
 import LoadingScreen from '../components/LoadingScreen';
 import WhatsAppButton from '../components/WhatsAppButton';
+import AbaDiagnostico from '../components/AbaDiagnostico';
 import ReferenciasSection from '../components/ReferenciasSection';
 import ArteSection from '../components/ArteSection';
 // import DestaquesSection from '../components/DestaquesSection'; // "Acesso rápido" oculto a pedido dela (01/08/2026)
@@ -20,6 +21,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col bg-escutaris-offwhite">
       <LoadingScreen />
       <WhatsAppButton />
+      <AbaDiagnostico />
 
       <Header />
 

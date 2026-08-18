@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { FileText, Download, ExternalLink, Loader2 } from 'lucide-react';
+import { FileText, Download, ExternalLink } from 'lucide-react';
 import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
 import { recordDownload } from '@/lib/api/favorites';
-import { fetchMaterialLink, registrarBloqueio } from '@/lib/api/materials';
+import { registrarBloqueio } from '@/lib/api/materials';
 import { guardarDownloadPendente } from '@/lib/downloadPendente';
 import { useAuth } from '@/lib/useAuth';
-import { useToast } from '@/hooks/use-toast';
 import { EXIGIR_LOGIN_PARA_BAIXAR } from '@/lib/config';
 import JoinClubModal from './JoinClubModal';
 
@@ -22,49 +21,26 @@ const categoryLabel: Record<string, string> = {
 
 const MaterialCard = ({ material }: MaterialCardProps) => {
   const { user } = useAuth();
-  const { toast } = useToast();
   const [showJoinModal, setShowJoinModal] = useState(false);
-  const [buscandoLink, setBuscandoLink] = useState(false);
 
   // Guia online abre a página; material de verdade baixa o arquivo. Quem decide
   // é o banco (coluna is_web_guide), porque o endereço do arquivo não vem mais
   // na listagem pública.
   const isWebGuide = material.is_web_guide === true;
 
-  const handleDownloadClick = async () => {
-    if (EXIGIR_LOGIN_PARA_BAIXAR && !user) {
-      // guarda o que ela queria, para entregar sozinho assim que a conta existir
-      guardarDownloadPendente(material.id, material.title);
-      registrarBloqueio(material.id);
-      setShowJoinModal(true);
-      return;
-    }
+  // Quem tem sessão recebe o endereço junto com a lista, então o botão é um link
+  // de verdade e o navegador cuida de abrir a nova aba. Sem sessão não há
+  // endereço nenhum no card, e o clique só abre o convite.
+  const link = material.file_url;
 
-    // A aba precisa ser aberta AGORA, dentro do clique: se esperar a resposta do
-    // banco, o navegador entende como pop-up e bloqueia.
-    const aba = window.open('about:blank', '_blank', 'noopener,noreferrer');
+  const handleBloqueio = () => {
+    guardarDownloadPendente(material.id, material.title);
+    registrarBloqueio(material.id);
+    setShowJoinModal(true);
+  };
 
-    setBuscandoLink(true);
-    const url = await fetchMaterialLink(material.id);
-    setBuscandoLink(false);
-
-    if (!url) {
-      aba?.close();
-      toast({
-        variant: 'destructive',
-        title: 'Não consegui abrir este material',
-        description: 'Tente de novo em instantes. Se continuar, escreva para contato@escutaris.com.br.',
-      });
-      return;
-    }
-
+  const handleLinkClick = () => {
     recordDownload(material.id);
-
-    if (aba) {
-      aba.location.href = url;
-    } else {
-      window.location.href = url;
-    }
   };
 
   return (
@@ -108,21 +84,27 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
 
           {/* Footer */}
           <div className="border-t border-border/50 pt-3 mt-auto">
-            <button
-              type="button"
-              onClick={handleDownloadClick}
-              disabled={buscandoLink}
-              className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors disabled:opacity-60"
-            >
-              {buscandoLink ? (
-                <Loader2 size={13} className="animate-spin" />
-              ) : isWebGuide ? (
-                <ExternalLink size={13} />
-              ) : (
-                <Download size={13} />
-              )}
-              {isWebGuide ? 'Abrir guia' : 'Baixar material'}
-            </button>
+            {link ? (
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleLinkClick}
+                className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors"
+              >
+                {isWebGuide ? <ExternalLink size={13} /> : <Download size={13} />}
+                {isWebGuide ? 'Abrir guia' : 'Baixar material'}
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={handleBloqueio}
+                className="inline-flex items-center gap-2 text-xs font-poppins font-medium text-escutaris-terracota hover:text-escutaris-terracota/80 transition-colors"
+              >
+                {isWebGuide ? <ExternalLink size={13} /> : <Download size={13} />}
+                {isWebGuide ? 'Abrir guia' : 'Baixar material'}
+              </button>
+            )}
           </div>
         </div>
       </div>

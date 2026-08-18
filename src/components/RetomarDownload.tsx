@@ -53,7 +53,9 @@ const RetomarDownload = () => {
       recordDownload(guardado.materialId);
       limparDownloadPendente();
 
-      const aba = window.open(endereco, '_blank', 'noopener,noreferrer');
+      // Sem 'noopener': com ela o navegador devolve null e nao da para saber se
+      // a aba abriu, o que fazia o arquivo cair na propria pagina.
+      const aba = window.open(endereco, '_blank');
       if (aba) {
         // abriu sozinho: nada a mostrar, e o modal de perfil pode seguir
         window.dispatchEvent(new CustomEvent(EVENTO_ENTREGUE));

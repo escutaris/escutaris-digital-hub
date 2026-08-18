@@ -29,10 +29,10 @@ const Footer = () => {
               www.escutaris.com.br
             </a>
             <a
-              href="mailto:contato@escutaris.com.br"
+              href="mailto:escutaris@zohomail.com"
               className="hover:text-white transition-colors"
             >
-              contato@escutaris.com.br
+              escutaris@zohomail.com
             </a>
           </div>
 
