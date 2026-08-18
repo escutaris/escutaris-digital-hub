@@ -10,55 +10,25 @@ export default defineConfig(() => ({
   },
   plugins: [
     react(),
+    /**
+     * Aplicativo instalavel DESLIGADO em 18/08/2026, a pedido dela.
+     *
+     * O plugin continua aqui de proposito, em modo `selfDestroying`: ele gera um
+     * service worker cuja unica funcao e se apagar e limpar o cache de quem ja
+     * tinha o site guardado. Sem isso, o service worker antigo continuaria vivo
+     * nos aparelhos, servindo uma versao velha do site para sempre — foi o que
+     * escondeu tres correcoes ao longo do dia.
+     *
+     * `manifest: false` tira o convite de instalacao: o site deixa de ser
+     * instalavel como aplicativo e deixa de funcionar offline.
+     *
+     * Quando ja tiver passado tempo suficiente para todo mundo ter aberto o site
+     * ao menos uma vez (algumas semanas), o plugin inteiro pode sair daqui.
+     */
     VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
-      manifest: {
-        name: 'Comunidade Escutaris',
-        short_name: 'Escutaris',
-        description: 'Comunidade de conhecimento e materiais Escutaris',
-        theme_color: '#16a34a',
-        background_color: '#ffffff',
-        display: 'standalone',
-        icons: [
-          {
-            src: 'favicon.ico',
-            sizes: '64x64 32x32 24x24 16x16',
-            type: 'image/x-icon'
-          },
-          {
-            src: 'assets/icon-192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any maskable'
-          },
-          {
-            src: 'assets/icon-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
-      },
-      workbox: {
-        // Sem isto, o service worker responde QUALQUER navegação com o index.html.
-        // Abrir um PDF de /assets/ é uma navegação, então o React Router recebia
-        // a rota do arquivo e mostrava a tela de 404 em vez de baixar o material.
-        navigateFallbackDenylist: [/^\/assets\//, /\.pdf$/i],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/ywmqphwdzbmntfusemkl\.supabase\.co\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'supabase-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
-              }
-            }
-          }
-        ]
-      }
+      selfDestroying: true,
+      manifest: false,
+      injectRegister: 'auto',
     })
   ].filter(Boolean),
   resolve: {
