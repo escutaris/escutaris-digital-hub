@@ -95,6 +95,8 @@ const AuthForm = ({ type }: { type: 'login' | 'signup' }) => {
       if (error) throw error;
 
       setLinkEnviadoPara(values.email);
+      // Lead no pixel da Meta, só no cadastro (só envia se a pessoa aceitou os cookies)
+      if (type === 'signup') (window as any).escutarisLead?.();
     } catch (error: any) {
       toast({
         variant: 'destructive',
