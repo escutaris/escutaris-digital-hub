@@ -51,6 +51,7 @@ MATERIAIS = [
     ("comunicado-institucional-pilar-controle.pdf",      "comunicado_controle", "ferramenta", "MODELO",     "Comunicado institucional: Controle"),
     ("guia-liderancas-pilar-controle.pdf",               "guia_lideres_controle","material",  "GUIA",       "Autonomia no trabalho: lideranças"),
     ("guia-empregados-pilar-controle.pdf",               "guia_equipes_controle","material",  "GUIA",       "Autonomia no trabalho: equipes"),
+    ("guia-brain-capital-metodo-cuidar.pdf",             "brain_capital_cuidar","material",   "EBOOK",      "Brain Capital: Método CUIDAR"),
 ]
 
 
