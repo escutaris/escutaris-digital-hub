@@ -52,6 +52,7 @@ MATERIAIS = [
     ("guia-liderancas-pilar-controle.pdf",               "guia_lideres_controle","material",  "GUIA",       "Autonomia no trabalho: lideranças"),
     ("guia-empregados-pilar-controle.pdf",               "guia_equipes_controle","material",  "GUIA",       "Autonomia no trabalho: equipes"),
     ("guia-brain-capital-metodo-cuidar.pdf",             "brain_capital_cuidar","material",   "EBOOK",      "Brain Capital: Método CUIDAR"),
+    ("guia-outubro-rosa-alem-do-laco.pdf",               "outubro_rosa",        "material",   "GUIA",       "Outubro Rosa além do laço"),
 ]
 
 
