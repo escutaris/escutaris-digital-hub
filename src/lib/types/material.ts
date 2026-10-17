@@ -1,6 +1,8 @@
 
 export type Material = {
   id: string;
+  /** Endereço curto da página do material: /materiais/<slug>. Material novo ganha um sozinho (gatilho no banco). */
+  slug?: string;
   title: string;
   description: string | null;
   /**

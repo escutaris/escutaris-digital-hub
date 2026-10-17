@@ -16,6 +16,8 @@ export type DownloadHistory = {
 
 export type MaterialWithStats = {
   id: string;
+  slug?: string;
+  cover_url?: string | null;
   title: string;
   description: string | null;
   file_url?: string;

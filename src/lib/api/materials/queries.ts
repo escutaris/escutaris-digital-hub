@@ -11,7 +11,7 @@ import { sanitizeText } from "../../security";
  * em `material_files` e só é entregue no clique de quem tem sessão.
  */
 const COLUNAS_PUBLICAS =
-  'id, created_at, title, description, category, is_new, cover_url, is_autoral, is_web_guide';
+  'id, slug, created_at, title, description, category, is_new, cover_url, is_autoral, is_web_guide';
 
 export const fetchMaterials = async (
   search: string = '',
@@ -98,6 +98,8 @@ export const fetchMaterialsWithStats = async (
 
   return (data || []).map((material: any) => ({
     id: material.id,
+    slug: material.slug,
+    cover_url: material.cover_url,
     title: material.title,
     description: material.description,
     file_url: material.file_url,
@@ -158,4 +160,34 @@ export const fetchMaterialLink = async (materialId: string): Promise<string | nu
 export const registrarBloqueio = async (materialId: string): Promise<void> => {
   const { error } = await supabase.from('download_blocks').insert({ material_id: materialId });
   if (error) console.error('Erro ao registrar o bloqueio:', error);
+};
+
+/**
+ * Um material só, para a página própria dele (/materiais/<slug>). É o que deixa
+ * mandar o link de UM guia no WhatsApp em vez da Comunidade inteira. Mesma regra
+ * da lista: o endereço do arquivo só vem para quem tem sessão.
+ */
+export const fetchMaterialBySlug = async (slug: string): Promise<Material | null> => {
+  const { data: { session } } = await supabase.auth.getSession();
+  const colunas = session
+    ? `${COLUNAS_PUBLICAS}, material_files ( file_url )`
+    : COLUNAS_PUBLICAS;
+
+  // a coluna slug ainda não está no types.ts gerado: sem o cast o TS se perde
+  const { data, error } = await (supabase.from('materials') as any)
+    .select(colunas)
+    .eq('slug', sanitizeText(slug))
+    .maybeSingle();
+
+  if (error || !data) {
+    if (error) console.error('Erro ao buscar o material:', error);
+    return null;
+  }
+
+  const m = data as any;
+  return {
+    ...m,
+    file_url: m.material_files?.file_url ?? undefined,
+    material_files: undefined,
+  } as Material;
 };

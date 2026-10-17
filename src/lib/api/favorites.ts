@@ -170,6 +170,7 @@ export const fetchFavoriteMaterials = async (): Promise<MaterialWithStats[]> => 
       *,
       materials:material_id (
         id,
+        slug,
         title,
         description,
         category,

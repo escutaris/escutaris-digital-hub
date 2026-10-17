@@ -17,6 +17,7 @@ import RetomarDownload from "./components/RetomarDownload";
 
 const Admin = lazy(() => import("./pages/Admin"));
 const NewsDetail = lazy(() => import("./pages/NewsDetail"));
+const MaterialDetail = lazy(() => import("./pages/MaterialDetail"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const Cadastro = lazy(() => import("./pages/Cadastro"));
 const Conta = lazy(() => import("./pages/Conta"));
@@ -41,6 +42,7 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/favoritos" element={<Favorites />} />
                 <Route path="/noticias/:slug" element={<NewsDetail />} />
+                <Route path="/materiais/:slug" element={<MaterialDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/conta" element={

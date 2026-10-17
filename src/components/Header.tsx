@@ -4,7 +4,12 @@ import { User, BookOpen, Wrench, MessageSquare, Newspaper } from 'lucide-react';
 import Logo from './Logo';
 import { useAuth } from '@/lib/useAuth';
 
-const Header = () => {
+interface HeaderProps {
+  /** Só o menu, sem a capa grande nem a barra de acesso rápido (páginas internas) */
+  compacto?: boolean;
+}
+
+const Header = ({ compacto = false }: HeaderProps) => {
   const { user, isAdmin } = useAuth();
 
   const scrollToMateriais = () => {
@@ -19,10 +24,10 @@ const Header = () => {
           <Logo size="h-10 w-10" />
 
           <div className="hidden md:flex items-center gap-8 text-sm font-poppins text-escutaris-verde/70">
-            <a href="#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>
-            <a href="#materiais-escutaris" className="hover:text-escutaris-verde transition-colors">Materiais</a>
-            <a href="#videos" className="hover:text-escutaris-verde transition-colors">Vídeos</a>
-            <a href="#contato" className="hover:text-escutaris-verde transition-colors">Contato</a>
+            <a href="/#comunidade" className="hover:text-escutaris-verde transition-colors">A Comunidade</a>
+            <a href="/#materiais-escutaris" className="hover:text-escutaris-verde transition-colors">Materiais</a>
+            <a href="/#videos" className="hover:text-escutaris-verde transition-colors">Vídeos</a>
+            <a href="/#contato" className="hover:text-escutaris-verde transition-colors">Contato</a>
           </div>
 
           <div className="flex items-center gap-3">
@@ -64,6 +69,7 @@ const Header = () => {
         </div>
       </nav>
 
+      {!compacto && (<>
       {/* Hero */}
       <section className="relative bg-escutaris-verde text-white py-20 md:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <img
@@ -105,7 +111,7 @@ const Header = () => {
               </Link>
             )}
             <a
-              href="#materiais-escutaris"
+              href="/#materiais-escutaris"
               className="border border-white/30 text-white font-poppins px-8 py-3 rounded-sm hover:bg-white/10 transition-colors text-center"
             >
               Conhecer o acervo
@@ -117,23 +123,24 @@ const Header = () => {
       {/* Quick access bar */}
       <div className="bg-white border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-center gap-6">
-          <a href="#materiais" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+          <a href="/#materiais" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
             <BookOpen size={15} /> Materiais técnicos
           </a>
           <span className="text-border hidden sm:block">|</span>
-          <a href="#videos" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+          <a href="/#videos" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
             <Wrench size={15} /> Vídeos
           </a>
           <span className="text-border hidden sm:block">|</span>
-          <a href="#comunidade" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+          <a href="/#comunidade" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
             <Newspaper size={15} /> A comunidade
           </a>
           <span className="text-border hidden sm:block">|</span>
-          <a href="#contato" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
+          <a href="/#contato" className="flex items-center gap-2 text-sm font-poppins text-escutaris-verde/70 hover:text-escutaris-verde transition-colors">
             <MessageSquare size={15} /> Fale com a Escutaris
           </a>
         </div>
       </div>
+      </>)}
     </>
   );
 };

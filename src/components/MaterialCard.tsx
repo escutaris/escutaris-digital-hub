@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FileText, Download, ExternalLink } from 'lucide-react';
 import { Material } from '@/lib/types/material';
 import { MaterialWithStats } from '@/lib/types/favorites';
@@ -8,6 +9,7 @@ import { guardarDownloadPendente } from '@/lib/downloadPendente';
 import { useAuth } from '@/lib/useAuth';
 import { EXIGIR_LOGIN_PARA_BAIXAR } from '@/lib/config';
 import JoinClubModal from './JoinClubModal';
+import CopiarLink from './CopiarLink';
 
 interface MaterialCardProps {
   material: Material | MaterialWithStats;
@@ -43,10 +45,16 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
     recordDownload(material.id);
   };
 
+  // Capa e título levam à página do material, que tem endereço próprio para
+  // compartilhar. Sem slug (lista antiga em cache), ficam como antes.
+  const pagina = material.slug ? `/materiais/${material.slug}` : null;
+  const comLink = (conteudo: React.ReactNode) =>
+    pagina ? <Link to={pagina} className="block hover:opacity-90 transition-opacity">{conteudo}</Link> : conteudo;
+
   return (
     <>
       <div className="glass-card group flex flex-col h-full overflow-hidden">
-        {material.cover_url && (
+        {material.cover_url && comLink(
           <img
             src={material.cover_url}
             alt=""
@@ -73,7 +81,13 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
 
           {/* Content */}
           <h3 className="font-cormorant text-lg font-semibold text-escutaris-verde leading-snug mb-2 line-clamp-2">
-            {material.title}
+            {pagina ? (
+              <Link to={pagina} className="hover:text-escutaris-verde/80 transition-colors">
+                {material.title}
+              </Link>
+            ) : (
+              material.title
+            )}
           </h3>
 
           {material.description && (
@@ -83,7 +97,7 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
           )}
 
           {/* Footer */}
-          <div className="border-t border-border/50 pt-3 mt-auto">
+          <div className="border-t border-border/50 pt-3 mt-auto flex items-center justify-between gap-3">
             {link ? (
               <a
                 href={link}
@@ -105,6 +119,7 @@ const MaterialCard = ({ material }: MaterialCardProps) => {
                 {isWebGuide ? 'Abrir guia' : 'Baixar material'}
               </button>
             )}
+            {material.slug && <CopiarLink slug={material.slug} />}
           </div>
         </div>
       </div>
